@@ -4,8 +4,6 @@
 
 Um auf einen bestimmten Unterpunkt zu kommmen , links neben README.md auf das Burgermenü klicken.
 
-
-
 ![image](https://user-images.githubusercontent.com/103290810/234218111-9a9d3344-a266-4d8e-8752-db543a3ab6d1.png)
 
 &nbsp;
