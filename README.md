@@ -26,7 +26,7 @@ Die Aufgabenstellung gibt folgendes vor:
 
 ### Vorgegebene Funktionen
 
-- [] Eingabe von Noten für verschiedene Fächer (z.B. LF1, LF5, Deutsch)
+- [ ] Eingabe von Noten für verschiedene Fächer (z.B. LF1, LF5, Deutsch)
 - [] Berechnung des Durchschnitts für jedes Fach und insgesamt
 - [] Ausgabe der eingegebenen Noten sowie des Durchschnitts für jedes Fach und insgesamt
 - [] Speichern und Laden der eingegebenen Noten in/aus einer Textdatei
