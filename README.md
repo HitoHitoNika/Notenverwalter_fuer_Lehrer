@@ -26,39 +26,39 @@ Die Aufgabenstellung gibt folgendes vor:
 
 ### Vorgegebene Funktionen
 
-- Eingabe von Noten für verschiedene Fächer (z.B. LF1, LF5, Deutsch)
-- Berechnung des Durchschnitts für jedes Fach und insgesamt
-- Ausgabe der eingegebenen Noten sowie des Durchschnitts für jedes Fach und insgesamt
-- Speichern und Laden der eingegebenen Noten in/aus einer Textdatei
+- [] Eingabe von Noten für verschiedene Fächer (z.B. LF1, LF5, Deutsch)
+- [] Berechnung des Durchschnitts für jedes Fach und insgesamt
+- [] Ausgabe der eingegebenen Noten sowie des Durchschnitts für jedes Fach und insgesamt
+- [] Speichern und Laden der eingegebenen Noten in/aus einer Textdatei
 
 ### Technische Anforderungen
 
-- Schleifen (z.B. for, while) für die Eingabe von Noten und die Berechnung des Durchschnitts
-- Bedingungen (z.B. if-else) für die Überprüfung von Eingaben
-- Einfache Datentypen (z.B. int, double) für die Speicherung der Noten
-- Arrays für die Speicherung der eingegebenen Noten
-- Methoden (z.B. Berechnung Durchschnittsnote)
+- [] Schleifen (z.B. for, while) für die Eingabe von Noten und die Berechnung des Durchschnitts
+- [] Bedingungen (z.B. if-else) für die Überprüfung von Eingaben
+- [] Einfache Datentypen (z.B. int, double) für die Speicherung der Noten
+- [] Arrays für die Speicherung der eingegebenen Noten
+- [] Methoden (z.B. Berechnung Durchschnittsnote)
 
 ### Zusätzliche Anforderungen
 
-- Zusätzlich sollen Sie eine Benutzeroberfläche für das Programm entwickeln, die dem Benutzer die Eingabe von Noten und die Anzeige der Ergebnisse erleichtert. Sie können dazu z.B. die Java-Bibliothek Swing oder FX verwenden.
-- Optional können Sie auch weitere Funktionen hinzufügen, wie z.B. die Möglichkeit, Noten zu löschen oder zu bearbeiten, oder die Berechnung von statistischen Kennzahlen wie dem Median oder der Standardabweichung.
-- Implementieren eine Umschaltung zwischen verschiedenen Notensystemen.
-- Legen Sie eine Benutzerverwaltung an.
-- Entwickeln Sie kollaborativ das Projekt mit einem Tool, wie z.B. GitHub.
-- Entwickeln Sie Testfälle zur Überprüfung einzelner Programmabschnitte.
-- Entwickeln Sie eine Möglichkeit Noten in der Durchschnittsberechnung unterschiedlich zu gewichten.
-- Objektorientierter Programmieransatz.
-- Verwendung anderer Datentypen als Array (z.B. Nutzen von Java Collections).
+- [] Zusätzlich sollen Sie eine Benutzeroberfläche für das Programm entwickeln, die dem Benutzer die Eingabe von Noten und die Anzeige der Ergebnisse erleichtert. Sie können dazu z.B. die Java-Bibliothek Swing oder FX verwenden.
+- [] Optional können Sie auch weitere Funktionen hinzufügen, wie z.B. die Möglichkeit, Noten zu löschen oder zu bearbeiten, oder die Berechnung von statistischen Kennzahlen wie dem Median oder der Standardabweichung.
+- [] Implementieren eine Umschaltung zwischen verschiedenen Notensystemen.
+- [] Legen Sie eine Benutzerverwaltung an.
+- [] Entwickeln Sie kollaborativ das Projekt mit einem Tool, wie z.B. GitHub.
+- [] Entwickeln Sie Testfälle zur Überprüfung einzelner Programmabschnitte.
+- [] Entwickeln Sie eine Möglichkeit Noten in der Durchschnittsberechnung unterschiedlich zu gewichten.
+- [] Objektorientierter Programmieransatz.
+- [] Verwendung anderer Datentypen als Array (z.B. Nutzen von Java Collections).
 
 ### Bewertungskriterien
 
-- Erfüllung der technischen Anforderungen
-- Erfüllung der zusätzlichen Anforderungen
-- Benutzerfreundlichkeit der Anwendung
-- Code-Qualität und Lesbarkeit
-- Dokumentation und Erklärung des Codes
-- Fristgerechte Abgabe und Präsentation
+- [] Erfüllung der technischen Anforderungen
+- [] Erfüllung der zusätzlichen Anforderungen
+- [] Benutzerfreundlichkeit der Anwendung
+- [] Code-Qualität und Lesbarkeit
+- [] Dokumentation und Erklärung des Codes
+- [] Fristgerechte Abgabe und Präsentation
 
 ### Organisatorisches
 
