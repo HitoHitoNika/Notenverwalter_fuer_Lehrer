@@ -1,18 +1,76 @@
-## Getting Started
+# Projekt Notenbuch LF5
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+[Moodle Link für das Projekt](https://moodle.bildung.koblenz.de/mod/assign/view.php?id=187185)
 
-## Folder Structure
+Um auf einen bestimmten Unterpunkt zu kommmen , links neben README.md auf das Burgermenü klicken.
 
-The workspace contains two folders by default, where:
+## Struktur 
+Das Projekt beinhaltet folgende Dinge:
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+- `src`: Source Ordner für die Java Dateien
+- `lib`: Bibliotheken die eingebunden werden
+- `.gitignore` : Um Dateien aus dem Git Projekt auszuschließen (Binär Dateien,IDE Spezifische Dateien,...)
+- `README.md` : Markdown Datei, die alles bezüglich des Projektes festhalten soll (Aufbau,Fortschritt,Branches,...)
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## Vorgaben von Herr Dietrich
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+Die Aufgabenstellung gibt folgendes vor:
 
-## Dependency Management
+- Sicht aus Schüler- __oder__ Lehrersicht (Denkbar das man beides macht)
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+### Vorgegebene Funktionen
+
+- Eingabe von Noten für verschiedene Fächer (z.B. LF1, LF5, Deutsch)
+- Berechnung des Durchschnitts für jedes Fach und insgesamt
+- Ausgabe der eingegebenen Noten sowie des Durchschnitts für jedes Fach und insgesamt
+- Speichern und Laden der eingegebenen Noten in/aus einer Textdatei
+
+### Technische Anforderungen
+
+- Schleifen (z.B. for, while) für die Eingabe von Noten und die Berechnung des Durchschnitts
+- Bedingungen (z.B. if-else) für die Überprüfung von Eingaben
+- Einfache Datentypen (z.B. int, double) für die Speicherung der Noten
+- Arrays für die Speicherung der eingegebenen Noten
+- Methoden (z.B. Berechnung Durchschnittsnote)
+
+### Zusätzliche Anforderungen
+
+- Zusätzlich sollen Sie eine Benutzeroberfläche für das Programm entwickeln, die dem Benutzer die Eingabe von Noten und die Anzeige der Ergebnisse erleichtert. Sie können dazu z.B. die Java-Bibliothek Swing oder FX verwenden.
+- Optional können Sie auch weitere Funktionen hinzufügen, wie z.B. die Möglichkeit, Noten zu löschen oder zu bearbeiten, oder die Berechnung von statistischen Kennzahlen wie dem Median oder der Standardabweichung.
+- Implementieren eine Umschaltung zwischen verschiedenen Notensystemen.
+- Legen Sie eine Benutzerverwaltung an.
+- Entwickeln Sie kollaborativ das Projekt mit einem Tool, wie z.B. GitHub.
+- Entwickeln Sie Testfälle zur Überprüfung einzelner Programmabschnitte.
+- Entwickeln Sie eine Möglichkeit Noten in der Durchschnittsberechnung unterschiedlich zu gewichten.
+- Objektorientierter Programmieransatz.
+- Verwendung anderer Datentypen als Array (z.B. Nutzen von Java Collections).
+
+### Bewertungskriterien
+
+- Erfüllung der technischen Anforderungen
+- Erfüllung der zusätzlichen Anforderungen
+- Benutzerfreundlichkeit der Anwendung
+- Code-Qualität und Lesbarkeit
+- Dokumentation und Erklärung des Codes
+- Fristgerechte Abgabe und Präsentation
+
+### Organisatorisches
+
+- Zeitrahmen: 8 Wochen (11.5 in Eigenarbeit (Fortbildung Dietrich), 18.11 Feiertag (Chr. Himmelfahrt), 1.6 und 8.6 Pfingstferien)
+- Projektstart: Do. 20.04.2023
+- Projektabgabe bis: Mo. 12.06.2023, 23:59 Uhr
+- Projektpräsentation am: Do. 15.6.2023 und 22.06.2023
+- Gruppengröße: Maximal 3 Personen
+
+### Hinweise zur Präsentation
+
+- Code-Überblick geben
+- Funktionalität demonstrieren
+- behandelte Probleme / Besonderheiten vorstellen
+- Powerpoint optional
+
+## Branch Übersicht
+
+- master: Getesteter Code in dem Funktionalität sichergestellt ist
+- develop: Code der noch in Entwicklung ist aber vielleicht nicht 100% funktioniert, features werden hier getestet
+- feature/... : Branch
