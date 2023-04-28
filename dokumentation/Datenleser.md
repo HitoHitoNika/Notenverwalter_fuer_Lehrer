@@ -18,7 +18,7 @@ Datenleser soll dafür da sein, alles was sich um die CSV-Dateien dreht kompakt 
 ## Funktionen
 
 1. setFilePath
-    - Soll nach der Auswahl des Faches den Pfad zur entsprechenden CSV-Datei festlegen
+    - Soll nach der Auswahl des Faches und der Klasse den Pfad zur entsprechenden CSV-Datei festlegen
 2. initReader
     - Soll nach setFilePath aufgerufen werden
     - Erstellt die Reader und ermöglicht spätere Auslesung
