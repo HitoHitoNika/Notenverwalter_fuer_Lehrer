@@ -15,6 +15,7 @@ Das Projekt beinhaltet folgende Dinge:
 - `lib`: Bibliotheken die eingebunden werden
 - `.gitignore` : Um Dateien aus dem Git Projekt auszuschließen (Binär Dateien,IDE Spezifische Dateien,...)
 - `README.md` : Markdown Datei, die alles bezüglich des Projektes festhalten soll (Aufbau,Fortschritt,Branches,...)
+- `CSV_Dateien` : Hier werden die Notenlisten gespeichert
 
 ## Vorgaben von Herr Dietrich
 
