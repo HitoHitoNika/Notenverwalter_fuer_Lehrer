@@ -15,7 +15,7 @@ Das Projekt beinhaltet folgende Dinge:
 - `lib`: Bibliotheken die eingebunden werden
 - `.gitignore` : Um Dateien aus dem Git Projekt auszuschließen (Binär Dateien,IDE Spezifische Dateien,...)
 - `README.md` : Markdown Datei, die alles bezüglich des Projektes festhalten soll (Aufbau,Fortschritt,Branches,...)
-- `CSV_Dateien` : Hier werden die Notenlisten gespeichert
+- `CSV_Dateien` : Hier werden die Notenlisten gespeichert, jeweils nach Klasse und Fach unterteilt
 
 ## Vorgaben von Herr Dietrich
 
@@ -78,4 +78,4 @@ Die Aufgabenstellung gibt folgendes vor:
 
 - master: Getesteter Code in dem Funktionalität sichergestellt ist
 - develop: Code der noch in Entwicklung ist aber vielleicht nicht 100% funktioniert, features werden hier getestet
-- feature/... : Branch
+- feature/... : Branches in denen bestimmte features ausprogrammiert werden, bevor sie für alle freigegeben werden
