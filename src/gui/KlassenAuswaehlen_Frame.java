@@ -11,15 +11,25 @@ import javax.swing.JList;
 import javax.swing.JComboBox;
 import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+
 import java.awt.Label;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.DropMode;
+import javax.swing.border.LineBorder;
+import javax.swing.ListSelectionModel;
+import javax.swing.AbstractListModel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 public class KlassenAuswaehlen_Frame extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtSchlerliste;
 	private JTextField txtDurchschnittsnote;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -44,6 +54,7 @@ public class KlassenAuswaehlen_Frame extends JFrame {
 	 * Create the frame.
 	 */
 	public KlassenAuswaehlen_Frame() {
+		setTitle("Schülerauswahl");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 649, 446);
 		contentPane = new JPanel();
@@ -64,7 +75,7 @@ public class KlassenAuswaehlen_Frame extends JFrame {
 	
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "5a", "5b", "5c", "6a", "6b", "6c", "7a", "7b", "7c", "8a", "8b", "8c", "9a", "9b", "9c", "10a", "10b", "10c", "11", "12", "13"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"--bitte auswählen--", "BSIT22a", "BSIT22b"}));
 		comboBox.setBounds(112, 43, 157, 22);
 		contentPane.add(comboBox);
 		
@@ -73,24 +84,9 @@ public class KlassenAuswaehlen_Frame extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"", "\tDeutsch", "\tEnglisch", "\tMathe", "\tPhysik", "\tChemie", "\tBiologie", "\tSozialkunde", "\tErdkunde", "\tReligion", "\tInformatik", "\tSport", "\tKunst", "\tMusik"}));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"--bitte auswählen--", "Lernfeld 1", "Lernfeld 2", "Lernfeld 3", "Lernfeld 4", "Lernfeld 5"}));
 		comboBox_1.setBounds(403, 43, 157, 22);
 		contentPane.add(comboBox_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("Schülerauswahl");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
-		lblNewLabel_2.setBounds(10, 11, 613, 21);
-		contentPane.add(lblNewLabel_2);
-		
-		txtSchlerliste = new JTextField();
-		txtSchlerliste.setForeground(Color.WHITE);
-		txtSchlerliste.setBackground(Color.BLACK);
-		txtSchlerliste.setText("<Schülerliste>");
-		txtSchlerliste.setEditable(false);
-		txtSchlerliste.setBounds(10, 135, 266, 261);
-		contentPane.add(txtSchlerliste);
-		txtSchlerliste.setColumns(10);
 		
 		txtDurchschnittsnote = new JTextField();
 		txtDurchschnittsnote.setBackground(Color.BLACK);
@@ -132,5 +128,56 @@ public class KlassenAuswaehlen_Frame extends JFrame {
 		textField_1.setBounds(537, 135, 86, 261);
 		contentPane.add(textField_1);
 		textField_1.setColumns(1);
+		
+		JList list = new JList();
+		list.setModel(new AbstractListModel() {
+			String[] values = new String[] {"Test", "sad"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		list.setBounds(10, 145, 284, 251);
+		contentPane.add(list);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(0, -1, 633, 22);
+		contentPane.add(menuBar);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Import");
+		mntmNewMenuItem.setIcon(new ImageIcon(System.getProperty("user.dir")+"/misc/import.png"));
+		mntmNewMenuItem.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Hello World");
+			}
+			public void mouseEntered(MouseEvent e) {
+				mntmNewMenuItem.setArmed(true);
+			    }
+			public void mouseExited(MouseEvent e) {
+				mntmNewMenuItem.setArmed(false);
+			    }
+		});
+		menuBar.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Export");
+		mntmNewMenuItem_1.setIcon(new ImageIcon(System.getProperty("user.dir")+"/misc/export.png"));
+		mntmNewMenuItem_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Hello World");
+			}
+			public void mouseEntered(MouseEvent e) {
+				mntmNewMenuItem_1.setArmed(true);
+			    }
+			public void mouseExited(MouseEvent e) {
+				mntmNewMenuItem_1.setArmed(false);
+			    }
+		});
+		menuBar.add(mntmNewMenuItem_1);
+		
+		
 	}
 }
