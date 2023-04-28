@@ -7,7 +7,6 @@ import java.io.*;
 public class Datenleser {
     private String projectPath = System.getProperty("user.dir");
     private File csvFile;
-    private FileReader fr;
     private BufferedReader csvReader ;
     
 
@@ -25,8 +24,7 @@ public void setFilePath(String fach,String klasse) throws IOException{
     }
 }
 public void initReader() throws FileNotFoundException{     
-    fr = new FileReader(csvFile);
-    csvReader = new BufferedReader(fr);
+    csvReader = new BufferedReader(new FileReader(csvFile));
 }
 
 public String getLine() throws IOException{
