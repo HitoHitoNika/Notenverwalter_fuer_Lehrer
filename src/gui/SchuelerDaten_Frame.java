@@ -5,11 +5,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
+
+import csv_reader_stuff.Datenleser;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Color;
@@ -21,27 +24,20 @@ public class SchuelerDaten_Frame extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField txtFach;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SchuelerDaten_Frame frame = new SchuelerDaten_Frame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	//Wird benötigt für das Auslesen und ausgeben benötigter Infos aus den CSV Dateien
+	Datenleser csvReader;	
+	String buffer;
+	String schuelername;
+	String email;
+	String klasse;
 	/**
 	 * Create the frame.
+	 * @param klasse
+	 * @param selectedIndex 
+	 * @throws IOException 
 	 */
-	public SchuelerDaten_Frame() {
+	public SchuelerDaten_Frame(int selectedIndex, String klasse) throws IOException {
+		setSchuelerInfo(selectedIndex,klasse);
 		setBackground(new Color(255, 255, 255));
 		setTitle("Schüler");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,21 +50,21 @@ public class SchuelerDaten_Frame extends JFrame {
 		
 		txtTest = new JTextField();
 		txtTest.setEditable(false);
-		txtTest.setText("<Hier Schülername einfügen>");
+		txtTest.setText(schuelername);
 		txtTest.setBounds(0, 11, 192, 20);
 		contentPane.add(txtTest);
 		txtTest.setColumns(10);
 		
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setText("<Hier Klasse einfg>");
+		textField.setText(klasse);
 		textField.setBounds(202, 11, 182, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
-		textField_1.setText("<Hier E-Mail einfügen>");
+		textField_1.setText(email);
 		textField_1.setBounds(394, 11, 163, 20);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
@@ -104,4 +100,26 @@ public class SchuelerDaten_Frame extends JFrame {
 		btnNewButton_2.setBounds(394, 42, 163, 23);
 		contentPane.add(btnNewButton_2);
 	}
+
+	public void setSchuelerInfo(int selectedIndex,String klasse) throws IOException {
+		String[] splitBuffer = {" "," ","10"};
+		csvReader= new Datenleser();
+		csvReader.setFilePath(klasse);
+		csvReader.initReader();
+		csvReader.getLine();
+		this.klasse=klasse;
+		while(Integer.parseInt(splitBuffer[2])!=selectedIndex+1) {
+			buffer=csvReader.getLine();
+			splitBuffer = buffer.split(";");
+		}
+		this.schuelername=splitBuffer[0];
+		this.email=splitBuffer[1];
+		System.out.println("Wert gefunden : "+splitBuffer[2]+" "+splitBuffer[1]+" "+splitBuffer[0]+" ");
+		revalidate();
+		repaint();
+		
+		
+	}
+	
+	
 }
