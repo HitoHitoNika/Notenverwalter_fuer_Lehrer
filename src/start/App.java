@@ -1,7 +1,10 @@
 package start;
 
+import gui.KlassenAuswaehlen_Frame;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+        KlassenAuswaehlen_Frame test = new KlassenAuswaehlen_Frame();
+        test.main(args);
     }
 }

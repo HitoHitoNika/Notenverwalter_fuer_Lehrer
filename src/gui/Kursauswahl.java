@@ -1,0 +1,19 @@
+package gui;
+
+public enum Kursauswahl {
+	
+	DEUTSCH,
+	ENGLISCH,
+	MATHE,
+	PHYSIK,
+	CHEMIE,
+	BIOLOGIE,
+	SOZIALKUNDE,
+	ERDKUNDE,
+	RELIGION,
+	INFORMATIK,
+	SPORT,
+	KUNST,
+	MUSIK
+	
+}
