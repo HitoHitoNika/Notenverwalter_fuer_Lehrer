@@ -23,6 +23,10 @@ public void setFilePath(String fach,String klasse) throws IOException{
         break;
     }
 }
+public void setFilePath(String klasse) {
+	csvFile = new File(projectPath+"/CSV_Dateien/"+klasse+"/Schuelerliste.csv");
+	
+}
 public void initReader() throws FileNotFoundException{     
     csvReader = new BufferedReader(new FileReader(csvFile));
 }
@@ -30,5 +34,10 @@ public void initReader() throws FileNotFoundException{
 public String getLine() throws IOException{
     return csvReader.readLine();
 }
+public void closeFile() throws IOException {
+		csvReader.close();
+}
+
+
 
 }
