@@ -9,12 +9,8 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import javax.swing.JList;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-
 import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
-
-import javax.swing.JTextField;
 
 import csv_reader_stuff.Datenleser;
 
@@ -31,19 +27,15 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JButton;
 
 public class KlassenAuswaehlen_Frame extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtDurchschnittsnote;
-	private JTextField textField;
-	private JTextField textField_1;
 	// Variable zum speichern der gewünschten Klasse
 	private String klasse;
-	// Variable zum speichern des gewünschten Kurses
-	private String kurs;
 	// ArrayList zum Abrufen der Schüler
-	private ArrayList schuelerList = new ArrayList<String>();
+	private ArrayList<String> schuelerList = new ArrayList<String>();
 	// Wird benötigt für das Auslesen und ausgeben benötigter Infos aus den CSV
 	// Dateien
 	private Datenleser csvReader;
@@ -52,7 +44,10 @@ public class KlassenAuswaehlen_Frame extends JFrame {
 	private String[] splitBuffer;
 	// Frühes Deklarieren der Liste um Aktualiersierung zu ermöglichen
 	private JList schuelerListeJList = new JList();
-
+	// Liste um alle Klassen die angelegt sind zwischen zu speichern
+	ArrayList<String> klassenNamen = new ArrayList<>();
+	// Seperater Datenleser welcher nur die Ordnernamen abrufen soll
+	private Datenleser folderReader = new Datenleser();
 	/**
 	 * Launch the application.
 	 */
@@ -98,15 +93,8 @@ public class KlassenAuswaehlen_Frame extends JFrame {
 		JComboBox klassenAuswahlComboBox = new JComboBox();
 		klassenAuswahlComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Object selected = klassenAuswahlComboBox.getSelectedItem();
-				if (selected.toString().equals("BSIT22a")) {
-					klasse = "BSIT22a";
-					getCSV();
-				} else if (selected.toString().equals("BSIT22b")) {
-					klasse = "BSIT22b";
-					schuelerList.clear();
-					getCSV();
-				}
+				klasse = (String) klassenAuswahlComboBox.getSelectedItem();
+				getCSV();
 			}
 
 			private void getCSV() {
@@ -125,10 +113,8 @@ public class KlassenAuswaehlen_Frame extends JFrame {
 						buffer = csvReader.getLine();
 					}
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				drawList();
@@ -136,8 +122,8 @@ public class KlassenAuswaehlen_Frame extends JFrame {
 				schuelerListeJList.repaint();
 			}
 		});
-		klassenAuswahlComboBox
-				.setModel(new DefaultComboBoxModel(new String[] { "--bitte auswählen--", "BSIT22a", "BSIT22b" }));
+		klassenNamen=folderReader.getKlassenNamen();
+		klassenAuswahlComboBox.setModel(new DefaultComboBoxModel(klassenNamen.toArray()));
 		klassenAuswahlComboBox.setBounds(112, 43, 157, 22);
 		contentPane.add(klassenAuswahlComboBox);
 
@@ -161,10 +147,8 @@ public class KlassenAuswaehlen_Frame extends JFrame {
 					Datenleser csvReader = new Datenleser();
 					csvReader.importKlasse();
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
-				
+				}				
 			}
 
 			public void mouseEntered(MouseEvent e) {
@@ -200,6 +184,16 @@ public class KlassenAuswaehlen_Frame extends JFrame {
 		contentPane.add(schuelerListeLabel);
 
 		schuelerListeJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		JButton updateButton = new JButton("Update");
+		updateButton.setToolTipText("Klassenliste nach einem Import updaten");
+		updateButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateComboBox(klassenAuswahlComboBox);
+			}
+		});
+		updateButton.setBounds(286, 43, 89, 23);
+		contentPane.add(updateButton);
 
 		schuelerListeJList.addListSelectionListener(e -> {
 			if (!e.getValueIsAdjusting()) {
@@ -213,7 +207,6 @@ public class KlassenAuswaehlen_Frame extends JFrame {
 					frame = new SchuelerDaten_Frame(selectedIndex, klasse);
 					frame.setVisible(true);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
@@ -235,5 +228,25 @@ public class KlassenAuswaehlen_Frame extends JFrame {
 				return splitBuffer[0];
 			}
 		});
+	}
+
+	private void updateComboBox(JComboBox comboBox){
+		comboBox.removeAllItems();
+		klassenNamen.clear();
+		klassenNamen=folderReader.getKlassenNamen();
+		int i=0;
+		for (String item : klassenNamen) {
+			comboBox.addItem(item);
+		}
+		while(klasse!=klassenNamen.get(i)){
+			i++;
+		}
+		comboBox.setSelectedIndex(i);
+		try {
+			csvReader.closeFile();
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+		
 	}
 }

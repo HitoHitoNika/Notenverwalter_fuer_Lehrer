@@ -3,6 +3,7 @@ package csv_reader_stuff;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
@@ -12,6 +13,7 @@ public class Datenleser {
     private String projectPath = System.getProperty("user.dir");
     private File csvFile;
     private BufferedReader csvReader ;
+    private ArrayList<String> klassenNamen = new ArrayList<>();
     
 
 public Datenleser() throws FileNotFoundException{
@@ -71,6 +73,15 @@ public static void copyDirectory(File sourceDir, File destDir) throws IOExceptio
          Files.copy(sourceChild.toPath(), destChild.toPath(), StandardCopyOption.REPLACE_EXISTING);
      }
  }
+}
+
+public ArrayList<String> getKlassenNamen() {
+	File directory = new File("CSV_Dateien");
+    File[] files = directory.listFiles(File::isDirectory);
+    for (File file : files) {
+        klassenNamen.add(file.getName());
+    }
+	return klassenNamen;
 }
 
 
