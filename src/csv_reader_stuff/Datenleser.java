@@ -44,7 +44,7 @@ public void closeFile() throws IOException {
 
 public void importKlasse() {
 	JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // Allow only directories to be selected
+    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // Erlaubt nur die Auswahl von Ordner
     int result = fileChooser.showOpenDialog(null);
     if (result == JFileChooser.APPROVE_OPTION) {
         File selectedDir = fileChooser.getSelectedFile();
@@ -56,7 +56,7 @@ public void importKlasse() {
         }
     }
 }
-//Recursively copy a directory and its contents to a new location
+//Rekursives kopieren der einzelnen Dateien
 public static void copyDirectory(File sourceDir, File destDir) throws IOException {
  if (!destDir.exists()) {
      destDir.mkdir();
