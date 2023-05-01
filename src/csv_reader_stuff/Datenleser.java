@@ -1,6 +1,10 @@
 package csv_reader_stuff;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+
+import javax.swing.JFileChooser;
 
 //Alle Variablen und Funktionen werden in /dokumentation/Datenleser.md 
 
@@ -36,6 +40,37 @@ public String getLine() throws IOException{
 }
 public void closeFile() throws IOException {
 		csvReader.close();
+}
+
+public void importKlasse() {
+	JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // Allow only directories to be selected
+    int result = fileChooser.showOpenDialog(null);
+    if (result == JFileChooser.APPROVE_OPTION) {
+        File selectedDir = fileChooser.getSelectedFile();
+        File destDir = new File(System.getProperty("user.dir")+"/CSV_Dateien/" + selectedDir.getName());
+        try {
+            copyDirectory(selectedDir, destDir);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+}
+//Recursively copy a directory and its contents to a new location
+public static void copyDirectory(File sourceDir, File destDir) throws IOException {
+ if (!destDir.exists()) {
+     destDir.mkdir();
+ }
+ File[] children = sourceDir.listFiles();
+ for (File sourceChild : children) {
+     String name = sourceChild.getName();
+     File destChild = new File(destDir, name);
+     if (sourceChild.isDirectory()) {
+         copyDirectory(sourceChild, destChild);
+     } else {
+         Files.copy(sourceChild.toPath(), destChild.toPath(), StandardCopyOption.REPLACE_EXISTING);
+     }
+ }
 }
 
 
