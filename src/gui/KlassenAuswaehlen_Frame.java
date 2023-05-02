@@ -34,8 +34,7 @@ public class KlassenAuswaehlen_Frame extends JFrame {
   private String klasse;
   // ArrayList zum Abrufen der Schüler
   private ArrayList<String> schuelerList = new ArrayList<>();
-  // Wird benötigt für das Auslesen und ausgeben benötigter Infos aus den CSV
-  // Dateien
+  // Wird benötigt für das Auslesen und ausgeben benötigter Infos aus den CSV Dateien
   private Datenleser csvReader;
   private String buffer;
   // Wird benötigt für die Schülerlisten Auslesung da wir nur die Namen wollen
@@ -46,28 +45,11 @@ public class KlassenAuswaehlen_Frame extends JFrame {
   ArrayList<String> klassenNamen = new ArrayList<>();
   // Seperater Datenleser welcher nur die Ordnernamen abrufen soll
   private Datenleser folderReader = new Datenleser();
+   // Klassenauswahl Drop-down Menü
+   JComboBox klassenAuswahlComboBox = new JComboBox();
 
   /**
-   * Launch the application.
-   */
-  public static void main(String[] args) {
-    EventQueue.invokeLater(new Runnable() {
-
-      @Override
-      public void run() {
-        try {
-          KlassenAuswaehlen_Frame frame = new KlassenAuswaehlen_Frame();
-          frame.setVisible(true);
-        } catch (Exception e) {
-          e.printStackTrace();
-          System.out.println("Main()=>Run() Aufruf");
-        }
-      }
-    });
-  }
-
-  /**
-   * Create the frame.
+   * Konstruktor des GUIs
    *
    * @throws IOException
    */
@@ -91,17 +73,17 @@ public class KlassenAuswaehlen_Frame extends JFrame {
     klassenAuswahlLabel.setBounds(10, 32, 120, 44);
     contentPane.add(klassenAuswahlLabel);
 
-    // Klassenauswahl Drop-down Menü
-    JComboBox klassenAuswahlComboBox = new JComboBox();
+    // Soll ausgewählte Klasse des Nutzers abspeichern zur weiteren Verarbeitung
     klassenAuswahlComboBox.addActionListener(new ActionListener() {
-
+      
       @Override
       public void actionPerformed(ActionEvent e) {
         klasse = (String) klassenAuswahlComboBox.getSelectedItem();
-        getCSV();
+        updateSchuelerListe();
       }
 
-      private void getCSV() {
+      private void updateSchuelerListe() {
+        //Die Schueler Liste sollte leer sein, damit auch nur die richtigen Schüler angezeigt werden
         schuelerList.clear();
         // Ab hier passiert die Generierung der Schülerliste
         // Vorbereiten des csvReaders
@@ -125,8 +107,7 @@ public class KlassenAuswaehlen_Frame extends JFrame {
         schuelerListeJList.repaint();
       }
     });
-    klassenNamen = folderReader.getKlassenNamen();
-    klassenAuswahlComboBox.setModel(new DefaultComboBoxModel(klassenNamen.toArray()));
+    generateKlassenDropdown();
     klassenAuswahlComboBox.setBounds(112, 43, 157, 22);
     contentPane.add(klassenAuswahlComboBox);
 
@@ -138,10 +119,12 @@ public class KlassenAuswaehlen_Frame extends JFrame {
     menuBar.setBounds(0, -1, 633, 22);
     contentPane.add(menuBar);
 
+    // Erstellung des Import Buttons
     JMenuItem importButton = new JMenuItem("Import");
     importButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/misc/import.png"));
+    // Funktionen des Importbuttons werden hier definiert
     importButton.addMouseListener(new MouseAdapter() {
-
+      // Wenn ein Maus klick auf den Button getätigt wird, sollen die Klassen neu eingelesen werden
       @Override
       public void mouseClicked(MouseEvent e) {
         try {
@@ -152,48 +135,56 @@ public class KlassenAuswaehlen_Frame extends JFrame {
           System.out.println("Import");
         }
       }
-
+      // Farbwechsel wenn der Mausbutton hovert
       @Override
       public void mouseEntered(MouseEvent e) {
         importButton.setArmed(true);
       }
-
+      // Farbwechsel wenn der Mausbutton nicht mehr hovert
       @Override
       public void mouseExited(MouseEvent e) {
         importButton.setArmed(false);
       }
     });
+    // Hinzufügen des Buttons zur MenuBar
     menuBar.add(importButton);
 
+    // Erstellung des Export Buttons
     JMenuItem exportButton = new JMenuItem("Export");
     exportButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/misc/export.png"));
+    // Funktionen des Exportbuttons werden hier definiert
     exportButton.addMouseListener(new MouseAdapter() {
-
+       // Wenn ein Maus klick auf den Button getätigt wird, sollen die Klassen in ein Verzeichnis exportiert werden
       @Override
       public void mouseClicked(MouseEvent e) {
         System.out.println("Hello World");
       }
-
+      // Farbwechsel wenn der Mausbutton hovert
       @Override
       public void mouseEntered(MouseEvent e) {
         exportButton.setArmed(true);
       }
-
+      // Farbwechsel wenn der Mausbutton nicht mehr hovert
       @Override
       public void mouseExited(MouseEvent e) {
         exportButton.setArmed(false);
       }
     });
+    // Hinzufügen des Buttons zur MenuBar
     menuBar.add(exportButton);
 
+    // Label für die Schülerliste
     JLabel schuelerListeLabel = new JLabel("Schülerliste");
     schuelerListeLabel.setBounds(10, 125, 120, 14);
     contentPane.add(schuelerListeLabel);
 
+    //Stellt sicher das nur ein Schüler ausgewählt werden kann
     schuelerListeJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+    //Update Button wird erstellt
     JButton updateButton = new JButton("Update");
     updateButton.setToolTipText("Klassenliste nach einem Import updaten");
+    //Beim betätigen des Buttons, soll die Klassenliste aktualisiert werden
     updateButton.addActionListener(new ActionListener() {
 
       @Override
@@ -204,18 +195,25 @@ public class KlassenAuswaehlen_Frame extends JFrame {
     updateButton.setBounds(286, 43, 89, 23);
     contentPane.add(updateButton);
 
+    //Funktionen der Schuelerliste werden hier definiert
     schuelerListeJList.addListSelectionListener(e -> {
       if (!e.getValueIsAdjusting()) {
+        //Speichert den ausgewählten Index und den Wert ab. Index entspricht der SchuelerID, Value dem Namen des Schuelers
         int selectedIndex = schuelerListeJList.getSelectedIndex();
         String selectedValue = (String) schuelerListeJList.getSelectedValue();
+        //Ausgabe zu Debugging zwecken
         System.out.println("Index: " + selectedIndex + ", Wert: " + selectedValue);
-
-        setVisible(false);
+        //Das neue Fenster wird erstellt
         SchuelerDaten_Frame frame;
         try {
+          //Das neue Fenster wird erstellt, die oben gespeicherten Werte werden mitgegeben
           frame = new SchuelerDaten_Frame(selectedIndex, klasse);
+          //Das neue Fenster wird sichtbar gemacht
           frame.setVisible(true);
+          //Das Ursprungsfenster wird geschlossen
+          setVisible(false);
         } catch (IOException e1) {
+          //Exception wird ausgeben mit print line für debugging Zwecke
           e1.printStackTrace();
           System.out.println("Aufruf zur Schuelerauswahl");
         }
@@ -225,15 +223,18 @@ public class KlassenAuswaehlen_Frame extends JFrame {
 
   }
 
+  //Die Funktion drawList soll die Schülerliste aktualisieren
   private void drawList() {
-    // Übertragen der Liste
+    // Hier werden die Kern Attribute der Liste festgelegt: 
     schuelerListeJList.setModel(new AbstractListModel() {
 
+      // Die Länge der Liste
       @Override
       public int getSize() {
         return schuelerList.size();
       }
 
+      // Der Inhalt der Liste
       @Override
       public Object getElementAt(int index) {
         buffer = schuelerList.get(index);
@@ -243,24 +244,38 @@ public class KlassenAuswaehlen_Frame extends JFrame {
     });
   }
 
+  // Hier wird die Klassenliste aktualisiert
   private void updateComboBox(JComboBox comboBox) {
+    //Zunächst werden alle Items aus der ComboBox entfernt
     comboBox.removeAllItems();
+    //Dann werden die Klassennamen ebenfalls gelöscht
     klassenNamen.clear();
+    //Hier wird mithilfe der Datenleserklasse die Klassennamen abgerufen
     klassenNamen = folderReader.getKlassenNamen();
-    int i = 0;
+    //Hier werden die Namen einzeln wieder in die ComboBox übertragen
     for (String item : klassenNamen) {
       comboBox.addItem(item);
     }
-    while (klasse != klassenNamen.get(i)) {
+    //Zählervariable
+    int i = 0;
+    //Die vorherige Auswahl soll wiederhergestellt werden. Das erreichen wir in dem wir die Liste solange absuchen bis wir diese wieder gefunden haben.
+    while (klasse != klassenNamen.get(i)&&i<klassenNamen.size()) {
+      //Zähler hoch zählen um weiter durch die Liste zu gehen
       i++;
     }
-    comboBox.setSelectedIndex(i);
-    try {
-      csvReader.closeFile();
-    } catch (IOException e) {
-      e.printStackTrace();
-      System.out.println("Close File nach update der Combo Box");
+    //Falls der Ursprungseintrag nicht gefunden werden kann, soll einfach der erste Eintrag genommen werden
+    if(klasse != klassenNamen.get(i)&&i==klassenNamen.size()){
+      i=0;
     }
-
+    // ComboBox auf den oben bestimmten Index setzen
+    comboBox.setSelectedIndex(i);
   }
+
+  //Die ComboBox für die Klassenauswahl generieren
+  private void generateKlassenDropdown() {
+    klassenNamen = folderReader.getKlassenNamen();
+    klassenAuswahlComboBox.setModel(new DefaultComboBoxModel(klassenNamen.toArray()));
+}
+
+
 }
