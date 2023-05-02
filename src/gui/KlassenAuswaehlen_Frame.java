@@ -79,7 +79,9 @@ public class KlassenAuswaehlen_Frame extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         klasse = (String) klassenAuswahlComboBox.getSelectedItem();
+        if(klasse!=null){
         updateSchuelerListe();
+        }
       }
 
       private void updateSchuelerListe() {
