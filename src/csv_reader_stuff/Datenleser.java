@@ -84,6 +84,15 @@ public ArrayList<String> getKlassenNamen() {
 	return klassenNamen;
 }
 
+public boolean hasMoreLines() {
+    try {
+        return csvReader.ready();
+    } catch (IOException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
 
 
 }
