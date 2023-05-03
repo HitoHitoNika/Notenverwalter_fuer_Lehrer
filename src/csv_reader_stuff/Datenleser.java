@@ -8,33 +8,28 @@ import java.util.ArrayList;
 import javax.swing.JFileChooser;
 
 public class Datenleser {
-    // Dient des Aufrufes des Verzeichnisses in dem sich das Projekt befindet
-    private String projectPath = System.getProperty("user.dir");
     // Speichert den Pfad der gewünschten Datei ab
     private File csvFile;
     // Liest die Datei aus
     private BufferedReader csvReader ;
-    // Speichert dynamisch die klassenNamen
+    // Speichert dynamisch die Klassennamen
     private ArrayList<String> klassenNamen = new ArrayList<>();
+    // Speichert dynamisch die Faechernamen
+    private ArrayList<String> faecherNamen = new ArrayList<>();
+
     
 //Konstruktor
 public Datenleser() throws FileNotFoundException{
     
 }
-
 //Setzt den Dateipfad so, dass das gewünschte Fach aufgerufen werden kann
 public void setFilePath(String fach,String klasse) throws IOException{               
-    String path = projectPath+"/CSV_Dateien/"+klasse;
-    switch(fach){
-    case "Deutsch":                            
-        System.out.println(path+"/Deutsch.csv");                     
-        csvFile = new File(path+"/Deutsch.csv");      
-        break;
+    String path = "CSV_Dateien/"+klasse+"/"+fach;                     
+        csvFile = new File(path);      
     }
-}
 //Setzt den FilePath so, dass die gewünschte Schuelerliste aufgerufen werden kann
 public void setFilePath(String klasse) {
-	csvFile = new File(projectPath+"/CSV_Dateien/"+klasse+"/Schuelerliste.csv");
+	csvFile = new File("CSV_Dateien/"+klasse+"/Schuelerliste.csv");
 	
 }
 //Initialisiert den BufferedReader
@@ -105,6 +100,21 @@ public ArrayList<String> getKlassenNamen() {
         klassenNamen.add(file.getName());
     }
 	return klassenNamen;
+}
+//Gibt Faechernamen zurück als ArrayList zurück
+public ArrayList<String> getFaecherNamen(String klasse) {
+    //Ordner in dem die Klassenverzeichnisse liegen, wird übergeben
+	File directory = new File("CSV_Dateien/"+klasse+"/");
+    //Hier wird festgelegt das wir nur Dateien gelistet haben möchten
+    File[] files = directory.listFiles(File::isFile);
+    //Hier wird nun über das obige Array iteriert
+    for (File file : files) {
+        if(!"Schuelerliste.csv".equals(file.getName())){
+        //Der ArrayList werden hier die Namen der Faecher mitgegeben
+        faecherNamen.add(file.getName());
+        }
+    }
+	return faecherNamen;
 }
 //Prüft ob die CSV Datei noch verfügbare Zeilen hat
 public boolean hasMoreLines() {
