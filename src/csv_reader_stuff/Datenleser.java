@@ -8,39 +8,6 @@ import java.util.ArrayList;
 import javax.swing.JFileChooser;
 
 public class Datenleser {
-<<<<<<< HEAD
-	// Dient des Aufrufes des Verzeichnisses in dem sich das Projekt befindet
-	private String projectPath = System.getProperty("user.dir");
-	// Speichert den Pfad der gewünschten Datei ab
-	private File csvFile;
-	// Liest die Datei aus
-	private BufferedReader csvReader;
-	// Speichert dynamisch die klassenNamen
-	private ArrayList<String> klassenNamen = new ArrayList<>();
-
-//Konstruktor
-	public Datenleser() throws FileNotFoundException {
-
-	}
-
-//Setzt den Dateipfad so, dass das gewünschte Fach aufgerufen werden kann
-	public void setFilePath(String fach, String klasse) throws IOException {
-		String path = projectPath + "/CSV_Dateien/" + klasse;
-		switch (fach) {
-		case "Deutsch":
-			System.out.println(path + "/Deutsch.csv");
-			csvFile = new File(path + "/Deutsch.csv");
-			break;
-		}
-	}
-
-//Setzt den FilePath so, dass die gewünschte Schuelerliste aufgerufen werden kann
-	public void setFilePath(String klasse) {
-		csvFile = new File(projectPath + "/CSV_Dateien/" + klasse + "/Schuelerliste.csv");
-
-	}
-
-=======
     // Speichert den Pfad der gewünschten Datei ab
     private File csvFile;
     // Liest die Datei aus
@@ -65,7 +32,6 @@ public void setFilePath(String klasse) {
 	csvFile = new File("CSV_Dateien/"+klasse+"/Schuelerliste.csv");
 	
 }
->>>>>>> d9daca4723aef33efb845bd6ffd2a28aab04eb0b
 //Initialisiert den BufferedReader
 	public void initReader() throws FileNotFoundException {
 		csvReader = new BufferedReader(new FileReader(csvFile));
@@ -131,21 +97,6 @@ public void setFilePath(String klasse) {
 	}
 
 //Gibt Klassennamen zurück als ArrayList zurück
-<<<<<<< HEAD
-	public ArrayList<String> getKlassenNamen() {
-		// Ordner in dem die Klassenverzeichnisse liegen, wird übergeben
-		File directory = new File("CSV_Dateien");
-		// Hier wird festgelegt das wir nur Ordner gelistet haben möchten
-		File[] files = directory.listFiles(File::isDirectory);
-		// Hier wird nun über das obige Array iteriert
-		for (File file : files) {
-			// Der ArrayList werden hier die Namen der Ordner mitgegeben
-			klassenNamen.add(file.getName());
-		}
-		return klassenNamen;
-	}
-
-=======
 public ArrayList<String> getKlassenNamen() {
     //Ordner in dem die Klassenverzeichnisse liegen, wird übergeben
 	File directory = new File("CSV_Dateien");
@@ -173,7 +124,6 @@ public ArrayList<String> getFaecherNamen(String klasse) {
     }
 	return faecherNamen;
 }
->>>>>>> d9daca4723aef33efb845bd6ffd2a28aab04eb0b
 //Prüft ob die CSV Datei noch verfügbare Zeilen hat
 	public boolean hasMoreLines() {
 		try {
