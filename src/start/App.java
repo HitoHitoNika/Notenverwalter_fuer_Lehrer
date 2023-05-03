@@ -14,11 +14,9 @@ public class App {
 			public void run() {
 				try {
 					// Objekt des GUIs wird instanziiert
-//					KlassenAuswaehlen_Frame frame = new KlassenAuswaehlen_Frame();
-					Notenuebersicht frame1 = new Notenuebersicht(1, "BSIT22b");
+					KlassenAuswaehlen_Frame frame = new KlassenAuswaehlen_Frame();
 					// GUI wird sichtbar gemacht
-//					frame.setVisible(true);
-					frame1.setVisible(true);
+					frame.setVisible(true);
 					// Da im Programm mehrere Exceptions passieren könnten, werden diese hier
 					// abgefangen
 				} catch (Exception e) {
