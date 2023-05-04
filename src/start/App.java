@@ -3,7 +3,6 @@ package start;
 import java.awt.EventQueue;
 
 import gui.KlassenAuswaehlen_Frame;
-import gui.Notenuebersicht;
 
 public class App {
 	// Starten des GUIs
