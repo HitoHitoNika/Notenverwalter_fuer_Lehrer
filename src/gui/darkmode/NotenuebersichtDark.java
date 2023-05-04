@@ -1,4 +1,4 @@
-package gui;
+package gui.darkmode;
 
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
@@ -21,7 +21,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
-public class Notenuebersicht extends JFrame {
+public class NotenuebersichtDark extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField eMailField;
@@ -38,9 +38,9 @@ public class Notenuebersicht extends JFrame {
 	private JTable table_2;
 	private JTable table;
 
-	public Notenuebersicht(int selectedIndex, String klasse) throws IOException {
+	public NotenuebersichtDark(int selectedIndex, String klasse) throws IOException {
 		setSchuelerInfo(selectedIndex, klasse);
-		setBackground(new Color(255, 255, 255));
+		setBackground(Color.DARK_GRAY);
 		setTitle("Schüler");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 579, 163);
@@ -56,11 +56,12 @@ public class Notenuebersicht extends JFrame {
 		contentPane.setLayout(null);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBackground(Color.DARK_GRAY);
 		tabbedPane.setBounds(10, 0, 808, 484);
 		contentPane.add(tabbedPane);
 		
 				JPanel notenfenster = new JPanel();
-				notenfenster.setBackground(Color.WHITE);
+				notenfenster.setBackground(Color.BLACK);
 				tabbedPane.addTab("Notenfenster", null, notenfenster, null);
 				notenfenster.setLayout(null);
 				
@@ -82,7 +83,7 @@ public class Notenuebersicht extends JFrame {
 								
 										eMailField = new JTextField();
 										eMailField.setHorizontalAlignment(SwingConstants.CENTER);
-										eMailField.setBounds(432, 11, 346, 20);
+										eMailField.setBounds(432, 11, 371, 20);
 										notenfenster.add(eMailField);
 										eMailField.setEditable(false);
 										eMailField.setText(email);
@@ -132,9 +133,9 @@ public class Notenuebersicht extends JFrame {
 												
 												table_2 = new JTable();
 												table_2.setShowHorizontalLines(false);
-												table_2.setBackground(Color.LIGHT_GRAY);
+												table_2.setBackground(Color.WHITE);
 												table_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-												table_2.setBorder(new LineBorder(new Color(0, 0, 0)));
+												table_2.setBorder(new LineBorder(Color.LIGHT_GRAY));
 												table_2.setModel(new DefaultTableModel(
 													new Object[][] {
 														{"Klausuren", "Epos", "H\u00DCs"},
@@ -155,8 +156,8 @@ public class Notenuebersicht extends JFrame {
 												notenfenster.add(table_2);
 												
 												table = new JTable();
-												table.setBackground(Color.LIGHT_GRAY);
-												table.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+												table.setBackground(Color.WHITE);
+												table.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
 												table.setShowVerticalLines(false);
 												table.setFont(new Font("Tahoma", Font.BOLD, 15));
 												table.setModel(new DefaultTableModel(
@@ -201,7 +202,7 @@ public class Notenuebersicht extends JFrame {
 												notenfenster.add(table);
 
 		JPanel notenhistorie = new JPanel();
-		notenhistorie.setBackground(Color.WHITE);
+		notenhistorie.setBackground(Color.BLACK);
 		tabbedPane.addTab("Notenhistorie", null, notenhistorie, null);
 		notenhistorie.setLayout(null);
 		

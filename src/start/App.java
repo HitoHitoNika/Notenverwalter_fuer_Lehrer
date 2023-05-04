@@ -3,6 +3,7 @@ package start;
 import java.awt.EventQueue;
 
 import gui.KlassenAuswaehlen_Frame;
+import gui.darkmode.NotenuebersichtDark;
 
 public class App {
 	// Starten des GUIs
@@ -14,6 +15,7 @@ public class App {
 				try {
 					// Objekt des GUIs wird instanziiert
 					KlassenAuswaehlen_Frame frame = new KlassenAuswaehlen_Frame();
+//					NotenuebersichtDark frame = new NotenuebersichtDark(2, "BSIT22b");
 					// GUI wird sichtbar gemacht
 					frame.setVisible(true);
 					// Da im Programm mehrere Exceptions passieren könnten, werden diese hier
