@@ -140,11 +140,15 @@ public class NotenuebersichtDark extends JFrame {
 				System.out.println("Klausur "+notenBuffer[0]);
 				int note=notenBuffer[0];
 				tableNotenübersicht.setValueAt(note,1,0);
+				csvReader.closeFile();
+				csvReader.initReader();
 				//HÜ
 				notenBuffer=csvReader.getNoten(selectedIndex, 2);
 				note=notenBuffer[0];
 				System.out.println("HÜ "+notenBuffer[0]);
 				tableNotenübersicht.setValueAt(note,1,2);
+				csvReader.closeFile();
+				csvReader.initReader();
 				//EPO
 				notenBuffer=csvReader.getNoten(selectedIndex, 3);
 				note=notenBuffer[0];
