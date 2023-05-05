@@ -36,9 +36,9 @@ public class NotenuebersichtDark extends JFrame {
 	String klasse;
 	private JTextField nameField;
 	private JTextField klasseField;
-	private JTable table_1;
-	private JTable table_2;
-	private JTable table;
+	private JTable faecherTable;
+	private JTable tableNotenübersicht;
+	private JTable mssTable;
 
 	public NotenuebersichtDark(int selectedIndex, String klasse) throws IOException {
 		setSchuelerInfo(selectedIndex, klasse);
@@ -159,12 +159,12 @@ public class NotenuebersichtDark extends JFrame {
 												comboBox.setBounds(362, 76, 127, 30);
 												notenfenster.add(comboBox);
 												
-												table_2 = new JTable();
-												table_2.setShowHorizontalLines(false);
-												table_2.setBackground(Color.GRAY);
-												table_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-												table_2.setBorder(new LineBorder(Color.LIGHT_GRAY));
-												table_2.setModel(new DefaultTableModel(
+												tableNotenübersicht = new JTable();
+												tableNotenübersicht.setShowHorizontalLines(false);
+												tableNotenübersicht.setBackground(Color.GRAY);
+												tableNotenübersicht.setFont(new Font("Tahoma", Font.BOLD, 14));
+												tableNotenübersicht.setBorder(new LineBorder(Color.LIGHT_GRAY));
+												tableNotenübersicht.setModel(new DefaultTableModel(
 													new Object[][] {
 														{"Klausuren", "Epos", "H\u00DCs"},
 														{null, null, null},
@@ -180,15 +180,15 @@ public class NotenuebersichtDark extends JFrame {
 														return columnEditables[column];
 													}
 												});
-												table_2.setBounds(362, 287, 416, 30);
-												notenfenster.add(table_2);
+												tableNotenübersicht.setBounds(362, 287, 416, 30);
+												notenfenster.add(tableNotenübersicht);
 												
-												table = new JTable();
-												table.setBackground(Color.GRAY);
-												table.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
-												table.setShowVerticalLines(false);
-												table.setFont(new Font("Tahoma", Font.BOLD, 15));
-												table.setModel(new DefaultTableModel(
+												mssTable = new JTable();
+												mssTable.setBackground(Color.GRAY);
+												mssTable.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+												mssTable.setShowVerticalLines(false);
+												mssTable.setFont(new Font("Tahoma", Font.BOLD, 15));
+												mssTable.setModel(new DefaultTableModel(
 													new Object[][] {
 														{"1+", "=", "15"},
 														{"1", "=", "14  "},
@@ -218,32 +218,32 @@ public class NotenuebersichtDark extends JFrame {
 														return columnEditables[column];
 													}
 												});
-												table.getColumnModel().getColumn(0).setPreferredWidth(25);
-												table.getColumnModel().getColumn(0).setMinWidth(25);
-												table.getColumnModel().getColumn(0).setMaxWidth(25);
-												table.getColumnModel().getColumn(1).setPreferredWidth(20);
-												table.getColumnModel().getColumn(1).setMaxWidth(25);
-												table.getColumnModel().getColumn(2).setPreferredWidth(25);
-												table.getColumnModel().getColumn(2).setMinWidth(25);
-												table.getColumnModel().getColumn(2).setMaxWidth(32);
-												table.setBounds(153, 143, 83, 256);
-												notenfenster.add(table);
+												mssTable.getColumnModel().getColumn(0).setPreferredWidth(25);
+												mssTable.getColumnModel().getColumn(0).setMinWidth(25);
+												mssTable.getColumnModel().getColumn(0).setMaxWidth(25);
+												mssTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+												mssTable.getColumnModel().getColumn(1).setMaxWidth(25);
+												mssTable.getColumnModel().getColumn(2).setPreferredWidth(25);
+												mssTable.getColumnModel().getColumn(2).setMinWidth(25);
+												mssTable.getColumnModel().getColumn(2).setMaxWidth(32);
+												mssTable.setBounds(153, 143, 83, 256);
+												notenfenster.add(mssTable);
 
 		JPanel notenhistorie = new JPanel();
 		notenhistorie.setBackground(Color.DARK_GRAY);
 		tabbedPane.addTab("Notenhistorie", null, notenhistorie, null);
 		notenhistorie.setLayout(null);
 		
-		table_1 = new JTable();
-		table_1.setToolTipText("Fäscher");
-		table_1.setFillsViewportHeight(true);
-		table_1.setColumnSelectionAllowed(true);
-		table_1.setCellSelectionEnabled(true);
-		table_1.setForeground(Color.WHITE);
-		table_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		table_1.setBackground(Color.LIGHT_GRAY);
-		table_1.setRowHeight(20);
-		table_1.setModel(new DefaultTableModel(
+		faecherTable = new JTable();
+		faecherTable.setToolTipText("Fäscher");
+		faecherTable.setFillsViewportHeight(true);
+		faecherTable.setColumnSelectionAllowed(true);
+		faecherTable.setCellSelectionEnabled(true);
+		faecherTable.setForeground(Color.WHITE);
+		faecherTable.setFont(new Font("Tahoma", Font.BOLD, 16));
+		faecherTable.setBackground(Color.LIGHT_GRAY);
+		faecherTable.setRowHeight(20);
+		faecherTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"Fach1"},
 				{""},
@@ -272,9 +272,9 @@ public class NotenuebersichtDark extends JFrame {
 				return columnEditables[column];
 			}
 		});
-		table_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table_1.setBounds(10, 11, 139, 434);
-		notenhistorie.add(table_1);
+		faecherTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+		faecherTable.setBounds(10, 11, 139, 434);
+		notenhistorie.add(faecherTable);
 
 	}
 
