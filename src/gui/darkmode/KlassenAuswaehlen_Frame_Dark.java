@@ -228,7 +228,7 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setBounds(100, 100, 401, 446);
     contentPane = new JPanel();
-    contentPane.setBackground(Color.WHITE);
+    contentPane.setBackground(Color.GRAY);
     contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
     setContentPane(contentPane);
     contentPane.setLayout(null);
