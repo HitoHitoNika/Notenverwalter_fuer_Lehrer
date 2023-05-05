@@ -135,16 +135,22 @@ public class NotenuebersichtDark extends JFrame {
 
 			}
 			private void updateNotentabelle() throws IOException {
-				klausurnoten = "";
-				eponoten = "";
-				huenoten = "";
+				//Klausur
+				int[]notenBuffer=csvReader.getNoten(selectedIndex, 1);
+				System.out.println("Klausur "+notenBuffer[0]);
+				int note=notenBuffer[0];
+				tableNotenübersicht.setValueAt(note,1,0);
+				//HÜ
+				notenBuffer=csvReader.getNoten(selectedIndex, 2);
+				note=notenBuffer[0];
+				System.out.println("HÜ "+notenBuffer[0]);
+				tableNotenübersicht.setValueAt(note,1,2);
+				//EPO
+				notenBuffer=csvReader.getNoten(selectedIndex, 3);
+				note=notenBuffer[0];
+				System.out.println("EPO "+notenBuffer[0]);
+				tableNotenübersicht.setValueAt(note,1,1);
 				
-				klausurnoten = Arrays.toString(csvReader.getNoten(selectedIndex, 1));
-				eponoten =  Arrays.toString(csvReader.getNoten(selectedIndex, 3));
-				huenoten =  Arrays.toString(csvReader.getNoten(selectedIndex, 2));
-				
-				tableNotenübersicht.revalidate();
-				tableNotenübersicht.repaint();
 			}
 		});
 
