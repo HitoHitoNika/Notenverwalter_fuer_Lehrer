@@ -151,7 +151,7 @@ public double getAverage(int schuelerID) throws IOException{
     return (countTestArten[0] == 0) ? (countTestArten[2] == 0) ? average[1] : (countTestArten[1] == 0) ? average[2] : ((average[1] * 0.6) + (average[2] * 0.4)) : (countTestArten[1] == 0) ? (countTestArten[2] == 0) ? average[0] : ((average[0] * 0.71) + (average[2] * 0.285714)) : (countTestArten[2] == 0) ? ((average[0] * 0.5) + (average[1] * 0.3)) : average[3];
 }
 
-public int[] getNoten(int schuelerID) throws IOException{
+public int[] getNoten(int schuelerID,int testArtID) throws IOException{
     ArrayList<Integer> notenList=new ArrayList<>();
     int[] noten;
     try {
@@ -160,7 +160,7 @@ public int[] getNoten(int schuelerID) throws IOException{
         System.err.println("Fehler beim Lesen der Datei: " + e.getMessage());
     } while(hasMoreLines()){
         String[] splitBuffer = getLine().split(";");
-        if (Integer.parseInt(splitBuffer[0]) == schuelerID) {
+        if (Integer.parseInt(splitBuffer[0]) == schuelerID&&testArtID==Integer.parseInt(splitBuffer[2])) {
         notenList.add(Integer.parseInt(splitBuffer[1]));
         }
 
