@@ -154,6 +154,8 @@ public double getAverage(int schuelerID) throws IOException{
 public int[] getNoten(int schuelerID,int testArtID) throws IOException{
     ArrayList<Integer> notenList=new ArrayList<>();
     int[] noten;
+    schuelerID++;
+    boolean counter=false;
     try {
         getLine();
     } catch (IOException e) {
@@ -162,11 +164,18 @@ public int[] getNoten(int schuelerID,int testArtID) throws IOException{
         String[] splitBuffer = getLine().split(";");
         if (Integer.parseInt(splitBuffer[0]) == schuelerID&&testArtID==Integer.parseInt(splitBuffer[2])) {
         notenList.add(Integer.parseInt(splitBuffer[1]));
+        counter=true;
         }
 
     }
+    if(counter){
     noten = notenList.stream().mapToInt(i -> i).toArray();
     return noten;
+    }else{
+        notenList.add(0);
+        noten = notenList.stream().mapToInt(i -> i).toArray();
+        return noten;
+    }
 }
 
 
