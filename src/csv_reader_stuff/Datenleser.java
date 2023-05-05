@@ -126,6 +126,41 @@ public boolean hasMoreLines() {
     }
 }
 
+public double getAverage(int schuelerID,String fach,String klasse) throws IOException{
+    double average=0;
+    String[] splitBuffer;
+    int counter=0;
+    try {
+        setFilePath(fach, klasse);
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.out.println("getAverage, setFilePath Aufruf fehlgeschlagen");
+    }try {
+        initReader();
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+        System.out.println("getAverage, initReader Aufruf fehlgeschlagen");
+    }
+    try {
+        getLine();
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.out.println("getAverage, getLine Aufruf fehlgeschlagen, ist die Datei leer ?");
+    }
+    while(hasMoreLines()){
+        splitBuffer=getLine().split(";");
+        if(Integer.parseInt(splitBuffer[0])==schuelerID){
+           //Klausurenarten auslesen
+           //Bestimmen welche ID´s schon ausgelesen wurden
+           //Verhältnis berechnen
+           //Note weiter berechnen
+        }
+    }
+
+
+
+    return average;
+}
 
 
 }
