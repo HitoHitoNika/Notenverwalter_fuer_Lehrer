@@ -24,7 +24,7 @@ public Datenleser() throws FileNotFoundException{
 }
 //Setzt den Dateipfad so, dass das gewünschte Fach aufgerufen werden kann
 public void setFilePath(String fach,String klasse) throws IOException{               
-    String path = "CSV_Dateien/"+klasse+"/"+fach;                     
+    String path = "CSV_Dateien/"+klasse+"/"+fach+".csv";                     
         csvFile = new File(path);      
     }
 //Setzt den FilePath so, dass die gewünschte Schuelerliste aufgerufen werden kann
@@ -126,40 +126,47 @@ public boolean hasMoreLines() {
     }
 }
 
-public double getAverage(int schuelerID,String fach,String klasse) throws IOException{
-    double average=0;
-    String[] splitBuffer;
-    int counter=0;
-    try {
-        setFilePath(fach, klasse);
-    } catch (IOException e) {
-        e.printStackTrace();
-        System.out.println("getAverage, setFilePath Aufruf fehlgeschlagen");
-    }try {
-        initReader();
-    } catch (FileNotFoundException e) {
-        e.printStackTrace();
-        System.out.println("getAverage, initReader Aufruf fehlgeschlagen");
-    }
+public double getAverage(int schuelerID) throws IOException{
+    double[] average = {0, 0, 0, 0};
+    int[] countTestArten = {0, 0, 0};
     try {
         getLine();
     } catch (IOException e) {
-        e.printStackTrace();
-        System.out.println("getAverage, getLine Aufruf fehlgeschlagen, ist die Datei leer ?");
-    }
-    while(hasMoreLines()){
-        splitBuffer=getLine().split(";");
-        if(Integer.parseInt(splitBuffer[0])==schuelerID){
-           //Klausurenarten auslesen
-           //Bestimmen welche ID´s schon ausgelesen wurden
-           //Verhältnis berechnen
-           //Note weiter berechnen
+        System.err.println("Fehler beim Lesen der Datei: " + e.getMessage());
+        return 0;
+    } while (hasMoreLines()) {
+        String[] splitBuffer = getLine().split(";");
+        if (Integer.parseInt(splitBuffer[0]) == schuelerID) {
+        int index = Integer.parseInt(splitBuffer[2]) - 1;
+        countTestArten[index]++;
+        average[index] += Integer.parseInt(splitBuffer[1]);
+        average[3] += Integer.parseInt(splitBuffer[1]) * ((index == 0) ? 0.5 : (index == 1) ? 0.3 : 0.2);
         }
     }
+    for (int i = 0; i < 3; i++) {
+        if (countTestArten[i] > 0) {
+            average[i] /= countTestArten[i];
+        }
+    }
+    return (countTestArten[0] == 0) ? (countTestArten[2] == 0) ? average[1] : (countTestArten[1] == 0) ? average[2] : ((average[1] * 0.6) + (average[2] * 0.4)) : (countTestArten[1] == 0) ? (countTestArten[2] == 0) ? average[0] : ((average[0] * 0.71) + (average[2] * 0.285714)) : (countTestArten[2] == 0) ? ((average[0] * 0.5) + (average[1] * 0.3)) : average[3];
+}
 
+public int[] getNoten(int schuelerID) throws IOException{
+    ArrayList<Integer> notenList=new ArrayList<>();
+    int[] noten;
+    try {
+        getLine();
+    } catch (IOException e) {
+        System.err.println("Fehler beim Lesen der Datei: " + e.getMessage());
+    } while(hasMoreLines()){
+        String[] splitBuffer = getLine().split(";");
+        if (Integer.parseInt(splitBuffer[0]) == schuelerID) {
+        notenList.add(Integer.parseInt(splitBuffer[1]));
+        }
 
-
-    return average;
+    }
+    noten = notenList.stream().mapToInt(i -> i).toArray();
+    return noten;
 }
 
 
