@@ -16,14 +16,9 @@ public class App {
 			public void run() {
 				try {
 					// Objekt des GUIs wird instanziiert
-					//KlassenAuswaehlen_Frame frame = new KlassenAuswaehlen_Frame();
-					//KlassenAuswaehlen_Frame_Dark frame = new KlassenAuswaehlen_Frame_Dark();
-					//NotenuebersichtDark frame = new NotenuebersichtDark(0, "BSIT22b");
 					StartWindow frame=new StartWindow();
 					// GUI wird sichtbar gemacht
 					frame.setVisible(true);
-					// Da im Programm mehrere Exceptions passieren könnten, werden diese hier
-					// abgefangen
 				} catch (Exception e) {
 					e.printStackTrace();
 					// Zur einfacheren Nachverfolgung falls Fehler auftreten
