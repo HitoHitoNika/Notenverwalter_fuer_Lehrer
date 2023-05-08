@@ -103,6 +103,7 @@ public ArrayList<String> getKlassenNamen() {
 }
 //Gibt Faechernamen zurück als ArrayList zurück
 public ArrayList<String> getFaecherNamen(String klasse) {
+	String original; 
     //Ordner in dem die Klassenverzeichnisse liegen, wird übergeben
 	File directory = new File("CSV_Dateien/"+klasse+"/");
     //Hier wird festgelegt das wir nur Dateien gelistet haben möchten
@@ -110,8 +111,9 @@ public ArrayList<String> getFaecherNamen(String klasse) {
     //Hier wird nun über das obige Array iteriert
     for (File file : files) {
         if(!"Schuelerliste.csv".equals(file.getName())){
+        original = file.getName();
         //Der ArrayList werden hier die Namen der Faecher mitgegeben
-        faecherNamen.add(file.getName());
+        faecherNamen.add(original.substring(0, original.length() - 4));
         }
     }
 	return faecherNamen;
