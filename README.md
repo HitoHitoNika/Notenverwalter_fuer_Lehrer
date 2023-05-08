@@ -28,13 +28,13 @@ Die Aufgabenstellung gibt folgendes vor:
 - [ ] Eingabe von Noten für verschiedene Fächer (z.B. LF1, LF5, Deutsch)
 - [ ] Berechnung des Durchschnitts für jedes Fach und insgesamt
 - [ ] Ausgabe der eingegebenen Noten sowie des Durchschnitts für jedes Fach und insgesamt
-- [ ] Speichern und Laden der eingegebenen Noten in/aus einer Textdatei
+- [x] Speichern und Laden der eingegebenen Noten in/aus einer Textdatei
 
 ### Technische Anforderungen
 
 - [ ] Schleifen (z.B. for, while) für die Eingabe von Noten und die Berechnung des Durchschnitts
 - [ ] Bedingungen (z.B. if-else) für die Überprüfung von Eingaben
-- [ ] Einfache Datentypen (z.B. int, double) für die Speicherung der Noten
+- [x] Einfache Datentypen (z.B. int, double) für die Speicherung der Noten
 - [ ] Arrays für die Speicherung der eingegebenen Noten
 - [ ] Methoden (z.B. Berechnung Durchschnittsnote)
 
@@ -44,11 +44,11 @@ Die Aufgabenstellung gibt folgendes vor:
 - [ ] Optional können Sie auch weitere Funktionen hinzufügen, wie z.B. die Möglichkeit, Noten zu löschen oder zu bearbeiten, oder die Berechnung von statistischen Kennzahlen wie dem Median oder der Standardabweichung.
 - [ ] Implementieren eine Umschaltung zwischen verschiedenen Notensystemen.
 - [ ] Legen Sie eine Benutzerverwaltung an.
-- [ ] Entwickeln Sie kollaborativ das Projekt mit einem Tool, wie z.B. GitHub.
+- [x] Entwickeln Sie kollaborativ das Projekt mit einem Tool, wie z.B. GitHub.
 - [ ] Entwickeln Sie Testfälle zur Überprüfung einzelner Programmabschnitte.
 - [ ] Entwickeln Sie eine Möglichkeit Noten in der Durchschnittsberechnung unterschiedlich zu gewichten.
-- [ ] Objektorientierter Programmieransatz.
-- [ ] Verwendung anderer Datentypen als Array (z.B. Nutzen von Java Collections).
+- [x] Objektorientierter Programmieransatz.
+- [x] Verwendung anderer Datentypen als Array (z.B. Nutzen von Java Collections).
 
 ### Bewertungskriterien
 

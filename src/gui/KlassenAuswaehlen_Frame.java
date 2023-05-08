@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -197,11 +196,11 @@ public class KlassenAuswaehlen_Frame extends JFrame {
         // Ausgabe zu Debugging zwecken
         System.out.println("Index: " + selectedIndex + ", Wert: " + selectedValue);
         // Das neue Fenster wird erstellt
-        SchuelerDaten_Frame frame;
+        Notenuebersicht frame;
         try {
           // Das neue Fenster wird erstellt, die oben gespeicherten Werte werden
           // mitgegeben
-          frame = new SchuelerDaten_Frame(selectedIndex, klasse);
+          frame = new Notenuebersicht(selectedIndex, klasse);
           // Das neue Fenster wird sichtbar gemacht
           frame.setVisible(true);
           // Das Ursprungsfenster wird geschlossen

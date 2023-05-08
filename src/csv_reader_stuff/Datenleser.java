@@ -33,61 +33,69 @@ public void setFilePath(String klasse) {
 	
 }
 //Initialisiert den BufferedReader
-public void initReader() throws FileNotFoundException{     
-    csvReader = new BufferedReader(new FileReader(csvFile));
-}
+	public void initReader() throws FileNotFoundException {
+		csvReader = new BufferedReader(new FileReader(csvFile));
+	}
+
 //Gibt eine Zeile der CSV zurück
-public String getLine() throws IOException{
-    return csvReader.readLine();
-}
+	public String getLine() throws IOException {
+		return csvReader.readLine();
+	}
+
 //Schließt den Reader und die Datei
-public void closeFile() throws IOException {
+	public void closeFile() throws IOException {
 		csvReader.close();
-}
+	}
+
 //Erlaubt Import von außerhalb angelegten Klassendateien
-public void importKlasse() {
-    // Erstellt einen FileChooser, welcher dafür dient ein Auswahl Fenster zu öffnen
-	JFileChooser fileChooser = new JFileChooser();
-    // Erlaubt nur die Auswahl von Ordnern
-    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
-    //Öffnet besagtes Fenster
-    int result = fileChooser.showOpenDialog(null);
-    //Prüft ob die Auswahl bestätigt wurde
-    if (result == JFileChooser.APPROVE_OPTION) {
-        //Speichert den Pfad zum ausgewählten Verzeichnis
-        File selectedDir = fileChooser.getSelectedFile();
-        //Speichert den Pfad zum vorgegebenen Verzeichnis
-        File destDir = new File(System.getProperty("user.dir")+"/CSV_Dateien/" + selectedDir.getName());
-        try {
-            //Ruft Methode copyDirectory auf und gibt Ursprungs- und Zielverzeichnis mit
-            copyDirectory(selectedDir, destDir);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-}
+	public void importKlasse() {
+		// Erstellt einen FileChooser, welcher dafür dient ein Auswahl Fenster zu öffnen
+		JFileChooser fileChooser = new JFileChooser();
+		// Erlaubt nur die Auswahl von Ordnern
+		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		// Öffnet besagtes Fenster
+		int result = fileChooser.showOpenDialog(null);
+		// Prüft ob die Auswahl bestätigt wurde
+		if (result == JFileChooser.APPROVE_OPTION) {
+			// Speichert den Pfad zum ausgewählten Verzeichnis
+			File selectedDir = fileChooser.getSelectedFile();
+			// Speichert den Pfad zum vorgegebenen Verzeichnis
+			File destDir = new File(System.getProperty("user.dir") + "/CSV_Dateien/" + selectedDir.getName());
+			try {
+				// Ruft Methode copyDirectory auf und gibt Ursprungs- und Zielverzeichnis mit
+				copyDirectory(selectedDir, destDir);
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+
 //Rekursives kopieren der einzelnen Dateien
-public static void copyDirectory(File sourceDir, File destDir) throws IOException {
-    //Falls das Zielverzeichnis nicht existiert, wird es erstellt
-    if (!destDir.exists()) {
-     destDir.mkdir();
-    } 
- //Speichert die Pfade zu den Dateien, die im Ursprungsordner hinterlegt sind, ab
- File[] children = sourceDir.listFiles();
- //Für jedes Element des oben festgelegten Arrays, wird nun eine Schleife abgegegangen 
- for (File sourceChild : children) {
-    // Der Name der Ursprungsdatei wird gespeichert
-     String name = sourceChild.getName();
-    // Die Datei wird mit neuem Pfad und dem Ursprungsnamen erstellt
-     File destChild = new File(destDir, name);
-    // Falls es sich um ein Ordner handelt wird dieser erstellt
-     if (sourceChild.isDirectory()) {
-         copyDirectory(sourceChild, destChild);
-     } else { // Ansonsten wird die Datei gespeichert, falls bereits existiert wird sie überschrieben
-         Files.copy(sourceChild.toPath(), destChild.toPath(), StandardCopyOption.REPLACE_EXISTING);
-     }
- }
-}
+	public static void copyDirectory(File sourceDir, File destDir) throws IOException {
+		// Falls das Zielverzeichnis nicht existiert, wird es erstellt
+		if (!destDir.exists()) {
+			destDir.mkdir();
+		}
+		// Speichert die Pfade zu den Dateien, die im Ursprungsordner hinterlegt sind,
+		// ab
+		File[] children = sourceDir.listFiles();
+		// Für jedes Element des oben festgelegten Arrays, wird nun eine Schleife
+		// abgegegangen
+		for (File sourceChild : children) {
+			// Der Name der Ursprungsdatei wird gespeichert
+			String name = sourceChild.getName();
+			// Die Datei wird mit neuem Pfad und dem Ursprungsnamen erstellt
+			File destChild = new File(destDir, name);
+			// Falls es sich um ein Ordner handelt wird dieser erstellt
+			if (sourceChild.isDirectory()) {
+				copyDirectory(sourceChild, destChild);
+			} else { // Ansonsten wird die Datei gespeichert, falls bereits existiert wird sie
+						// überschrieben
+				Files.copy(sourceChild.toPath(), destChild.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			}
+		}
+	}
+
 //Gibt Klassennamen zurück als ArrayList zurück
 public ArrayList<String> getKlassenNamen() {
     //Ordner in dem die Klassenverzeichnisse liegen, wird übergeben
@@ -117,15 +125,13 @@ public ArrayList<String> getFaecherNamen(String klasse) {
 	return faecherNamen;
 }
 //Prüft ob die CSV Datei noch verfügbare Zeilen hat
-public boolean hasMoreLines() {
-    try {
-        return csvReader.ready();
-    } catch (IOException e) {
-        e.printStackTrace();
-        return false;
-    }
-}
-
-
+	public boolean hasMoreLines() {
+		try {
+			return csvReader.ready();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }
