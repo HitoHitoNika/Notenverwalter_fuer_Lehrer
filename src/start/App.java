@@ -2,9 +2,6 @@ package start;
 
 import java.awt.EventQueue;
 
-import gui.KlassenAuswaehlen_Frame;
-import gui.darkmode.NotenuebersichtDark;
-import gui.darkmode.*;
 import gui.*;
 
 public class App {

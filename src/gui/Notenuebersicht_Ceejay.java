@@ -10,7 +10,6 @@ import javax.swing.border.EmptyBorder;
 
 import csv_reader_stuff.Datenleser;
 
-import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -25,26 +24,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
-import java.awt.Color;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import csv_reader_stuff.Datenleser;
-
-import javax.swing.JTabbedPane;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.io.IOException;
-
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JButton;
 import java.awt.SystemColor;
 import javax.swing.ImageIcon;
 
