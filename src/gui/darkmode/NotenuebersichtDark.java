@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 public class NotenuebersichtDark extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel contentPane_1;
 	private JTextField eMailField;
 	// Wird benötigt für das Auslesen und ausgeben benötigter Infos aus den CSV
 	// Dateien
@@ -130,6 +131,7 @@ public class NotenuebersichtDark extends JFrame {
 	private void createMssTable() {
 		
 		mssTable = new JTable();
+		mssTable.setForeground(Color.BLACK);
 		mssTable.setBackground(Color.GRAY);
 		mssTable.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
 		mssTable.setShowVerticalLines(false);
@@ -160,6 +162,7 @@ public class NotenuebersichtDark extends JFrame {
 
 	private void createTableNotenübersicht() {
 		tableNotenübersicht = new JTable();
+		tableNotenübersicht.setForeground(Color.BLACK);
 		tableNotenübersicht.setShowHorizontalLines(false);
 		tableNotenübersicht.setBackground(Color.GRAY);
 		tableNotenübersicht.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -292,7 +295,7 @@ public class NotenuebersichtDark extends JFrame {
 
 	private void createEmailField() {
 		eMailField = new JTextField();
-		eMailField.setForeground(Color.WHITE);
+		eMailField.setForeground(Color.BLACK);
 		eMailField.setFont(new Font("Tahoma", Font.BOLD, 11));
 		eMailField.setBackground(Color.GRAY);
 		eMailField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -306,7 +309,7 @@ public class NotenuebersichtDark extends JFrame {
 	private void createKlasseField() {
 		klasseField = new JTextField();
 		klasseField.setFont(new Font("Tahoma", Font.BOLD, 11));
-		klasseField.setForeground(Color.WHITE);
+		klasseField.setForeground(Color.BLACK);
 		klasseField.setBackground(Color.GRAY);
 		klasseField.setHorizontalAlignment(SwingConstants.CENTER);
 		klasseField.setBounds(231, 11, 203, 20);
@@ -319,7 +322,7 @@ public class NotenuebersichtDark extends JFrame {
 	private void createNameField() {
 		nameField = new JTextField();
 		nameField.setFont(new Font("Tahoma", Font.BOLD, 11));
-		nameField.setForeground(Color.WHITE);
+		nameField.setForeground(Color.BLACK);
 		nameField.setBackground(Color.GRAY);
 		nameField.setHorizontalAlignment(SwingConstants.CENTER);
 		nameField.setBounds(0, 11, 236, 20);
@@ -331,6 +334,7 @@ public class NotenuebersichtDark extends JFrame {
 
 	private void createJPanel() {
 		notenfenster = new JPanel();
+		notenfenster.setBorder(null);
 		notenfenster.setBackground(Color.DARK_GRAY);
 		tabbedPane.addTab("Notenfenster", null, notenfenster, null);
 		notenfenster.setLayout(null);
@@ -338,11 +342,11 @@ public class NotenuebersichtDark extends JFrame {
 
 	private void createJTabbedPane() {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setForeground(Color.WHITE);
+		tabbedPane.setForeground(Color.BLACK);
 		tabbedPane.setFont(new Font("Tahoma", Font.BOLD, 11));
 		tabbedPane.setBackground(Color.DARK_GRAY);
-		tabbedPane.setBounds(10, 0, 808, 484);
-		contentPane.add(tabbedPane);
+		tabbedPane.setBounds(0, 0, 818, 484);
+		contentPane_1.add(tabbedPane);
 	}
 
 	private void createWindow() throws IOException {
@@ -350,17 +354,18 @@ public class NotenuebersichtDark extends JFrame {
 		setBackground(Color.DARK_GRAY);
 		setTitle("Schüler");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 579, 163);
+		setBounds(100, 100, 899, 571);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 824, 523);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane_1 = new JPanel();
+		contentPane_1.setBackground(Color.DARK_GRAY);
+		contentPane_1.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setContentPane(contentPane_1);
+		contentPane_1.setLayout(null);
 	}
 
 	public void setSchuelerInfo(int selectedIndex, String klasse) throws IOException {

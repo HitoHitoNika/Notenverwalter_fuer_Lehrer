@@ -97,7 +97,7 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
 
   }
   private void generateUpdateButton() {
-    updateButton.setBackground(UIManager.getColor("Button.background"));
+    updateButton.setBackground(Color.GRAY);
     updateButton.setToolTipText("Klassenliste nach einem Import updaten");
     // Beim betätigen des Buttons, soll die Klassenliste aktualisiert werden
     updateButton.addActionListener(new ActionListener() {
@@ -112,12 +112,15 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
   }
   
   private void generateSchuelerListeLabel() {
+    schuelerListeLabel.setForeground(Color.WHITE);
+    schuelerListeLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
     schuelerListeLabel.setBounds(10, 125, 120, 14);
     contentPane.add(schuelerListeLabel);
   }
   
   private void generateExportButton(){
-    exportButton.setBackground(UIManager.getColor("Button.background"));
+    exportButton.setFont(new Font("Segoe UI", Font.BOLD, 11));
+    exportButton.setBackground(Color.GRAY);
     exportButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/misc/export.png"));
     // Funktionen des Exportbuttons werden hier definiert
     exportButton.addMouseListener(new MouseAdapter() {
@@ -147,7 +150,8 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
   }
 
   private void generateImportButton() {
-    importButton.setBackground(UIManager.getColor("Button.background"));
+    importButton.setFont(new Font("Segoe UI", Font.BOLD, 11));
+    importButton.setBackground(Color.GRAY);
     importButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/misc/import.png"));
     // Funktionen des Importbuttons werden hier definiert
     importButton.addMouseListener(new MouseAdapter() {
@@ -186,7 +190,7 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
   }
 
   private void generateSchuelerJList() {
-    schuelerListeJList.setBackground(UIManager.getColor("Button.background"));
+    schuelerListeJList.setBackground(Color.GRAY);
     schuelerListeJList.setForeground(UIManager.getColor("CheckBox.light"));
     schuelerListeJList.setBorder(new LineBorder(new Color(0, 0, 0)));
     schuelerListeJList.setBounds(10, 145, 284, 251);
@@ -236,8 +240,8 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
 
   private void klassenAuswahlLabelInit() {
     klassenAuswahlLabel.setText("Klassenauswahl");
-    klassenAuswahlLabel.setFont(new Font("Tahoma", Font.PLAIN, 11));
-    klassenAuswahlLabel.setForeground(new Color(0, 0, 0));
+    klassenAuswahlLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+    klassenAuswahlLabel.setForeground(Color.WHITE);
     klassenAuswahlLabel.setBackground(new Color(0, 0, 0));
     klassenAuswahlLabel.setToolTipText("Hier können Sie die Klasse auswählen");
     klassenAuswahlLabel.setBounds(10, 32, 98, 44);
@@ -297,7 +301,7 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
   // Die ComboBox für die Klassenauswahl generieren
   private void generateKlassenDropdown() {
     klassenNamen = folderReader.getKlassenNamen();
-    klassenAuswahlComboBox.setBackground(UIManager.getColor("Button.background"));
+    klassenAuswahlComboBox.setBackground(Color.GRAY);
     klassenAuswahlComboBox.setModel(new DefaultComboBoxModel(klassenNamen.toArray()));
     // Soll ausgewählte Klasse des Nutzers abspeichern zur weiteren Verarbeitung
     klassenAuswahlComboBox.addActionListener(new ActionListener() {
