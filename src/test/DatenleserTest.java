@@ -30,7 +30,7 @@ public class DatenleserTest {
         testDrei.setFilePath("Deutsch", "BSIT22b");
         testDrei.initReader();
         int[] value={10};
-        int[] actualValue=testDrei.getNoten(1,3);
+        int[] actualValue=testDrei.getNoten(0,3);
         System.out.println(value[0]);
         assertEquals(actualValue.length,value.length);
         assertEquals(actualValue[0],value[0]);       
