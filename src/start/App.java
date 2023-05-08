@@ -15,7 +15,7 @@ public class App {
 					// Objekt des GUIs wird instanziiert
 					//KlassenAuswaehlen_Frame frame = new KlassenAuswaehlen_Frame();
 					//KlassenAuswaehlen_Frame_Dark frame = new KlassenAuswaehlen_Frame_Dark();
-					Notenuebersicht_Ceejay frame = new Notenuebersicht_Ceejay(0, "BSIT22b");
+					Notenuebersicht frame = new Notenuebersicht(0, "BSIT22b");
 					// GUI wird sichtbar gemacht
 					frame.setVisible(true);
 					// Da im Programm mehrere Exceptions passieren könnten, werden diese hier

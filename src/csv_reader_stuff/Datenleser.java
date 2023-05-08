@@ -113,7 +113,7 @@ public ArrayList<String> getFaecherNamen(String klasse) {
         if(!"Schuelerliste.csv".equals(file.getName())){
         original = file.getName();
         //Der ArrayList werden hier die Namen der Faecher mitgegeben
-        faecherNamen.add(original.substring(0, original.length() - 4));
+        faecherNamen.add(original.substring(0, original.length() - 4)); 
         }
     }
 	return faecherNamen;
@@ -129,6 +129,7 @@ public boolean hasMoreLines() {
 }
 
 public double getAverage(int schuelerID) throws IOException{
+	schuelerID ++;
     double[] average = {0, 0, 0, 0};
     int[] countTestArten = {0, 0, 0};
     try {
