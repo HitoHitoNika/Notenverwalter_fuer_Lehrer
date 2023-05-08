@@ -20,10 +20,13 @@ import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
+import java.awt.SystemColor;
+import javax.swing.ImageIcon;
 
 public class Notenuebersicht extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel contentPane_1;
 	private JTextField eMailField;
 	// Wird benötigt für das Auslesen und ausgeben benötigter Infos aus den CSV
 	// Dateien
@@ -36,162 +39,152 @@ public class Notenuebersicht extends JFrame {
 	private JTextField klasseField;
 	private JTable table_1;
 	private JTable table_2;
+	private JTable table;
+	private final JPanel panel = new JPanel();
 
 	public Notenuebersicht(int selectedIndex, String klasse) throws IOException {
 		setSchuelerInfo(selectedIndex, klasse);
 		setBackground(new Color(255, 255, 255));
 		setTitle("Schüler");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 579, 163);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 824, 523);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setBounds(100, 100, 960, 451);
+		contentPane_1 = new JPanel();
+		contentPane_1.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setContentPane(contentPane_1);
+		contentPane_1.setLayout(null);
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(10, 0, 808, 484);
-		contentPane.add(tabbedPane);
-		
-				JPanel notenfenster = new JPanel();
-				notenfenster.setBackground(Color.WHITE);
-				tabbedPane.addTab("Notenfenster", null, notenfenster, null);
-				notenfenster.setLayout(null);
-				
-						nameField = new JTextField();
-						nameField.setHorizontalAlignment(SwingConstants.CENTER);
-						nameField.setBounds(0, 11, 236, 20);
-						notenfenster.add(nameField);
-						nameField.setEditable(false);
-						nameField.setText(schuelername);
-						nameField.setColumns(10);
-						
-								klasseField = new JTextField();
-								klasseField.setHorizontalAlignment(SwingConstants.CENTER);
-								klasseField.setBounds(231, 11, 203, 20);
-								notenfenster.add(klasseField);
-								klasseField.setEditable(false);
-								klasseField.setText(klasse);
-								klasseField.setColumns(10);
-								
-										eMailField = new JTextField();
-										eMailField.setHorizontalAlignment(SwingConstants.CENTER);
-										eMailField.setBounds(432, 11, 346, 20);
-										notenfenster.add(eMailField);
-										eMailField.setEditable(false);
-										eMailField.setText(email);
-										eMailField.setColumns(10);
-										
-												JComboBox fachDropdown = new JComboBox();
-												fachDropdown.setBackground(Color.LIGHT_GRAY);
-												fachDropdown.setBounds(109, 76, 127, 30);
-												notenfenster.add(fachDropdown);
-												fachDropdown.setModel(new DefaultComboBoxModel(
-														new String[] { "--bitte auswählen--", "Deutsch", "Englisch", "Mathe", "Physik", "Chemie", "Biologie",
-																"Sozialkunde", "Erdkunde", "Religion", "Informatik", "Sport", "Kunst", "Musik" }));
-												
-												JLabel notenLabel = new JLabel("Note:");
-												notenLabel.setHorizontalAlignment(SwingConstants.CENTER);
-												notenLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-												notenLabel.setBounds(293, 75, 59, 28);
-												notenfenster.add(notenLabel);
-												
-												JLabel testformLabel = new JLabel("Testform:");
-												testformLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-												testformLabel.setHorizontalAlignment(SwingConstants.CENTER);
-												testformLabel.setBounds(536, 69, 104, 40);
-												notenfenster.add(testformLabel);
-												
-												JComboBox testformBox = new JComboBox();
-												testformBox.setBackground(Color.LIGHT_GRAY);
-												testformBox.setModel(new DefaultComboBoxModel(new String[] {"--Bitte auswählen--", "Klausur (50%)", "Epo(30%)", "HÜ(20%)"}));
-												testformBox.setBounds(640, 76, 138, 30);
-												notenfenster.add(testformBox);
-												
-												JLabel lblNewLabel_1 = new JLabel("Fach:");
-												lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-												lblNewLabel_1.setBounds(25, 77, 59, 25);
-												notenfenster.add(lblNewLabel_1);
-												
-												JButton hinzufButton = new JButton("Hinzufügen");
-												hinzufButton.setBackground(Color.LIGHT_GRAY);
-												hinzufButton.setBounds(672, 199, 89, 23);
-												notenfenster.add(hinzufButton);
-												
-												JComboBox comboBox = new JComboBox();
-												comboBox.setBackground(Color.LIGHT_GRAY);
-												comboBox.setModel(new DefaultComboBoxModel(new String[] {"--Bitte auswählen--", "1+\t", "1\t", "1-\t", "2+\t", "2\t", "2-\t", "3+\t", "3\t", "3-\t", "4+\t", "4\t", "4-\t", "5+\t", "5\t", "5-\t", "6\t"}));
-												comboBox.setBounds(362, 76, 127, 30);
-												notenfenster.add(comboBox);
-												
-												table_2 = new JTable();
-												table_2.setShowHorizontalLines(false);
-												table_2.setBackground(Color.LIGHT_GRAY);
-												table_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-												table_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-												table_2.setModel(new DefaultTableModel(
-													new Object[][] {
-														{"Klausuren", "Epos", "H\u00DCs"},
-														{null, null, null},
-													},
-													new String[] {
-														"New column", "New column", "New column"
-													}
-												) {
-													boolean[] columnEditables = new boolean[] {
-														false, false, false
-													};
-													public boolean isCellEditable(int row, int column) {
-														return columnEditables[column];
-													}
-												});
-												table_2.setBounds(362, 287, 416, 30);
-												notenfenster.add(table_2);
+		JComboBox fachDropdown = new JComboBox();
+		fachDropdown.setBackground(Color.LIGHT_GRAY);
+		fachDropdown.setBounds(787, 20, 127, 30);
+		contentPane_1.add(fachDropdown);
+		fachDropdown.setModel(new DefaultComboBoxModel(
+				new String[] { "--bitte auswählen--", "Deutsch", "Englisch", "Mathe", "Physik", "Chemie", "Biologie",
+						"Sozialkunde", "Erdkunde", "Religion", "Informatik", "Sport", "Kunst", "Musik" }));
 
-		JPanel notenhistorie = new JPanel();
-		notenhistorie.setBackground(Color.WHITE);
-		tabbedPane.addTab("Notenhistorie", null, notenhistorie, null);
-		notenhistorie.setLayout(null);
-		
-		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Fach1"},
-				{""},
-				{""},
-				{""},
-				{""},
-				{""},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-			},
-			new String[] {
-				"New column"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false
-			};
+		JLabel notenLabel = new JLabel("Note:");
+		notenLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		notenLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		notenLabel.setBounds(256, 18, 59, 28);
+		contentPane_1.add(notenLabel);
+
+		JLabel testformLabel = new JLabel("Testform:");
+		testformLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		testformLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		testformLabel.setBounds(464, 14, 104, 40);
+		contentPane_1.add(testformLabel);
+
+		JComboBox testformBox = new JComboBox();
+		testformBox.setBackground(Color.LIGHT_GRAY);
+		testformBox.setModel(new DefaultComboBoxModel(
+				new String[] { "--Bitte auswählen--", "Klausur (50%)", "Epo(30%)", "HÜ(20%)" }));
+		testformBox.setBounds(560, 20, 138, 30);
+		contentPane_1.add(testformBox);
+
+		JLabel lblNewLabel_1 = new JLabel("Fach:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_1.setBounds(732, 21, 59, 25);
+		contentPane_1.add(lblNewLabel_1);
+
+		JButton hinzufButton = new JButton("Hinzufügen");
+		hinzufButton.setBackground(Color.LIGHT_GRAY);
+		hinzufButton.setBounds(283, 370, 89, 23);
+		contentPane_1.add(hinzufButton);
+
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBackground(Color.LIGHT_GRAY);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "--Bitte auswählen--", "1+\t", "1\t", "1-\t", "2+\t",
+				"2\t", "2-\t", "3+\t", "3\t", "3-\t", "4+\t", "4\t", "4-\t", "5+\t", "5\t", "5-\t", "6\t" }));
+		comboBox.setBounds(315, 19, 127, 30);
+		contentPane_1.add(comboBox);
+
+		table_2 = new JTable();
+		table_2.setShowHorizontalLines(false);
+		table_2.setBackground(Color.LIGHT_GRAY);
+		table_2.setFont(new Font("Tahoma", Font.BOLD, 14));
+		table_2.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table_2.setModel(
+				new DefaultTableModel(new Object[][] { { "Klausuren", "Epos", "H\u00DCs" }, { null, null, null }, },
+						new String[] { "New column", "New column", "New column" }) {
+					boolean[] columnEditables = new boolean[] { false, false, false };
+
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
+		table_2.setBounds(287, 116, 416, 30);
+		contentPane_1.add(table_2);
+
+		table = new JTable();
+		table.setBackground(Color.LIGHT_GRAY);
+		table.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		table.setShowVerticalLines(false);
+		table.setFont(new Font("Tahoma", Font.BOLD, 15));
+		table.setModel(new DefaultTableModel(
+				new Object[][] { { "1+", "=", "15" }, { "1", "=", "14  " }, { "1-", "=", "13" }, { "2+", "=", "12" },
+						{ "2", "=", "11" }, { "2-", "=", "10" }, { "3+", "=", "9" }, { "3", "=", "8" },
+						{ "3-", "=", "7" }, { "4+", "=", "6" }, { "4", "=", "5" }, { "4-", "=", "4" },
+						{ "5+", "=", "3" }, { "5", "=", "2" }, { "5-", "=", "1" }, { "6", "=", "0" }, },
+				new String[] { "New column", "New column", "New column" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false };
+
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
-		table_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table_1.setBounds(10, 11, 139, 434);
-		notenhistorie.add(table_1);
-
+		table.getColumnModel().getColumn(0).setPreferredWidth(25);
+		table.getColumnModel().getColumn(0).setMinWidth(25);
+		table.getColumnModel().getColumn(0).setMaxWidth(25);
+		table.getColumnModel().getColumn(1).setPreferredWidth(20);
+		table.getColumnModel().getColumn(1).setMaxWidth(25);
+		table.getColumnModel().getColumn(2).setPreferredWidth(25);
+		table.getColumnModel().getColumn(2).setMinWidth(25);
+		table.getColumnModel().getColumn(2).setMaxWidth(32);
+		table.setBounds(830, 131, 83, 256);
+		contentPane_1.add(table);
+		panel.setBackground(SystemColor.activeCaption);
+		panel.setBounds(-30, -3, 269, 413);
+		contentPane_1.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(93, 75, 130, 132);
+		panel.add(lblNewLabel);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\CjVan\\OneDrive\\Alte Dateien\\Desktop\\HerrDietrichWhiteTProjekt\\354637 (8).png"));
+		
+				nameField = new JTextField();
+				nameField.setForeground(Color.BLACK);
+				nameField.setBackground(Color.LIGHT_GRAY);
+				nameField.setBounds(52, 232, 200, 20);
+				panel.add(nameField);
+				nameField.setHorizontalAlignment(SwingConstants.CENTER);
+				nameField.setEditable(false);
+				nameField.setText(schuelername);
+				nameField.setColumns(10);
+				
+						klasseField = new JTextField();
+						klasseField.setForeground(Color.BLACK);
+						klasseField.setBackground(Color.LIGHT_GRAY);
+						klasseField.setBounds(52, 261, 200, 20);
+						panel.add(klasseField);
+						klasseField.setHorizontalAlignment(SwingConstants.CENTER);
+						klasseField.setEditable(false);
+						klasseField.setText(klasse);
+						klasseField.setColumns(10);
+						
+								eMailField = new JTextField();
+								eMailField.setBackground(Color.LIGHT_GRAY);
+								eMailField.setBounds(52, 292, 200, 20);
+								panel.add(eMailField);
+								eMailField.setHorizontalAlignment(SwingConstants.CENTER);
+								eMailField.setEditable(false);
+								eMailField.setText(email);
+								eMailField.setColumns(10);
 	}
 
 	public void setSchuelerInfo(int selectedIndex, String klasse) throws IOException {
