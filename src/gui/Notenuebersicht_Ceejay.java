@@ -252,6 +252,7 @@ public class Notenuebersicht_Ceejay extends JFrame {
 		fachDropdown.setModel(new DefaultComboBoxModel(
 				new String[] { "--bitte auswählen--", "Deutsch", "Englisch", "Mathe", "Physik", "Chemie", "Biologie",
 						"Sozialkunde", "Erdkunde", "Religion", "Informatik", "Sport", "Kunst", "Musik" }));
+		updateFaechernamen(fachDropdown);
 	}
 
 	private void createWindow() throws IOException {
