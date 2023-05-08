@@ -4,8 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import org.junit.Test;
 import csv_reader_stuff.Datenleser;
 
@@ -61,8 +59,6 @@ public class DatenleserTest {
         assertTrue("BSIT22a".equals( testSechs.getKlassenNamen().get(0)));
         assertTrue("BSIT22b".equals( testSechs.getKlassenNamen().get(1)));
     }
-
-    
 
     
 }
