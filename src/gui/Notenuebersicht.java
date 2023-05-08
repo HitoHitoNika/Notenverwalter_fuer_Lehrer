@@ -51,8 +51,8 @@ public class Notenuebersicht extends JFrame {
 	JComboBox testformBox = new JComboBox();
 
 	public Notenuebersicht(int selectedIndex, String klasse) throws IOException {
-		this.selectedIndex=selectedIndex;
-		this.klasse=klasse;
+		this.selectedIndex = selectedIndex;
+		this.klasse = klasse;
 		createWindow();
 
 		initFachDropdown();
@@ -190,6 +190,13 @@ public class Notenuebersicht extends JFrame {
 		JButton hinzufButton = new JButton("Hinzufügen");
 		hinzufButton.setBackground(Color.LIGHT_GRAY);
 		hinzufButton.setBounds(283, 370, 89, 23);
+		hinzufButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		contentPane_1.add(hinzufButton);
 	}
 
@@ -201,11 +208,13 @@ public class Notenuebersicht extends JFrame {
 	}
 
 	private void initTestComboBox() {
+
 		testformBox.setBackground(Color.LIGHT_GRAY);
 		testformBox.setModel(new DefaultComboBoxModel(
 				new String[] { "--Bitte auswählen--", "Klausur (50%)", "Epo(30%)", "HÜ(20%)" }));
 		testformBox.setBounds(560, 20, 138, 30);
 		contentPane_1.add(testformBox);
+
 	}
 
 	private void initTestformLabel() {
@@ -239,7 +248,7 @@ public class Notenuebersicht extends JFrame {
 		setBackground(new Color(255, 255, 255));
 		setTitle("Schüler");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -270,34 +279,36 @@ public class Notenuebersicht extends JFrame {
 		repaint();
 
 	}
+
 	public void updateFaechernamen(JComboBox comboBox) {
 		comboBox.removeAllItems();
 		faecher.clear();
 		faecher = csvReader.getFaecherNamen(klasse);
-		 for (String item : faecher) {
-		      comboBox.addItem(item);
-		      
-		    }
+		for (String item : faecher) {
+			comboBox.addItem(item);
+
+		}
 	}
-	  private void generateKlassenDropdown() {
-		    faecher = csvReader.getFaecherNamen(klasse);
-		    fachDropdown.setBackground(UIManager.getColor("Button.background"));
-		    fachDropdown.setModel(new DefaultComboBoxModel(faecher.toArray()));
-		    // Soll ausgewählte Klasse des Nutzers abspeichern zur weiteren Verarbeitung
-		    fachDropdown.addActionListener(new ActionListener() {
-		    
-		      @Override
-		      public void actionPerformed(ActionEvent e) {
-		        klasse = (String) fachDropdown.getSelectedItem();
-		        if (klasse != null) {
-		          updateFaechernamen(fachDropdown);
-		        }
-		      }
-		    });
-	  }
-	  private void testform() {
-//		   testformBox.getSelectedIndex(1);
-		   
-	  }
-		      
+
+	private void generateKlassenDropdown() {
+		faecher = csvReader.getFaecherNamen(klasse);
+		fachDropdown.setBackground(UIManager.getColor("Button.background"));
+		fachDropdown.setModel(new DefaultComboBoxModel(faecher.toArray()));
+		// Soll ausgewählte Klasse des Nutzers abspeichern zur weiteren Verarbeitung
+		fachDropdown.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				klasse = (String) fachDropdown.getSelectedItem();
+				if (klasse != null) {
+					updateFaechernamen(fachDropdown);
+				}
+			}
+		});
+	}
+
+	private void testform() {
+		testformBox.getSelectedIndex();
+
+	}
+
 }

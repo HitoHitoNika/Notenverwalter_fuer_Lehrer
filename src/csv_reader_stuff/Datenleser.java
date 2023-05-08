@@ -183,3 +183,18 @@ public int[] getNoten(int schuelerID,int testArtID) throws IOException{
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
