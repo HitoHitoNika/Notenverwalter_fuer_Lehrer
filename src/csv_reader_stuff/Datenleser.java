@@ -127,7 +127,8 @@ public boolean hasMoreLines() {
 }
 
 public double getAverage(int schuelerID) throws IOException{
-    double[] average = {0, 0, 0, 0};
+    schuelerID++;
+	double[] average = {0, 0, 0, 0};
     int[] countTestArten = {0, 0, 0};
     try {
         getLine();
