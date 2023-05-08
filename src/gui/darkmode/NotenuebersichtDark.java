@@ -13,6 +13,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.io.IOException;
+import java.util.Set;
+
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JTable;
@@ -56,6 +58,7 @@ public class NotenuebersichtDark extends JFrame {
 	JPanel notenhistorie;
 
 	public NotenuebersichtDark(int selectedIndex, String klasse) throws IOException {
+		
 		this.selectedIndex=selectedIndex;
 		this.klasse=klasse;
 		createWindow();
@@ -354,7 +357,7 @@ public class NotenuebersichtDark extends JFrame {
 		setBackground(Color.DARK_GRAY);
 		setTitle("Schüler");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 899, 571);
+		setBounds(100, 100, 940, 523);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

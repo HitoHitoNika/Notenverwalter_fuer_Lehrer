@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -17,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
@@ -64,6 +66,8 @@ public class Notenuebersicht_Ceejay extends JFrame {
 	private JTable table_2;
 	private JTable table;
 	private final JPanel panel = new JPanel();
+	private ArrayList<String> faecher = new ArrayList<>();
+	private JComboBox fachDropdown = new JComboBox();
 
 	public Notenuebersicht_Ceejay(int selectedIndex, String klasse) throws IOException {
 		setSchuelerInfo(selectedIndex, klasse);
@@ -82,7 +86,9 @@ public class Notenuebersicht_Ceejay extends JFrame {
 		setContentPane(contentPane_1);
 		contentPane_1.setLayout(null);
 
-		JComboBox fachDropdown = new JComboBox();
+		
+		
+		
 		fachDropdown.setBackground(Color.LIGHT_GRAY);
 		fachDropdown.setBounds(787, 20, 127, 30);
 		contentPane_1.add(fachDropdown);
@@ -228,4 +234,30 @@ public class Notenuebersicht_Ceejay extends JFrame {
 		repaint();
 
 	}
+	public void updateFaechernamen(JComboBox comboBox) {
+		comboBox.removeAllItems();
+		faecher.clear();
+		csvReader.getFaecherNamen(klasse);
+		 for (String item : faecher) {
+		      comboBox.addItem(item);
+		      
+		    }
+	}
+	  private void generateKlassenDropdown() {
+		    faecher = csvReader.getFaecherNamen(klasse);
+		    fachDropdown.setBackground(UIManager.getColor("Button.background"));
+		    fachDropdown.setModel(new DefaultComboBoxModel(faecher.toArray()));
+		    // Soll ausgewählte Klasse des Nutzers abspeichern zur weiteren Verarbeitung
+		    fachDropdown.addActionListener(new ActionListener() {
+		    
+		      @Override
+		      public void actionPerformed(ActionEvent e) {
+		        klasse = (String) fachDropdown.getSelectedItem();
+		        if (klasse != null) {
+		          updateFaechernamen(fachDropdown);
+		        }
+		      }
+		    });
+	  }
+		      
 }

@@ -135,13 +135,31 @@ private void createFaecherTable() {
 		mssTable.setShowVerticalLines(false);
 		mssTable.setFont(new Font("Tahoma", Font.BOLD, 15));
 		mssTable.setModel(new DefaultTableModel(
-				new Object[][] { { "1+", "=", "15" }, { "1", "=", "14  " }, { "1-", "=", "13" }, { "2+", "=", "12" },
-						{ "2", "=", "11" }, { "2-", "=", "10" }, { "3+", "=", "9" }, { "3", "=", "8" },
-						{ "3-", "=", "7" }, { "4+", "=", "6" }, { "4", "=", "5" }, { "4-", "=", "4" },
-						{ "5+", "=", "3" }, { "5", "=", "2" }, { "5-", "=", "1" }, { "6", "=", "0" }, },
-				new String[] { "New column", "New column", "New column" }) {
-			boolean[] columnEditables = new boolean[] { false, false, false };
-
+			new Object[][] {
+				{"1+", "=", "15"},
+				{"1", "=", "14  "},
+				{"1-", "=", "13"},
+				{"2+", "=", "12"},
+				{"2", "=", "11"},
+				{"2-", "=", "10"},
+				{"3+", "=", "9"},
+				{"3", "=", "8"},
+				{"3-", "=", "7"},
+				{"4+", "=", "6"},
+				{"4", "=", "5"},
+				{"4-", "=", "4"},
+				{"5+", "=", "3"},
+				{"5", "=", "2"},
+				{"5-", "=", "1"},
+				{"6", "=", "0"},
+			},
+			new String[] {
+				"New column", "New column", "New column"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false
+			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
@@ -154,7 +172,7 @@ private void createFaecherTable() {
 		mssTable.getColumnModel().getColumn(2).setPreferredWidth(25);
 		mssTable.getColumnModel().getColumn(2).setMinWidth(25);
 		mssTable.getColumnModel().getColumn(2).setMaxWidth(32);
-		mssTable.setBounds(153, 143, 83, 256);
+		mssTable.setBounds(144, 149, 83, 256);
 		notenfenster.add(mssTable);
 	}
 
