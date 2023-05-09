@@ -1,4 +1,4 @@
-package gui;
+package gui.darkmode;
 
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
@@ -12,20 +12,20 @@ import csv_reader_stuff.Datenleser;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
-
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Notenuebersicht extends JFrame {
+public class NotenuebersichtDark extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel contentPane_1;
 	private JTextField eMailField;
 	// Wird benötigt für das Auslesen und ausgeben benötigter Infos aus den CSV
 	// Dateien
@@ -55,7 +55,7 @@ public class Notenuebersicht extends JFrame {
 	JComboBox comboBox;
 	JPanel notenhistorie;
 
-	public Notenuebersicht(int selectedIndex, String klasse) throws IOException {
+	public NotenuebersichtDark(int selectedIndex, String klasse) throws IOException {
 		this.selectedIndex=selectedIndex;
 		this.klasse=klasse;
 		createWindow();
@@ -92,7 +92,8 @@ public class Notenuebersicht extends JFrame {
 
 		createFaecherTable();
 	}
-private void createFaecherTable() {
+
+	private void createFaecherTable() {
 		
 		faecherTable = new JTable();
 		faecherTable.setToolTipText("Fäscher");
@@ -130,7 +131,8 @@ private void createFaecherTable() {
 	private void createMssTable() {
 		
 		mssTable = new JTable();
-		mssTable.setBackground(Color.WHITE);
+		mssTable.setForeground(Color.BLACK);
+		mssTable.setBackground(Color.GRAY);
 		mssTable.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
 		mssTable.setShowVerticalLines(false);
 		mssTable.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -160,8 +162,9 @@ private void createFaecherTable() {
 
 	private void createTableNotenübersicht() {
 		tableNotenübersicht = new JTable();
+		tableNotenübersicht.setForeground(Color.BLACK);
 		tableNotenübersicht.setShowHorizontalLines(false);
-		tableNotenübersicht.setBackground(Color.WHITE);
+		tableNotenübersicht.setBackground(Color.GRAY);
 		tableNotenübersicht.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tableNotenübersicht.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		tableNotenübersicht.setModel(
@@ -292,7 +295,7 @@ private void createFaecherTable() {
 
 	private void createEmailField() {
 		eMailField = new JTextField();
-		eMailField.setForeground(Color.WHITE);
+		eMailField.setForeground(Color.BLACK);
 		eMailField.setFont(new Font("Tahoma", Font.BOLD, 11));
 		eMailField.setBackground(Color.GRAY);
 		eMailField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -306,7 +309,7 @@ private void createFaecherTable() {
 	private void createKlasseField() {
 		klasseField = new JTextField();
 		klasseField.setFont(new Font("Tahoma", Font.BOLD, 11));
-		klasseField.setForeground(Color.WHITE);
+		klasseField.setForeground(Color.BLACK);
 		klasseField.setBackground(Color.GRAY);
 		klasseField.setHorizontalAlignment(SwingConstants.CENTER);
 		klasseField.setBounds(231, 11, 203, 20);
@@ -319,7 +322,7 @@ private void createFaecherTable() {
 	private void createNameField() {
 		nameField = new JTextField();
 		nameField.setFont(new Font("Tahoma", Font.BOLD, 11));
-		nameField.setForeground(Color.WHITE);
+		nameField.setForeground(Color.BLACK);
 		nameField.setBackground(Color.GRAY);
 		nameField.setHorizontalAlignment(SwingConstants.CENTER);
 		nameField.setBounds(0, 11, 236, 20);
@@ -331,18 +334,19 @@ private void createFaecherTable() {
 
 	private void createJPanel() {
 		notenfenster = new JPanel();
-		notenfenster.setBackground(Color.WHITE);
+		notenfenster.setBorder(null);
+		notenfenster.setBackground(Color.DARK_GRAY);
 		tabbedPane.addTab("Notenfenster", null, notenfenster, null);
 		notenfenster.setLayout(null);
 	}
 
 	private void createJTabbedPane() {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setForeground(Color.WHITE);
+		tabbedPane.setForeground(Color.BLACK);
 		tabbedPane.setFont(new Font("Tahoma", Font.BOLD, 11));
 		tabbedPane.setBackground(Color.DARK_GRAY);
-		tabbedPane.setBounds(10, 0, 808, 484);
-		contentPane.add(tabbedPane);
+		tabbedPane.setBounds(0, 0, 818, 484);
+		contentPane_1.add(tabbedPane);
 	}
 
 	private void createWindow() throws IOException {
@@ -350,17 +354,18 @@ private void createFaecherTable() {
 		setBackground(Color.DARK_GRAY);
 		setTitle("Schüler");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 579, 163);
+		setBounds(100, 100, 899, 571);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 824, 523);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane_1 = new JPanel();
+		contentPane_1.setBackground(Color.DARK_GRAY);
+		contentPane_1.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setContentPane(contentPane_1);
+		contentPane_1.setLayout(null);
 	}
 
 	public void setSchuelerInfo(int selectedIndex, String klasse) throws IOException {

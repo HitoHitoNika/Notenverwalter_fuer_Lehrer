@@ -2,7 +2,7 @@ package start;
 
 import java.awt.EventQueue;
 
-import gui.KlassenAuswaehlen_Frame;
+import gui.selecter.StartWindow;
 
 public class App {
 	// Starten des GUIs
@@ -13,11 +13,9 @@ public class App {
 			public void run() {
 				try {
 					// Objekt des GUIs wird instanziiert
-					KlassenAuswaehlen_Frame frame = new KlassenAuswaehlen_Frame();
+					StartWindow frame=new StartWindow();
 					// GUI wird sichtbar gemacht
 					frame.setVisible(true);
-					// Da im Programm mehrere Exceptions passieren könnten, werden diese hier
-					// abgefangen
 				} catch (Exception e) {
 					e.printStackTrace();
 					// Zur einfacheren Nachverfolgung falls Fehler auftreten
