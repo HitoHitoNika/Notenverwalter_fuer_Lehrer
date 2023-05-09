@@ -178,5 +178,17 @@ public int[] getNoten(int schuelerID,int testArtID) throws IOException{
     }
 }
 
+public ArrayList<String> getConfig() throws IOException{
+    ArrayList<String> config = new ArrayList<>();
+    csvFile = new File("./CSV_Dateien/config/config.csv");
+    initReader();
+    while(hasMoreLines()){
+    config.add(getLine());
+    }
+    System.out.println(config.size());
+    return config;
+}
+
+
 
 }

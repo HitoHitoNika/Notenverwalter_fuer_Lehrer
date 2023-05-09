@@ -4,10 +4,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+
+import csv_reader_stuff.Datenleser;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -21,7 +25,7 @@ public class StartWindow extends JFrame{
 	private JPanel contentPane;
 	
 	
-	public StartWindow() {
+	public StartWindow() throws FileNotFoundException {
 		initWindow();
 		initLightmodeButton();
 		initDarkmodeButton();
@@ -33,8 +37,9 @@ public class StartWindow extends JFrame{
 			 public void mouseClicked(MouseEvent e) {
 				 try {
 						KlassenAuswaehlen_Frame frame = new KlassenAuswaehlen_Frame();
-						 frame.setVisible(true);
-						 setVisible(false);
+						frame.setVisible(true);
+						setVisible(false);
+
 					} catch (IOException e1) {
 						System.err.println("Fehler beim Aufruf von Dark_Frame 1");
 						e1.printStackTrace();
@@ -48,11 +53,11 @@ public class StartWindow extends JFrame{
 	private void initDarkmodeButton() {
 		darkmodeButton.setBackground(UIManager.getColor("Button.background"));
 		darkmodeButton.addMouseListener(new MouseAdapter() {
-			 public void mouseClicked(MouseEvent e) {
-				 try {
+			public void mouseClicked(MouseEvent e) {
+				try {
 					KlassenAuswaehlen_Frame_Dark frame = new KlassenAuswaehlen_Frame_Dark();
-					 frame.setVisible(true);
-					 setVisible(false);
+					frame.setVisible(true);
+					setVisible(false);
 				} catch (IOException e1) {
 					System.err.println("Fehler beim Aufruf von Dark_Frame 1");
 					e1.printStackTrace();
