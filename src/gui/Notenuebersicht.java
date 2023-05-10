@@ -49,6 +49,7 @@ public class Notenuebersicht extends JFrame {
 	private JComboBox fachDropdown = new JComboBox();
 	private int selectedIndex;
 	JComboBox testformBox = new JComboBox();
+	JComboBox noteDropdown = new JComboBox();
 
 	public Notenuebersicht(int selectedIndex, String klasse) throws IOException {
 		this.selectedIndex = selectedIndex;
@@ -156,6 +157,26 @@ public class Notenuebersicht extends JFrame {
 		panel.setBounds(-30, -3, 269, 413);
 		contentPane_1.add(panel);
 		panel.setLayout(null);
+		
+		JButton btnNewButton = new JButton("Back");
+		btnNewButton.addActionListener(new ActionListener() {
+			KlassenAuswaehlen_Frame frame;
+			public void actionPerformed(ActionEvent e) {
+				try {
+					// Das alte Fenster wird auf frame gespeichert
+					frame = new KlassenAuswaehlen_Frame();
+					//Das neue  Fenster wird sichtbar
+					frame.setVisible(true);
+					setVisible(false);
+				} catch (IOException e2) {
+					// Exception wird ausgeben mit print line für debugging Zwecke
+			          e2.printStackTrace();
+				}
+			}
+		});
+		btnNewButton.setBackground(Color.LIGHT_GRAY);
+		btnNewButton.setBounds(702, 370, 89, 23);
+		contentPane_1.add(btnNewButton);
 	}
 
 	private void initNotenTable() {
@@ -178,20 +199,23 @@ public class Notenuebersicht extends JFrame {
 	}
 
 	private void initNotenDropdown() {
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBackground(Color.LIGHT_GRAY);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "--Bitte auswählen--", "1+\t", "1\t", "1-\t", "2+\t",
+		noteDropdown.setBackground(Color.LIGHT_GRAY);
+		noteDropdown.setModel(new DefaultComboBoxModel(new String[] { "--Bitte auswählen--", "1+\t", "1\t", "1-\t", "2+\t",
 				"2\t", "2-\t", "3+\t", "3\t", "3-\t", "4+\t", "4\t", "4-\t", "5+\t", "5\t", "5-\t", "6\t" }));
-		comboBox.setBounds(315, 19, 127, 30);
-		contentPane_1.add(comboBox);
+		noteDropdown.setBounds(315, 19, 127, 30);
+		contentPane_1.add(noteDropdown);
 	}
 
+	public int getselectedIndex(JComboBox comboBox) {
+		return comboBox.getSelectedIndex();
+		}
+	
 	private void initHinzufButton() {
 		JButton hinzufButton = new JButton("Hinzufügen");
 		hinzufButton.setBackground(Color.LIGHT_GRAY);
 		hinzufButton.setBounds(283, 370, 89, 23);
 		hinzufButton.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
@@ -310,5 +334,4 @@ public class Notenuebersicht extends JFrame {
 		testformBox.getSelectedIndex();
 
 	}
-
 }
