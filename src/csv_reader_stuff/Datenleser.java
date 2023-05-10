@@ -59,7 +59,7 @@ public class Datenleser {
   }
 
   /**
-   * 
+   *
    * @return Gibt eine Zeile der CSV zurück
    * @throws IOException Datei könnte leer sein, oder nicht vorhanden
    */
@@ -167,7 +167,7 @@ public class Datenleser {
 
   /**
    * Prüft ob die CSV Datei noch verfügbare Zeilen hat
-   * @return boolean 
+   * @return boolean
    */
   public boolean hasMoreLines() {
     try {
@@ -217,7 +217,7 @@ public class Datenleser {
   }
 
   /**
-   * 
+   *
    * @param schuelerID
    * @param testArtID
    * @return Int Array der Noten eines Schülers in einer bestimmten Testart
@@ -249,6 +249,17 @@ public class Datenleser {
       noten = notenList.stream().mapToInt(i -> i).toArray();
       return noten;
     }
+  }
+
+  public ArrayList<String> getConfig() throws IOException {
+    ArrayList<String> config = new ArrayList<>();
+    csvFile = new File("./CSV_Dateien/config/config.csv");
+    initReader();
+    while (hasMoreLines()) {
+      config.add(getLine());
+    }
+    System.out.println(config.size());
+    return config;
   }
 
 }
