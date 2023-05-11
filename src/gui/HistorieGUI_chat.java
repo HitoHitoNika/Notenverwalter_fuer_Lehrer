@@ -2,6 +2,9 @@ package gui;
 
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +15,8 @@ import java.awt.EventQueue;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 
+import csv_reader_stuff.Datenleser;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,7 +24,18 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class HistorieGUI_chat {
-
+	
+	Datenleser csvReader;
+	  String buffer;
+	  String schuelername;
+	  String email;
+	  String klasse;
+	  int klausur = 1;
+	  int hue = 2;
+	  int epo = 3;
+	  private ArrayList<String> faecher = new ArrayList<>();
+			  
+	  private int selectedIndex;
 	private JFrame frame;
 	private JTable table;
 	private DefaultTableModel tableModel;
@@ -34,7 +50,7 @@ public class HistorieGUI_chat {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HistorieGUI_chat window = new HistorieGUI_chat();
+					HistorieGUI_chat window = new HistorieGUI_chat(1,"BSIT22a" );
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,14 +62,17 @@ public class HistorieGUI_chat {
 	/**
 	 * Create the application.
 	 */
-	public HistorieGUI_chat() {
+	public HistorieGUI_chat(int selectedIndex, String klasse) throws IOException  {
+		this.selectedIndex = selectedIndex;
+	    this.klasse = klasse;
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
 	 */
-	private void initialize() {
+	private void initialize() throws IOException {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 602, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,7 +109,21 @@ public class HistorieGUI_chat {
 	            return this;
 	        }
 	    });
-
+		
+		csvReader.setFilePath(klasse);
+		csvReader.initReader();
+		
+		faecher = csvReader.getFaecherNamen(klasse);
+		csvReader.getNoten(selectedIndex, klausur);
+		csvReader.getNoten(selectedIndex, hue);
+		csvReader.getNoten(selectedIndex, epo);
+		csvReader.getFaecherNamen(klasse);
+		for (String item : faecher) {
+	    addRow(item, " 1.02 |  3.02   | 2.02 \n 1.02 | 2.02 ", "0.0", "0.0", 2.0);
+		
+		}
+		
+		
 		addRow("Mathematik", " 1.02 |  3.02   | 2.02 \n 1.02 | 2.02 ", "0.0", "0.0", 2.0);
 		addRow("Deutsch", "0.0", "3.5", "0.0", 3.5);
 		addRow("Englisch", "0.0", "0.0", "1.8", 1.8);
@@ -110,5 +143,5 @@ public class HistorieGUI_chat {
 		Object[] row = { subject, klausur, hü, epochalnote, averageGrade };
 		tableModel.addRow(row);
 	}
-
+	
 }
