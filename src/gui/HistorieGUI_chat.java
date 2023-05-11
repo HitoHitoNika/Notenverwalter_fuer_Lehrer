@@ -25,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class HistorieGUI_chat {
 	
-	Datenleser csvReader;
+	Datenleser csvReader = new Datenleser() ;
 	  String buffer;
 	  String schuelername;
 	  String email;
@@ -50,7 +50,7 @@ public class HistorieGUI_chat {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HistorieGUI_chat window = new HistorieGUI_chat(1,"BSIT22a" );
+					HistorieGUI_chat window = new HistorieGUI_chat(3,"BSIT22b" );
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -114,21 +114,14 @@ public class HistorieGUI_chat {
 		csvReader.initReader();
 		
 		faecher = csvReader.getFaecherNamen(klasse);
-		csvReader.getNoten(selectedIndex, klausur);
-		csvReader.getNoten(selectedIndex, hue);
-		csvReader.getNoten(selectedIndex, epo);
-		csvReader.getFaecherNamen(klasse);
+		
+		int [] klausurNoten = csvReader.getNoten(selectedIndex, 1);
 		for (String item : faecher) {
+			
 	    addRow(item, " 1.02 |  3.02   | 2.02 \n 1.02 | 2.02 ", "0.0", "0.0", 2.0);
 		
 		}
 		
-		
-		addRow("Mathematik", " 1.02 |  3.02   | 2.02 \n 1.02 | 2.02 ", "0.0", "0.0", 2.0);
-		addRow("Deutsch", "0.0", "3.5", "0.0", 3.5);
-		addRow("Englisch", "0.0", "0.0", "1.8", 1.8);
-		addRow("Chemie", "4.0", "0.0", "0.0", 4.0);
-		addRow("Physik", "0.0", "2.5", "0.0", 2.5);
 		
 		for (int c = 0; c < table.getColumnCount(); c++) {
 		    Class<?> colClass = table.getColumnClass(c);
