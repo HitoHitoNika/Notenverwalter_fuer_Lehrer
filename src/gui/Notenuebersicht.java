@@ -37,6 +37,12 @@ public class Notenuebersicht extends JFrame {
   String schuelername;
   String email;
   String klasse;
+  //noteneintragung
+  String note;
+  int test;
+  String fach;
+
+  
   private JTextField nameField;
   private JTextField klasseField;
   private JTable table_1;
@@ -45,11 +51,11 @@ public class Notenuebersicht extends JFrame {
   private final JPanel panel = new JPanel();
   private ArrayList<String> faecher = new ArrayList<>();
   private JComboBox fachDropdown = new JComboBox();
-  private int selectedIndex;
+  private int schuelerID;
   JComboBox testformBox = new JComboBox();
 
   public Notenuebersicht(int selectedIndex, String klasse) throws IOException {
-    this.selectedIndex = selectedIndex;
+    this.schuelerID = selectedIndex;
     this.klasse = klasse;
     createWindow();
 
@@ -207,6 +213,14 @@ public class Notenuebersicht extends JFrame {
         "2\t", "2-\t", "3+\t", "3\t", "3-\t", "4+\t", "4\t", "4-\t", "5+\t", "5\t", "5-\t", "6\t" }));
     comboBox.setBounds(315, 19, 127, 30);
     contentPane_1.add(comboBox);
+
+    comboBox.addActionListener(new ActionListener() {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        note = (String) comboBox.getSelectedItem();
+        }
+    });
   }
 
   /**
@@ -217,6 +231,21 @@ public class Notenuebersicht extends JFrame {
     hinzufButton.setBackground(Color.LIGHT_GRAY);
     hinzufButton.setBounds(283, 370, 89, 23);
     contentPane_1.add(hinzufButton);
+    fachDropdown.addActionListener(new ActionListener() {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        try {
+          Datenleser meinReader = new Datenleser();
+          meinReader.setFilePath( klasse, fach);
+        } catch (IOException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
+        test =  fachDropdown.getSelectedIndex();
+      }
+    });
+  
   }
 
   /**
@@ -238,6 +267,13 @@ public class Notenuebersicht extends JFrame {
         new String[] { "--Bitte auswählen--", "Klausur (50%)", "Epo(30%)", "HÜ(20%)" }));
     testformBox.setBounds(560, 20, 138, 30);
     contentPane_1.add(testformBox);
+    fachDropdown.addActionListener(new ActionListener() {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        test =  fachDropdown.getSelectedIndex();
+      }
+    });
   }
 
   /**
@@ -270,10 +306,18 @@ public class Notenuebersicht extends JFrame {
         new String[] { "--bitte auswählen--", "Deutsch", "Englisch", "Mathe", "Physik", "Chemie", "Biologie",
             "Sozialkunde", "Erdkunde", "Religion", "Informatik", "Sport", "Kunst", "Musik" }));
     updateFaechernamen(fachDropdown);
+
+    fachDropdown.addActionListener(new ActionListener() {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        fach = (String) fachDropdown.getSelectedItem();
+      }
+    });
   }
 
   private void createWindow() throws IOException {
-    setSchuelerInfo(selectedIndex, klasse);
+    setSchuelerInfo(schuelerID, klasse);
     setBackground(new Color(255, 255, 255));
     setTitle("Schüler");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -316,6 +360,13 @@ public class Notenuebersicht extends JFrame {
     for (String item : faecher) {
       comboBox.addItem(item);
 
+      comboBox.addActionListener(new ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          klasse = (String) comboBox.getSelectedItem();
+        }
+      });
     }
   }
 
@@ -329,9 +380,6 @@ public class Notenuebersicht extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         klasse = (String) fachDropdown.getSelectedItem();
-        if (klasse != null) {
-          updateFaechernamen(fachDropdown);
-        }
       }
     });
   }
