@@ -21,7 +21,8 @@ public class Datenleser {
   private ArrayList<String> klassenNamen = new ArrayList<>();
   // Speichert dynamisch die Faechernamen
   private ArrayList<String> faecherNamen = new ArrayList<>();
-
+  private String fach;
+  
   /**
   * Konstruktor
   * @throws FileNotFoundException Aufgrund des BufferedReaders
@@ -158,8 +159,11 @@ public class Datenleser {
     //Hier wird nun über das obige Array iteriert
     for (File file : files) {
       if (!"Schuelerliste.csv".equals(file.getName())) {
+    	 //hier wird der Fachname auf Fach gespeichert und um 4 Stellen gekürzt 
+    	fach = file.getName();
+    	fach = fach.substring(0, fach.length() - 4);
         //Der ArrayList werden hier die Namen der Faecher mitgegeben
-        faecherNamen.add(file.getName());
+        faecherNamen.add(fach);
       }
     }
     return faecherNamen;
