@@ -28,7 +28,7 @@ public class Datenleser {
   * @throws FileNotFoundException Aufgrund des BufferedReaders
   */
   public Datenleser() throws FileNotFoundException {
-
+  
   }
 
   /**
@@ -264,6 +264,13 @@ public class Datenleser {
     }
     System.out.println(config.size());
     return config;
+  }
+
+  public String getNeueNote(String note, int schuelerID, int test ){
+    
+    
+
+    return "fickschnitzel";
   }
 
 }
