@@ -5,16 +5,12 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import csv_reader_stuff.Datenleser;
-
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 import gui.*;
 import gui.darkmode.*;
 
