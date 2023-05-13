@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JLabel;
 
 public class HistorieGUI_chat {
 
@@ -30,13 +31,14 @@ public class HistorieGUI_chat {
 	String schuelername;
 	String email;
 	String klasse;
-	int klausur = 1;
-	int hue = 2;
-	int epo = 3;
+
+	private static final int klausur = 1;
+	private static final int epo = 2;
+	private static final int hue = 3;
 	private ArrayList<String> faecher = new ArrayList<>();
 
 	private int selectedIndex;
-	private JFrame frame;
+	private JFrame frmNotenhistorieVon;
 	private JTable table;
 	private DefaultTableModel tableModel;
 	private JPanel contentPane;
@@ -50,8 +52,8 @@ public class HistorieGUI_chat {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HistorieGUI_chat window = new HistorieGUI_chat(1, "BSIT22b");
-					window.frame.setVisible(true);
+					HistorieGUI_chat window = new HistorieGUI_chat(0, "BSIT22b");
+					window.frmNotenhistorieVon.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -74,21 +76,20 @@ public class HistorieGUI_chat {
 	 * @throws IOException
 	 */
 	private void initialize() throws IOException {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 602, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		frmNotenhistorieVon = new JFrame();
+		frmNotenhistorieVon.setTitle("Notenhistorie von ");
+		frmNotenhistorieVon.setBounds(100, 100, 602, 500);
+		frmNotenhistorieVon.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
-		frame.setContentPane(contentPane);
+		frmNotenhistorieVon.setContentPane(contentPane);
 
 		tableModel = new DefaultTableModel(columnNames, 0);
 		{
-
 		}
 		contentPane.setLayout(null);
 		table = new JTable(tableModel);
 		scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(10, 5, 566, 427);
+		scrollPane.setBounds(10, 5, 566, 398);
 		contentPane.add(scrollPane);
 		table.setRowHeight(70);
 
@@ -116,78 +117,89 @@ public class HistorieGUI_chat {
 		csvReader.initReader();
 		faecher = csvReader.getFaecherNamen(klasse);
 		csvReader.closeFile();
-
-		Datenleser csvReader2 = new Datenleser();
-		
-		
-		
-
 		for (String item : faecher) {
-			String item2 = item.replace(".csv", "");
-			csvReader2.setFilePath(item2, "BSIT22b");
-			csvReader2.initReader();
-			int[] noten1 = csvReader2.getNoten(0, 1);
+			addRowArray(trimCSVName(item), getNoten(trimCSVName(item), klasse, selectedIndex, klausur),
+					getNoten(trimCSVName(item), klasse, selectedIndex, epo),
+					getNoten(trimCSVName(item), klasse, selectedIndex, hue),
+					getAverage(trimCSVName(item), klasse, selectedIndex));
 			
-			csvReader2.setFilePath(item2, "BSIT22b");
-			csvReader2.initReader();
-			int[] noten2 = csvReader2.getNoten(0, 2);
-			csvReader2.closeFile();
-			csvReader2.setFilePath(item2, "BSIT22b");
-			csvReader2.initReader();
-			int[] noten3 = csvReader2.getNoten(0, 3);
-			csvReader2.closeFile();
-
-			addRowArray(item2, noten1, noten2, noten3, 12);
 			
-//			for (int i = 0; i < noten3.length; i++) {
-//				System.out.println(item2 + " Ist die Note  " + noten3[i]  + "  Ist die Länge: " + noten3.length);
-//				System.out.println(item2 + " Ist die Note  " + noten2[i]  + "  Ist die Länge: " + noten2.length);
-//				System.out.println(item2 + " Ist die Note  " + noten1[i]  + "  Ist die Länge: " + noten1.length);
-//			}
-
 		}
+		disableTable(table);
+		
+		JLabel lblNewLabel = new JLabel("Die Zeugnisnote beträgt: " + getZeugnisAverage(faecher));
+		lblNewLabel.setBounds(222, 436, 261, 14);
+		contentPane.add(lblNewLabel);
+	}
 
+	// Logik die GUI baut:
+
+	// Funktionale Logik =)
+
+	private double getAverage(String subject, String klasse, int selectedIndex) throws IOException {
+		Datenleser csvReader = new Datenleser();
+		csvReader.setFilePath(subject, klasse);
+		csvReader.initReader();
+		double average = csvReader.getAverage(0);
+		csvReader.closeFile();
+		return average;
+
+	}
+
+	private int[] getNoten(String subject, String klasse, int selectedIndex, int testform) throws IOException {
+		Datenleser csvReader = new Datenleser();
+		csvReader.setFilePath(subject, klasse);
+		csvReader.initReader();
+		int[] noten1 = csvReader.getNoten(selectedIndex, testform);
+		csvReader.closeFile();
+		return noten1;
+
+	}
+
+	private void disableTable(JTable table) {
 		for (int c = 0; c < table.getColumnCount(); c++) {
 			Class<?> colClass = table.getColumnClass(c);
 			table.setDefaultEditor(colClass, null); // disable editing for all columns
 		}
-	}
 
-	/**
-	 * Add a new row to the table.
-	 */
-	private void addRow(String subject, String klausur, String hü, String epochalnote, double averageGrade) {
-		Object[] row = { subject, klausur, hü, epochalnote, averageGrade };
-		tableModel.addRow(row);
 	}
 
 	private void addRowArray(String subject, int[] klausur, int[] hü, int[] epochalnote, double averageGrade) {
+		Object[] row = { subject, buildNoteResult(klausur), buildNoteResult(hü), buildNoteResult(epochalnote),
+				trimAverage(averageGrade) };
+		tableModel.addRow(row);
+	}
 
-		int commonLength = Math.max(klausur.length, Math.max(hü.length, epochalnote.length));
+	private String buildNoteResult(int[] grades) {
+		StringBuilder result = new StringBuilder();
+		for (int note : grades) {
+			result.append(note).append(" | ");
+		}
+		return result.toString();
+	}
 
-		StringBuilder klausurNoteResult = new StringBuilder();
-		StringBuilder hüNoteResult = new StringBuilder();
-		StringBuilder epochalNoteResult = new StringBuilder();
+	private String trimCSVName(String name) {
+		return name.replace(".csv", "");
 
-		for (int i = 0; i < commonLength; i++) {
-			if(i < klausur.length) {
-			int klausurNote = klausur[i];
-			klausurNoteResult.append(klausurNote).append(" | ");
-			}
-			if(i < hü.length) {
-				int hüNote = hü[i];
-				hüNoteResult.append(hüNote).append(" | ");
-				}
-			if(i < epochalnote.length) {
-				int epochalNote = epochalnote[i];
-				epochalNoteResult.append(epochalNote).append(" | ");
-				}
+	}
+
+	private double trimAverage(double averageGrade) {
+		averageGrade = Math.round(averageGrade * 100);
+		averageGrade /= 100;
+		return averageGrade;
+
+	}
+
+	private double getZeugnisAverage(ArrayList<String>  faecher) throws IOException {
+		double average = 0;
+		for (String fach : faecher) {
+			
+			average += getAverage(trimCSVName(fach), klasse, selectedIndex);
 			
 		}
+		return trimAverage(average / faecher.size());
+		
 
-		Object[] row = { subject, klausurNoteResult.toString(), hüNoteResult.toString(), epochalNoteResult.toString(),
-				12 };
-		tableModel.addRow(row);
 	}
 
 }
