@@ -174,7 +174,7 @@ public class NotenuebersichtDark extends JFrame {
 		table.getColumnModel().getColumn(2).setMaxWidth(32);
 		table.setBounds(830, 131, 83, 256);
 		contentPane_1.add(table);
-		panel.setBackground(SystemColor.activeCaption);
+		panel.setBackground(new Color(92, 108, 163));
 		panel.setBounds(-30, -3, 269, 413);
 		contentPane_1.add(panel);
 		panel.setLayout(null);
@@ -232,7 +232,7 @@ public class NotenuebersichtDark extends JFrame {
 	 */
 	private void initHinzufButton() {
 		JButton hinzufButton = new JButton("Hinzufügen");
-		hinzufButton.setBackground(Color.LIGHT_GRAY);
+		hinzufButton.setBackground(Color.GRAY);
 		hinzufButton.setBounds(283, 370, 89, 23);
 		contentPane_1.add(hinzufButton);
 		hinzufButton.addActionListener(new ActionListener() {
@@ -336,6 +336,7 @@ public class NotenuebersichtDark extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 960, 451);
 		contentPane_1 = new JPanel();
+		contentPane_1.setBackground(Color.DARK_GRAY);
 		contentPane_1.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane_1);
