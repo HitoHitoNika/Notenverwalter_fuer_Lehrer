@@ -136,6 +136,8 @@ public class HistorieGUI_chat {
 
 	// Funktionale Logik =)
 
+	
+	//DatenleserMethoden:
 	private double getAverage(String subject, String klasse, int selectedIndex) throws IOException {
 		Datenleser csvReader = new Datenleser();
 		csvReader.setFilePath(subject, klasse);
@@ -156,6 +158,21 @@ public class HistorieGUI_chat {
 
 	}
 
+	
+	//TrimMethoden:
+	private String trimCSVName(String name) {
+		return name.replace(".csv", "");
+
+	}
+
+	private double trimAverage(double averageGrade) {
+		averageGrade = Math.round(averageGrade * 100);
+		averageGrade /= 100;
+		return averageGrade;
+
+	}
+	
+	//Methoden für die Tabelle
 	private void disableTable(JTable table) {
 		for (int c = 0; c < table.getColumnCount(); c++) {
 			Class<?> colClass = table.getColumnClass(c);
@@ -172,23 +189,17 @@ public class HistorieGUI_chat {
 
 	private String buildNoteResult(int[] grades) {
 		StringBuilder result = new StringBuilder();
+		
 		for (int note : grades) {
-			result.append(note).append(" | ");
+			if (note == 0 && grades.length == 1  ) {
+			} else {
+				result.append(note).append(" | ");
+			}
 		}
 		return result.toString();
 	}
-
-	private String trimCSVName(String name) {
-		return name.replace(".csv", "");
-
-	}
-
-	private double trimAverage(double averageGrade) {
-		averageGrade = Math.round(averageGrade * 100);
-		averageGrade /= 100;
-		return averageGrade;
-
-	}
+	
+	
 
 	private double getZeugnisAverage(ArrayList<String>  faecher) throws IOException {
 		double average = 0;
