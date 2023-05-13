@@ -21,7 +21,6 @@ public class App {
       // Erstellt einen Thread für das GUI
       @Override
       public void run() {
-        if (config.get(0).equals("light=false") && config.get(1).equals("dark=false")) {
           try {
             // Objekt des GUIs wird instanziiert
             StartWindow frame = new StartWindow();
@@ -32,24 +31,9 @@ public class App {
             // Zur einfacheren Nachverfolgung falls Fehler auftreten
             System.out.println("Main()=>Run() Aufruf");
           }
-        } else if (config.get(0).equals("true")) {
-          KlassenAuswaehlen_Frame frame;
-          try {
-            frame = new KlassenAuswaehlen_Frame();
-            frame.setVisible(true);
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-        } else {
-          KlassenAuswaehlen_Frame_Dark frame;
-          try {
-            frame = new KlassenAuswaehlen_Frame_Dark();
-            frame.setVisible(true);
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
+          
         }
-      }
+      
     });
   }
 }
