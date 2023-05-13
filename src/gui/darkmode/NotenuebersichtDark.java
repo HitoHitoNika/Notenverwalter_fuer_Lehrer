@@ -7,25 +7,25 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
 
 import csv_reader_stuff.Datenleser;
 
-import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import java.awt.SystemColor;
-import javax.swing.ImageIcon;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 public class NotenuebersichtDark extends JFrame {
 
@@ -39,6 +39,11 @@ public class NotenuebersichtDark extends JFrame {
 	String schuelername;
 	String email;
 	String klasse;
+	// noteneintragung
+	int note;
+	int test;
+	String fach;
+
 	private JTextField nameField;
 	private JTextField klasseField;
 	private JTable table_1;
@@ -47,11 +52,11 @@ public class NotenuebersichtDark extends JFrame {
 	private final JPanel panel = new JPanel();
 	private ArrayList<String> faecher = new ArrayList<>();
 	private JComboBox fachDropdown = new JComboBox();
-	private int selectedIndex;
+	private int schuelerID;
 	JComboBox testformBox = new JComboBox();
 
 	public NotenuebersichtDark(int selectedIndex, String klasse) throws IOException {
-		this.selectedIndex = selectedIndex;
+		this.schuelerID = selectedIndex;
 		this.klasse = klasse;
 		createWindow();
 
@@ -82,6 +87,9 @@ public class NotenuebersichtDark extends JFrame {
 		initEmailField();
 	}
 
+	/**
+	 * Generierung des Emailfelds
+	 */
 	private void initEmailField() {
 		eMailField = new JTextField();
 		eMailField.setBackground(Color.LIGHT_GRAY);
@@ -93,6 +101,9 @@ public class NotenuebersichtDark extends JFrame {
 		eMailField.setColumns(10);
 	}
 
+	/**
+	 * Generierung des Klassenfelds
+	 */
 	private void initKlassenField() {
 		klasseField = new JTextField();
 		klasseField.setForeground(Color.BLACK);
@@ -105,6 +116,9 @@ public class NotenuebersichtDark extends JFrame {
 		klasseField.setColumns(10);
 	}
 
+	/**
+	 * Generierung des Namefelds
+	 */
 	private void initNameField() {
 		nameField = new JTextField();
 		nameField.setForeground(Color.BLACK);
@@ -117,6 +131,9 @@ public class NotenuebersichtDark extends JFrame {
 		nameField.setColumns(10);
 	}
 
+	/**
+	 * Generierung des Studentenbilds
+	 */
 	private void initStudentPic() {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(93, 75, 130, 132);
@@ -124,6 +141,9 @@ public class NotenuebersichtDark extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(System.getProperty("user.dir") + "/misc/student.png"));
 	}
 
+	/**
+	 * Generierung der Notentabelle
+	 */
 	private void initMSSTable() {
 		table = new JTable();
 		table.setBackground(Color.LIGHT_GRAY);
@@ -136,8 +156,10 @@ public class NotenuebersichtDark extends JFrame {
 						{ "3-", "=", "7" }, { "4+", "=", "6" }, { "4", "=", "5" }, { "4-", "=", "4" },
 						{ "5+", "=", "3" }, { "5", "=", "2" }, { "5-", "=", "1" }, { "6", "=", "0" }, },
 				new String[] { "New column", "New column", "New column" }) {
+
 			boolean[] columnEditables = new boolean[] { false, false, false };
 
+			@Override
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
@@ -158,6 +180,9 @@ public class NotenuebersichtDark extends JFrame {
 		panel.setLayout(null);
 	}
 
+	/**
+	 * Generierung der Notentabelle des Schülers
+	 */
 	private void initNotenTable() {
 		table_2 = new JTable();
 		table_2.setShowHorizontalLines(false);
@@ -167,8 +192,10 @@ public class NotenuebersichtDark extends JFrame {
 		table_2.setModel(
 				new DefaultTableModel(new Object[][] { { "Klausuren", "Epos", "H\u00DCs" }, { null, null, null }, },
 						new String[] { "New column", "New column", "New column" }) {
+
 					boolean[] columnEditables = new boolean[] { false, false, false };
 
+					@Override
 					public boolean isCellEditable(int row, int column) {
 						return columnEditables[column];
 					}
@@ -177,22 +204,59 @@ public class NotenuebersichtDark extends JFrame {
 		contentPane_1.add(table_2);
 	}
 
+	/**
+	 * Generierung des Notendropdownmenüs
+	 */
 	private void initNotenDropdown() {
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBackground(Color.LIGHT_GRAY);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "--Bitte auswählen--", "1+\t", "1\t", "1-\t", "2+\t",
-				"2\t", "2-\t", "3+\t", "3\t", "3-\t", "4+\t", "4\t", "4-\t", "5+\t", "5\t", "5-\t", "6\t" }));
-		comboBox.setBounds(315, 19, 127, 30);
-		contentPane_1.add(comboBox);
+		JComboBox notenDropDown = new JComboBox();
+		notenDropDown.setBackground(Color.LIGHT_GRAY);
+		notenDropDown.setModel(new DefaultComboBoxModel(
+				new String[] { "--Bitte auswählen--", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
+						"12", "13",
+						"14", "15" }));
+		notenDropDown.setBounds(315, 19, 127, 30);
+		contentPane_1.add(notenDropDown);
+
+		notenDropDown.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				note = notenDropDown.getSelectedIndex() - 1;
+				System.out.println("Note " + note);
+			}
+		});
 	}
 
+	/**
+	 * Generierung des Hinzufügen Buttons
+	 */
 	private void initHinzufButton() {
 		JButton hinzufButton = new JButton("Hinzufügen");
 		hinzufButton.setBackground(Color.LIGHT_GRAY);
 		hinzufButton.setBounds(283, 370, 89, 23);
 		contentPane_1.add(hinzufButton);
+		hinzufButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Datenleser meinReader = new Datenleser();
+					System.out.println("fach " + fach + " klasse " + klasse);
+					meinReader.setFilePath(fach, klasse);
+					meinReader.writeNote(note, schuelerID, test);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+		});
+
 	}
 
+	/**
+	 * Generierung des Fachlabels
+	 */
 	private void initFachLabel() {
 		JLabel lblNewLabel_1 = new JLabel("Fach:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -200,14 +264,28 @@ public class NotenuebersichtDark extends JFrame {
 		contentPane_1.add(lblNewLabel_1);
 	}
 
+	/**
+	 * Generierung der Testartcombobox
+	 */
 	private void initTestComboBox() {
 		testformBox.setBackground(Color.LIGHT_GRAY);
 		testformBox.setModel(new DefaultComboBoxModel(
 				new String[] { "--Bitte auswählen--", "Klausur (50%)", "Epo(30%)", "HÜ(20%)" }));
 		testformBox.setBounds(560, 20, 138, 30);
 		contentPane_1.add(testformBox);
+		testformBox.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				test = testformBox.getSelectedIndex();
+				System.out.println("Test " + test);
+			}
+		});
 	}
 
+	/**
+	 * Generierung des Testartlabels
+	 */
 	private void initTestformLabel() {
 		JLabel testformLabel = new JLabel("Testform:");
 		testformLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -216,6 +294,9 @@ public class NotenuebersichtDark extends JFrame {
 		contentPane_1.add(testformLabel);
 	}
 
+	/**
+	 * 
+	 */
 	private void initNotenLabel() {
 		JLabel notenLabel = new JLabel("Note:");
 		notenLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -232,10 +313,19 @@ public class NotenuebersichtDark extends JFrame {
 				new String[] { "--bitte auswählen--", "Deutsch", "Englisch", "Mathe", "Physik", "Chemie", "Biologie",
 						"Sozialkunde", "Erdkunde", "Religion", "Informatik", "Sport", "Kunst", "Musik" }));
 		updateFaechernamen(fachDropdown);
+
+		fachDropdown.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				fach = (String) fachDropdown.getSelectedItem();
+				System.out.println("Fach " + fach);
+			}
+		});
 	}
 
 	private void createWindow() throws IOException {
-		setSchuelerInfo(selectedIndex, klasse);
+		setSchuelerInfo(schuelerID, klasse);
 		setBackground(new Color(255, 255, 255));
 		setTitle("Schüler");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -271,14 +361,13 @@ public class NotenuebersichtDark extends JFrame {
 
 	}
 
-	public void updateFaechernamen(JComboBox comboBox) {
-		comboBox.removeAllItems();
+	public void updateFaechernamen(JComboBox notenDropDown) {
+		notenDropDown.removeAllItems();
 		faecher.clear();
 		faecher = csvReader.getFaecherNamen(klasse);
 		for (String item : faecher) {
-			comboBox.addItem(item);
-
+		  notenDropDown.addItem(item);
 		}
+	  }
+	
 	}
-
-}
