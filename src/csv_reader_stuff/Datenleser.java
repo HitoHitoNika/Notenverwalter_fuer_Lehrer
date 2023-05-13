@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -21,13 +22,14 @@ public class Datenleser {
   private ArrayList<String> klassenNamen = new ArrayList<>();
   // Speichert dynamisch die Faechernamen
   private ArrayList<String> faecherNamen = new ArrayList<>();
-
+  private String fach;
+  
   /**
   * Konstruktor
   * @throws FileNotFoundException Aufgrund des BufferedReaders
   */
   public Datenleser() throws FileNotFoundException {
-
+  
   }
 
   /**
@@ -38,6 +40,7 @@ public class Datenleser {
    */
   public void setFilePath(String fach, String klasse) throws IOException {
     String path = "CSV_Dateien/" + klasse + "/" + fach + ".csv";
+    System.out.println("Der Pfad ist gesetzt als: "+path);
     csvFile = new File(path);
   }
 
@@ -158,8 +161,11 @@ public class Datenleser {
     //Hier wird nun über das obige Array iteriert
     for (File file : files) {
       if (!"Schuelerliste.csv".equals(file.getName())) {
+    	 //hier wird der Fachname auf Fach gespeichert und um 4 Stellen gekürzt 
+    	fach = file.getName();
+    	fach = fach.substring(0, fach.length() - 4);
         //Der ArrayList werden hier die Namen der Faecher mitgegeben
-        faecherNamen.add(file.getName());
+        faecherNamen.add(fach);
       }
     }
     return faecherNamen;
@@ -262,4 +268,19 @@ public class Datenleser {
     return config;
   }
 
+  public void writeNote(int note, int schuelerID, int test ){
+    schuelerID++;
+    String[] newEntry = {String.valueOf(schuelerID),String.valueOf(note),String.valueOf(test)}; // Eintrag hinzufügen
+        try {
+            FileWriter csvWriter = new FileWriter(csvFile, true);
+            csvWriter.append("\n");
+            csvWriter.append(String.join(";", newEntry));
+            csvWriter.append("\n");
+            csvWriter.close();
+            System.out.println("New entry added successfully.");
+        } catch (IOException e) {
+            System.out.println("Error while adding new entry to CSV file: " + e.getMessage());
+        }
+    
+  }
 }

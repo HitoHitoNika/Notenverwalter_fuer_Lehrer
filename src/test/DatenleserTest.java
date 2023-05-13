@@ -60,5 +60,12 @@ public class DatenleserTest {
         assertTrue("BSIT22b".equals( testSechs.getKlassenNamen().get(1)));
     }
 
+    @Test
+    public void testWriteNote() throws IOException{
+        Datenleser testSieben = new Datenleser();
+        System.out.println("test");
+        testSieben.setFilePath("Deutsch", "BSIT22b");
+        testSieben.writeNote(1, 1, 1);
+    }
     
 }
