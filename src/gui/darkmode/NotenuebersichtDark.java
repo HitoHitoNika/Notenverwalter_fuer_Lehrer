@@ -51,8 +51,8 @@ public class NotenuebersichtDark extends JFrame {
 	JComboBox testformBox = new JComboBox();
 
 	public NotenuebersichtDark(int selectedIndex, String klasse) throws IOException {
-		this.selectedIndex=selectedIndex;
-		this.klasse=klasse;
+		this.selectedIndex = selectedIndex;
+		this.klasse = klasse;
 		createWindow();
 
 		initFachDropdown();
@@ -239,7 +239,7 @@ public class NotenuebersichtDark extends JFrame {
 		setBackground(new Color(255, 255, 255));
 		setTitle("Schüler");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -253,7 +253,7 @@ public class NotenuebersichtDark extends JFrame {
 	}
 
 	public void setSchuelerInfo(int selectedIndex, String klasse) throws IOException {
-		String[] splitBuffer = { " ", " ", "10" };
+		String[] splitBuffer = { " ", " ", "1000" };
 		csvReader = new Datenleser();
 		csvReader.setFilePath(klasse);
 		csvReader.initReader();
@@ -270,30 +270,15 @@ public class NotenuebersichtDark extends JFrame {
 		repaint();
 
 	}
+
 	public void updateFaechernamen(JComboBox comboBox) {
 		comboBox.removeAllItems();
 		faecher.clear();
 		faecher = csvReader.getFaecherNamen(klasse);
-		 for (String item : faecher) {
-		      comboBox.addItem(item);
-		      
-		    }
+		for (String item : faecher) {
+			comboBox.addItem(item);
+
+		}
 	}
-	  private void generateKlassenDropdown() {
-		    faecher = csvReader.getFaecherNamen(klasse);
-		    fachDropdown.setBackground(UIManager.getColor("Button.background"));
-		    fachDropdown.setModel(new DefaultComboBoxModel(faecher.toArray()));
-		    // Soll ausgewählte Klasse des Nutzers abspeichern zur weiteren Verarbeitung
-		    fachDropdown.addActionListener(new ActionListener() {
-		    
-		      @Override
-		      public void actionPerformed(ActionEvent e) {
-		        klasse = (String) fachDropdown.getSelectedItem();
-		        if (klasse != null) {
-		          updateFaechernamen(fachDropdown);
-		        }
-		      }
-		    });
-	  }
-		      
+
 }

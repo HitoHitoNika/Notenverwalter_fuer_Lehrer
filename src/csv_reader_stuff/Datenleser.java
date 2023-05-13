@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -39,6 +40,7 @@ public class Datenleser {
    */
   public void setFilePath(String fach, String klasse) throws IOException {
     String path = "CSV_Dateien/" + klasse + "/" + fach + ".csv";
+    System.out.println("Der Pfad ist gesetzt als: "+path);
     csvFile = new File(path);
   }
 
@@ -266,11 +268,19 @@ public class Datenleser {
     return config;
   }
 
-  public String getNeueNote(String note, int schuelerID, int test ){
+  public void writeNote(int note, int schuelerID, int test ){
+    schuelerID++;
+    String[] newEntry = {String.valueOf(schuelerID),String.valueOf(note),String.valueOf(test)}; // Eintrag hinzufügen
+        try {
+            FileWriter csvWriter = new FileWriter(csvFile, true);
+            csvWriter.append("\n");
+            csvWriter.append(String.join(";", newEntry));
+            csvWriter.append("\n");
+            csvWriter.close();
+            System.out.println("New entry added successfully.");
+        } catch (IOException e) {
+            System.out.println("Error while adding new entry to CSV file: " + e.getMessage());
+        }
     
-    
-
-    return "fickschnitzel";
   }
-
 }
