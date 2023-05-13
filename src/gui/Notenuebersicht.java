@@ -1,29 +1,31 @@
 package gui;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+
+import csv_reader_stuff.Datenleser;
+
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-
-import csv_reader_stuff.Datenleser;
 
 public class Notenuebersicht extends JFrame {
 
@@ -206,20 +208,20 @@ public class Notenuebersicht extends JFrame {
    * Generierung des Notendropdownmenüs
    */
   private void initNotenDropdown() {
-    JComboBox  notenDropDown = new JComboBox();
-     notenDropDown.setBackground(Color.LIGHT_GRAY);
-     notenDropDown.setModel(new DefaultComboBoxModel(
+    JComboBox notenDropDown = new JComboBox();
+    notenDropDown.setBackground(Color.LIGHT_GRAY);
+    notenDropDown.setModel(new DefaultComboBoxModel(
         new String[] { "--Bitte auswählen--", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13",
             "14", "15" }));
-     notenDropDown.setBounds(315, 19, 127, 30);
-    contentPane_1.add( notenDropDown);
+    notenDropDown.setBounds(315, 19, 127, 30);
+    contentPane_1.add(notenDropDown);
 
-     notenDropDown.addActionListener(new ActionListener() {
+    notenDropDown.addActionListener(new ActionListener() {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        note =  notenDropDown.getSelectedIndex()-1;
-        System.out.println("Note "+note);
+        note = notenDropDown.getSelectedIndex() - 1;
+        System.out.println("Note " + note);
       }
     });
   }
@@ -238,8 +240,8 @@ public class Notenuebersicht extends JFrame {
       public void actionPerformed(ActionEvent e) {
         try {
           Datenleser meinReader = new Datenleser();
-          System.out.println("fach "+fach+" klasse "+klasse);
-          meinReader.setFilePath(fach,klasse);
+          System.out.println("fach " + fach + " klasse " + klasse);
+          meinReader.setFilePath(fach, klasse);
           meinReader.writeNote(note, schuelerID, test);
         } catch (IOException e1) {
           // TODO Auto-generated catch block
@@ -275,7 +277,7 @@ public class Notenuebersicht extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         test = testformBox.getSelectedIndex();
-        System.out.println("Test "+test);
+        System.out.println("Test " + test);
       }
     });
   }
@@ -316,7 +318,7 @@ public class Notenuebersicht extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         fach = (String) fachDropdown.getSelectedItem();
-        System.out.println("Fach "+fach);
+        System.out.println("Fach " + fach);
       }
     });
   }
@@ -340,7 +342,7 @@ public class Notenuebersicht extends JFrame {
   }
 
   public void setSchuelerInfo(int selectedIndex, String klasse) throws IOException {
-    String[] splitBuffer = { " ", " ", "10" };
+    String[] splitBuffer = { " ", " ", "1000" };
     csvReader = new Datenleser();
     csvReader.setFilePath(klasse);
     csvReader.initReader();
@@ -358,12 +360,12 @@ public class Notenuebersicht extends JFrame {
 
   }
 
-  public void updateFaechernamen(JComboBox  notenDropDown) {
-     notenDropDown.removeAllItems();
+  public void updateFaechernamen(JComboBox notenDropDown) {
+    notenDropDown.removeAllItems();
     faecher.clear();
     faecher = csvReader.getFaecherNamen(klasse);
     for (String item : faecher) {
-       notenDropDown.addItem(item);
+      notenDropDown.addItem(item);
     }
   }
 
