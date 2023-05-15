@@ -32,6 +32,14 @@ Datenleser soll dafür da sein, alles was sich um die CSV-Dateien dreht kompakt 
 
 </details>
 
+<details>
+<summary> 5. fach </summary>
+
+- Ein String der das aktuelle Fach speichern soll
+- Wird dann benötigt, wenn das aufgerufene Fach für den Dateipfad o.ä. gebraucht wird
+
+</details>
+
 ## Funktionen
 
 <details>
@@ -276,5 +284,155 @@ public ArrayList<String> getFaecherNamen(String klasse) {
 	return faecherNamen;
 }
 ```
-</details>    
+</details>   
+
+</details>
+
+<details>
+<summary> 10. getAverage </summary>
+
+- Berechnet und gibt den Durschnitt eines Faches zurück
+
+<details>
+<summary>Code</summary>
+
+```java
+public double getAverage(int schuelerID) throws IOException {
+    schuelerID++;
+    double[] average = { 0, 0, 0, 0 };
+    int[] countTestArten = { 0, 0, 0 };
+    try {
+      getLine();
+    } catch (IOException e) {
+      System.err.println("Fehler beim Lesen der Datei: " + e.getMessage());
+      return 0;
+    }
+    while (hasMoreLines()) {
+      String[] splitBuffer = getLine().split(";");
+      if (Integer.parseInt(splitBuffer[0]) == schuelerID) {
+        int index = Integer.parseInt(splitBuffer[2]) - 1;
+        countTestArten[index]++;
+        average[index] += Integer.parseInt(splitBuffer[1]);
+        average[3] += Integer.parseInt(splitBuffer[1]) * ((index == 0) ? 0.5 : (index == 1) ? 0.3 : 0.2);
+      }
+    }
+    for (int i = 0; i < 3; i++) {
+      if (countTestArten[i] > 0) {
+        average[i] /= countTestArten[i];
+      }
+    }
+    return (countTestArten[0] == 0)
+        ? (countTestArten[2] == 0) ? average[1]
+            : (countTestArten[1] == 0) ? average[2] : ((average[1] * 0.6) + (average[2] * 0.4))
+        : (countTestArten[1] == 0)
+            ? (countTestArten[2] == 0) ? average[0] : ((average[0] * 0.71) + (average[2] * 0.285714))
+            : (countTestArten[2] == 0) ? ((average[0] * 0.5) + (average[1] * 0.3)) : average[3];
+  }
+```
+
+</details>
+
+
+</details>
+
+<details>
+<summary> 11. getNoten </summary>
+
+- Ruft bestimmte Noten eines Faches und bestimmter Testart auf
+
+<details>
+<summary> Code </summary>
+
+```java
+
+ public int[] getNoten(int schuelerID, int testArtID) throws IOException {
+    ArrayList<Integer> notenList = new ArrayList<>();
+    int[] noten;
+    schuelerID++;
+    boolean counter = false;
+    try {
+      getLine();
+    } catch (IOException e) {
+      System.err.println("Fehler beim Lesen der Datei: " + e.getMessage());
+    }
+    while (hasMoreLines()) {
+      String[] splitBuffer = getLine().split(";");
+      if (Integer.parseInt(splitBuffer[0]) == schuelerID && testArtID == Integer.parseInt(splitBuffer[2])) {
+        notenList.add(Integer.parseInt(splitBuffer[1]));
+        counter = true;
+      }
+
+    }
+    if (counter) {
+      noten = notenList.stream().mapToInt(i -> i).toArray();
+      return noten;
+    } else {
+      notenList.add(0);
+      noten = notenList.stream().mapToInt(i -> i).toArray();
+      return noten;
+    }
+  }
+
+```
+
+</details>
+
+</details>
+
+<details>
+<summary> 12. getConfig </summary>
+
+- Soll die Configdatei aufrufen
+- Diese beinhaltet ob der User schoneinmal Light- oder Darkmode nutzen wollte
+
+<details>
+<summary> Code </summary>
+
+```java
+
+public ArrayList<String> getConfig() throws IOException {
+    ArrayList<String> config = new ArrayList<>();
+    csvFile = new File("./CSV_Dateien/config/config.csv");
+    initReader();
+    while (hasMoreLines()) {
+      config.add(getLine());
+    }
+    System.out.println(config.size());
+    return config;
+  }
+
+```
+
+</details>
+</details>
+
+<details>
+<summary> 13. writeNote </summary>
+
+- Soll eine Note in der jeweiligen Liste hinterlegen
+
+<details>
+<summary> Code </summary>
+
+```java
+
+public void writeNote(int note, int schuelerID, int test) {
+    schuelerID++;
+    String[] newEntry = { String.valueOf(schuelerID), String.valueOf(note), String.valueOf(test) }; // Eintrag hinzufügen
+    try {
+      FileWriter csvWriter = new FileWriter(csvFile, true);
+      csvWriter.append("\n");
+      csvWriter.append(String.join(";", newEntry));
+      csvWriter.append("\n");
+      csvWriter.close();
+      System.out.println("New entry added successfully.");
+    } catch (IOException e) {
+      System.out.println("Error while adding new entry to CSV file: " + e.getMessage());
+    }
+    
+  }
+
+```
+</details>
+
 

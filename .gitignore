@@ -2,3 +2,7 @@
 /bin
 .project
 .classpath
+.iml
+/.idea
+/.settings
+/LF5_Project_WhiteTrash.iml
