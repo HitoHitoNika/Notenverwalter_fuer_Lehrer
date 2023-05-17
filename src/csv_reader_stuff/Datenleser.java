@@ -257,17 +257,6 @@ public class Datenleser {
     }
   }
 
-  public ArrayList<String> getConfig() throws IOException {
-    ArrayList<String> config = new ArrayList<>();
-    csvFile = new File("./CSV_Dateien/config/config.csv");
-    initReader();
-    while (hasMoreLines()) {
-      config.add(getLine());
-    }
-    System.out.println(config.size());
-    return config;
-  }
-
   public void writeNote(int note, int schuelerID, int test ){
     schuelerID++;
     String[] newEntry = {String.valueOf(schuelerID),String.valueOf(note),String.valueOf(test)}; // Eintrag hinzufügen
@@ -282,5 +271,28 @@ public class Datenleser {
             System.out.println("Error while adding new entry to CSV file: " + e.getMessage());
         }
     
+  }
+
+  public void exportKlasse(){
+     // Erstellt einen FileChooser, welcher dafür dient ein Auswahl Fenster zu öffnen
+     JFileChooser fileChooser = new JFileChooser();
+     // Erlaubt nur die Auswahl von Ordnern
+     fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+     //Öffnet besagtes Fenster
+     int result = fileChooser.showOpenDialog(null);
+     //Prüft ob die Auswahl bestätigt wurde
+     if (result == JFileChooser.APPROVE_OPTION) {
+       //Speichert den Pfad zum ausgewählten Verzeichnis
+       File selectedDir = fileChooser.getSelectedFile();
+       //Speichert den Pfad zum vorgegebenen Verzeichnis
+       File destDir = new File(System.getProperty("user.dir") + "/CSV_Dateien/");
+       try {
+         //Ruft Methode copyDirectory auf und gibt Ursprungs- und Zielverzeichnis mit
+         copyDirectory(destDir,selectedDir);
+       } catch (IOException ex) {
+         ex.printStackTrace();
+       }
+     }
+
   }
 }
