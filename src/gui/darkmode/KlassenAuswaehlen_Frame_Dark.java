@@ -128,7 +128,13 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
       // Verzeichnis exportiert werden
       @Override
       public void mouseClicked(MouseEvent e) {
-        System.out.println("Hello World");
+        try {
+          Datenleser csvReader = new Datenleser();
+          csvReader.exportKlasse();
+        } catch (FileNotFoundException e1) {
+          e1.printStackTrace();
+          System.out.println("Import");
+        }
       }
 
       // Farbwechsel wenn der Mausbutton hovert
