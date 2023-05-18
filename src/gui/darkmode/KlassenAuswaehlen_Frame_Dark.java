@@ -22,11 +22,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import csv_reader_stuff.Datenleser;
-import javax.swing.border.LineBorder;
-import javax.swing.UIManager;
+import gui.HistorieGUI_chat;
 
 public class KlassenAuswaehlen_Frame_Dark extends JFrame {
 
@@ -96,6 +97,10 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
     generateUpdateButton();
 
   }
+
+  /**
+   * Generierung des UpdateButtons mit seinen Attributen und Funktionen
+   */
   private void generateUpdateButton() {
     updateButton.setBackground(Color.GRAY);
     updateButton.setToolTipText("Klassenliste nach einem Import updaten");
@@ -111,6 +116,9 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
     contentPane.add(updateButton);
   }
   
+  /**
+   * Generierung des Schuelerlistenlabels
+   */
   private void generateSchuelerListeLabel() {
     schuelerListeLabel.setForeground(Color.WHITE);
     schuelerListeLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -118,12 +126,16 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
     contentPane.add(schuelerListeLabel);
   }
   
-  private void generateExportButton(){
+  /**
+   * Generierung des Exportbuttons
+   */
+  private void generateExportButton() {
     exportButton.setFont(new Font("Segoe UI", Font.BOLD, 11));
     exportButton.setBackground(Color.GRAY);
     exportButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/misc/export.png"));
     // Funktionen des Exportbuttons werden hier definiert
     exportButton.addMouseListener(new MouseAdapter() {
+
       // Wenn ein Maus klick auf den Button getätigt wird, sollen die Klassen in ein
       // Verzeichnis exportiert werden
       @Override
@@ -155,12 +167,16 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
 
   }
 
+  /**
+   * Generierung des Importbuttons
+   */
   private void generateImportButton() {
     importButton.setFont(new Font("Segoe UI", Font.BOLD, 11));
     importButton.setBackground(Color.GRAY);
     importButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/misc/import.png"));
     // Funktionen des Importbuttons werden hier definiert
     importButton.addMouseListener(new MouseAdapter() {
+
       // Wenn ein Maus klick auf den Button getätigt wird, sollen die Klassen neu
       // eingelesen werden
       @Override
@@ -190,11 +206,17 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
     menuBar.add(importButton);
   }
 
+  /**
+   * Generierung der Menubar
+   */
   private void generateMenuBar() {
     menuBar.setBounds(0, -1, 633, 22);
     contentPane.add(menuBar);
   }
 
+  /**
+   * Generierung der Schuelerliste
+   */
   private void generateSchuelerJList() {
     schuelerListeJList.setBackground(Color.GRAY);
     schuelerListeJList.setForeground(UIManager.getColor("CheckBox.light"));
@@ -214,11 +236,11 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
         // Ausgabe zu Debugging zwecken
         System.out.println("Index: " + selectedIndex + ", Wert: " + selectedValue);
         // Das neue Fenster wird erstellt
-        NotenuebersichtDark frame;
+        HistorieGUI_chat frame;
         try {
           // Das neue Fenster wird erstellt, die oben gespeicherten Werte werden
           // mitgegeben
-          frame = new NotenuebersichtDark(selectedIndex, klasse);
+          frame = new HistorieGUI_chat(selectedIndex, klasse);
           // Das neue Fenster wird sichtbar gemacht
           frame.setVisible(true);
           // Das Ursprungsfenster wird geschlossen
@@ -233,6 +255,9 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
     });
   }
 
+  /**
+   * Generierung des Fensters
+   */
   private void createWindow() {
     setTitle("Schülerauswahl");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -244,6 +269,9 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
     contentPane.setLayout(null);
   }
 
+  /**
+   * Generierung des Klassenauswahllabels
+   */
   private void klassenAuswahlLabelInit() {
     klassenAuswahlLabel.setText("Klassenauswahl");
     klassenAuswahlLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -254,7 +282,9 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
     contentPane.add(klassenAuswahlLabel);
   }
 
-  // Die Funktion drawList soll die Schülerliste aktualisieren
+  /**
+   *  Die Funktion drawList soll die Schülerliste aktualisieren
+   */
   private void drawList() {
     // Hier werden die Kern Attribute der Liste festgelegt:
     schuelerListeJList.setModel(new AbstractListModel() {
@@ -275,7 +305,9 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
     });
   }
 
-  // Hier wird die Klassenliste aktualisiert
+  /**
+  * Hier wird die Klassenliste aktualisiert
+  */
   private void updateComboBox(JComboBox comboBox) {
     // Zunächst werden alle Items aus der ComboBox entfernt
     comboBox.removeAllItems();
@@ -304,7 +336,9 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
     comboBox.setSelectedIndex(i);
   }
 
-  // Die ComboBox für die Klassenauswahl generieren
+   /**
+   * Die ComboBox für die Klassenauswahl generieren
+   */
   private void generateKlassenDropdown() {
     klassenNamen = folderReader.getKlassenNamen();
     klassenAuswahlComboBox.setBackground(Color.GRAY);
@@ -320,6 +354,9 @@ public class KlassenAuswaehlen_Frame_Dark extends JFrame {
         }
       }
 
+      /**
+       * Die Schuelerliste soll geupdatet werden
+       */
       private void updateSchuelerListe() {
         // Die Schueler Liste sollte leer sein, damit auch nur die richtigen Schüler
         // angezeigt werden

@@ -136,7 +136,13 @@ public class KlassenAuswaehlen_Frame extends JFrame {
       // Verzeichnis exportiert werden
       @Override
       public void mouseClicked(MouseEvent e) {
-        System.out.println("Hello World");
+        try {
+          Datenleser csvReader = new Datenleser();
+          csvReader.exportKlasse();
+        } catch (FileNotFoundException e1) {
+          e1.printStackTrace();
+          System.out.println("Import");
+        }
       }
 
       // Farbwechsel wenn der Mausbutton hovert
@@ -154,6 +160,7 @@ public class KlassenAuswaehlen_Frame extends JFrame {
     // Hinzufügen des Buttons zur MenuBar
     menuBar.add(exportButton);
 
+    
   }
 
   /**
@@ -224,11 +231,11 @@ public class KlassenAuswaehlen_Frame extends JFrame {
         // Ausgabe zu Debugging zwecken
         System.out.println("Index: " + selectedIndex + ", Wert: " + selectedValue);
         // Das neue Fenster wird erstellt
-        Notenuebersicht frame;
+        HistorieGUI_chat frame;
         try {
           // Das neue Fenster wird erstellt, die oben gespeicherten Werte werden
           // mitgegeben
-          frame = new Notenuebersicht(selectedIndex, klasse);
+          frame = new HistorieGUI_chat(selectedIndex, klasse);
           // Das neue Fenster wird sichtbar gemacht
           frame.setVisible(true);
           // Das Ursprungsfenster wird geschlossen
