@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import csv_reader_stuff.DateWriter;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
@@ -13,9 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-
 public class AddNewSubject_Frame extends JFrame {
-	
+
 	DateWriter writer = new DateWriter();
 	private JPanel contentPane;
 	private JTextField textField;
@@ -47,24 +47,29 @@ public class AddNewSubject_Frame extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 88, 128);
 		contentPane.add(panel);
-		
+
 		textField = new JTextField();
 		textField.setBounds(98, 39, 133, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
-		
+
 		JButton btnNewButton = new JButton("Neues Fach Hinzufügen");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String eingabe = textField.getText();
 				System.out.println(eingabe);
-				writer.createSubjectCSVFile(eingabe, klasse);;
+				if (writer.createSubjectCSVFile(eingabe, klasse) == true) {
+					JOptionPane.showMessageDialog(null, eingabe + " wurde Erfolgreich hinzugefügt", "Erfolg",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Das Fach " + eingabe + " ist bereits vorhanden!", "Fehler",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnNewButton.addActionListener(new ActionListener() {

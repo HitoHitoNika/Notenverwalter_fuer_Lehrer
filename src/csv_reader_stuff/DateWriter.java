@@ -9,10 +9,16 @@ import java.io.File;
 
 public class DateWriter {
 
-	public void createSubjectCSVFile(String fach, String klasse) {
+	public boolean createSubjectCSVFile(String fach, String klasse) {
 		String path = "CSV_Dateien/" + klasse + "/" + fach + ".csv";
+		File file = new File(path);
+
 		try {
-			FileWriter csvWriter = new FileWriter(path);
+			if (file.exists()) {
+				System.out.println("Die CSV-Datei existiert bereits.");
+				return false;
+			}
+			FileWriter csvWriter = new FileWriter(file);
 			csvWriter.append("Schuelerinfo_ID");
 			csvWriter.append(";");
 			csvWriter.append("Note(MSS)");
@@ -21,12 +27,14 @@ public class DateWriter {
 			csvWriter.append("\n");
 			csvWriter.close();
 			System.out.println("Neue CSV-Datei wurde erfolgreich erstellt.");
+			return true;
 		} catch (IOException e) {
 			System.out.println("Fehler beim Erstellen der CSV-Datei: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void createStudentsCSVFile(String klasse) {
+	public boolean createStudentsCSVFile(String klasse) {
 		String path = "CSV_Dateien/" + klasse + "/" + "Schülerliste.csv";
 		try {
 			FileWriter csvWriter = new FileWriter(path);
@@ -38,12 +46,14 @@ public class DateWriter {
 			csvWriter.append("\n");
 			csvWriter.close();
 			System.out.println("Neue CSV-Datei wurde erfolgreich erstellt.");
+			return true;
 		} catch (IOException e) {
 			System.out.println("Fehler beim Erstellen der CSV-Datei: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void addEntryToCSV(String klasse, String name, String email) {
+	public boolean addEntryToCSV(String klasse, String name, String email) {
 		try {
 			String fileName = "CSV_Dateien/" + klasse + "/" + "Schülerliste.csv";
 
@@ -66,11 +76,10 @@ public class DateWriter {
 					} else {
 						schuelerinfoId = Integer.parseInt(previousNotenartId) + 1;
 					}
-					
-					
+
 				} catch (NumberFormatException e) {
 					System.out.println("Ungültige Notenart-ID im vorherigen Eintrag: " + previousNotenartId);
-					return;
+					return false;
 				}
 			}
 
@@ -84,32 +93,34 @@ public class DateWriter {
 
 			writer.close();
 			System.out.println("Eintrag wurde erfolgreich zur CSV-Datei hinzugefügt.");
+			return true;
 		} catch (IOException e) {
 			System.out.println("Fehler beim Hinzufügen des Eintrags zur CSV-Datei: " + e.getMessage());
+			return false;
 		}
 	}
 
-	public void createClassFolder(String klasse) {
+	public boolean createClassFolder(String klasse) {
 		String path = "CSV_Dateien/" + klasse;
 		File folder = new File(path);
 		if (!folder.exists()) {
 			if (folder.mkdir()) {
 				createStudentsCSVFile(klasse);
 				System.out.println("Neuer Ordner wurde erfolgreich erstellt.");
+				return true;
 			} else {
 				System.out.println("Fehler beim Erstellen des Ordners.");
+				return false;
 			}
 		} else {
 			System.out.println("Der Ordner existiert bereits.");
+			return false;
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		DateWriter test = new DateWriter();
 
-//		 test.createCSVFile("test", "BSIT22b");
-//		 test.createClassFolder("BSIT500");
-		test.addEntryToCSV("BSIT500", "hallo", "hallo");
 	}
 
 }

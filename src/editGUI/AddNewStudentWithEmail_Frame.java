@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import csv_reader_stuff.DateWriter;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
@@ -66,7 +67,11 @@ public class AddNewStudentWithEmail_Frame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				String eingabe = txtvornahme.getText();
 				System.out.println(eingabe);
-				writer.addEntryToCSV(klasse, txtvornahme.getText(), txtemail.getText());
+				if (writer.addEntryToCSV(klasse, txtvornahme.getText(), txtemail.getText())) {
+					JOptionPane.showMessageDialog(null, txtvornahme.getText() + " wurde Erfolgreich hinzugefügt", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					JOptionPane.showMessageDialog(null, "Ungültige Notenart-ID im vorherigen Eintrag", "Fehler", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnNewButton.addActionListener(new ActionListener() {

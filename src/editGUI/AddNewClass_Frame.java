@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import csv_reader_stuff.DateWriter;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
@@ -13,9 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-
 public class AddNewClass_Frame extends JFrame {
-	
+
 	DateWriter writer = new DateWriter();
 	private JPanel contentPane;
 	private JTextField textField;
@@ -47,24 +47,27 @@ public class AddNewClass_Frame extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 88, 128);
 		contentPane.add(panel);
-		
+
 		textField = new JTextField();
 		textField.setBounds(109, 53, 133, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
-		
+
 		JButton btnNewButton = new JButton("Neue Klasse hinzufügen");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String eingabe = textField.getText();
-				System.out.println(eingabe);
-				writer.createClassFolder(eingabe);
+				if (writer.createClassFolder(eingabe)) {
+					JOptionPane.showMessageDialog(null, "Erfolgreich", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					JOptionPane.showMessageDialog(null, "Fehler beim Hinzufügen der Klasse, die Klasse existiert bereits!", "Fehler", JOptionPane.ERROR_MESSAGE);
+				}
+				
 			}
 		});
 		btnNewButton.addActionListener(new ActionListener() {
