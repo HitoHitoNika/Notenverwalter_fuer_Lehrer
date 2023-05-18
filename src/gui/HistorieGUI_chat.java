@@ -190,4 +190,7 @@ public class HistorieGUI_chat {
 		tableModel.addRow(row);
 	}
 
+	public void setVisible(boolean visibility){
+		frame.setVisible(visibility);
+	}
 }
