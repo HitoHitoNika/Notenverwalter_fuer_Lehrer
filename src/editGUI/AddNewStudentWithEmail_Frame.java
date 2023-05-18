@@ -14,11 +14,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 
-public class AddNewStudent_Frame extends JFrame {
+public class AddNewStudentWithEmail_Frame extends JFrame {
 	
 	DateWriter writer = new DateWriter();
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField txtvornahme;
+	private JTextField txtemail;
 
 	/**
 	 * Launch the application.
@@ -27,7 +28,7 @@ public class AddNewStudent_Frame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddNewStudent_Frame frame = new AddNewStudent_Frame("BSIT500");
+					AddNewStudentWithEmail_Frame frame = new AddNewStudentWithEmail_Frame("Ceejay");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +40,7 @@ public class AddNewStudent_Frame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AddNewStudent_Frame(String klasse) {
+	public AddNewStudentWithEmail_Frame(String klasse) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 167);
 		contentPane = new JPanel();
@@ -52,19 +53,20 @@ public class AddNewStudent_Frame extends JFrame {
 		panel.setBounds(0, 0, 88, 128);
 		contentPane.add(panel);
 		
-		textField = new JTextField();
-		textField.setBounds(98, 39, 133, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txtvornahme = new JTextField();
+		txtvornahme.setText("--Vorname--");
+		txtvornahme.setBounds(98, 39, 133, 20);
+		contentPane.add(txtvornahme);
+		txtvornahme.setColumns(10);
 		
 		
-		JButton btnNewButton = new JButton("Neues Fach Hinzufügen");
+		JButton btnNewButton = new JButton("Neuen Schüler hinzufügen");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String eingabe = textField.getText();
+				String eingabe = txtvornahme.getText();
 				System.out.println(eingabe);
-				writer.createSubjectCSVFile(eingabe, klasse);;
+				writer.addEntryToCSV(klasse, txtvornahme.getText(), txtemail.getText());
 			}
 		});
 		btnNewButton.addActionListener(new ActionListener() {
@@ -73,5 +75,11 @@ public class AddNewStudent_Frame extends JFrame {
 		});
 		btnNewButton.setBounds(242, 38, 182, 23);
 		contentPane.add(btnNewButton);
+		
+		txtemail = new JTextField();
+		txtemail.setText("--Email--");
+		txtemail.setColumns(10);
+		txtemail.setBounds(98, 68, 133, 20);
+		contentPane.add(txtemail);
 	}
 }

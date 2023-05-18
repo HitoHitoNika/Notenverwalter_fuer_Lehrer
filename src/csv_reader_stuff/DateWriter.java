@@ -62,7 +62,12 @@ public class DateWriter {
 				String[] parts = lastLine.split(";");
 				String previousNotenartId = parts[2];
 				try {
-					schuelerinfoId = Integer.parseInt(previousNotenartId) + 1;
+					if (previousNotenartId.equals("ID")) {
+					} else {
+						schuelerinfoId = Integer.parseInt(previousNotenartId) + 1;
+					}
+					
+					
 				} catch (NumberFormatException e) {
 					System.out.println("Ungültige Notenart-ID im vorherigen Eintrag: " + previousNotenartId);
 					return;
