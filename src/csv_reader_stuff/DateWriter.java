@@ -9,6 +9,16 @@ import java.io.File;
 
 public class DateWriter {
 
+	/**
+	 * Erstellt eine neue CSV-Datei für ein bestimmtes Fach und eine bestimmte
+	 * Klasse, falls die Datei noch nicht existiert.
+	 *
+	 * @param fach   das Fach für die CSV-Datei
+	 * @param klasse die Klasse für die CSV-Datei
+	 * @return true, wenn die Datei erfolgreich erstellt wurde, false, wenn die
+	 *         Datei bereits existiert oder ein Fehler aufgetreten ist
+	 */
+
 	public boolean createSubjectCSVFile(String fach, String klasse) {
 		String path = "CSV_Dateien/" + klasse + "/" + fach + ".csv";
 		File file = new File(path);
@@ -34,6 +44,14 @@ public class DateWriter {
 		}
 	}
 
+	/**
+	 * Erstellt eine neue CSV-Datei für die Schülerliste einer bestimmten Klasse,
+	 * falls die Datei noch nicht existiert.
+	 *
+	 * @param klasse die Klasse für die CSV-Datei
+	 * @return true, wenn die Datei erfolgreich erstellt wurde, false, wenn die
+	 *         Datei bereits existiert oder ein Fehler aufgetreten ist
+	 */
 	public boolean createStudentsCSVFile(String klasse) {
 		String path = "CSV_Dateien/" + klasse + "/" + "Schülerliste.csv";
 		try {
@@ -52,6 +70,17 @@ public class DateWriter {
 			return false;
 		}
 	}
+
+	/**
+	 * Fügt einen neuen Eintrag zur CSV-Datei der Schülerliste einer bestimmten
+	 * Klasse hinzu.
+	 *
+	 * @param klasse die Klasse für die CSV-Datei
+	 * @param name   der Name des Schülers
+	 * @param email  die E-Mail-Adresse des Schülers
+	 * @return true, wenn der Eintrag erfolgreich hinzugefügt wurde, false, wenn ein
+	 *         Fehler aufgetreten ist
+	 */
 
 	public boolean addEntryToCSV(String klasse, String name, String email) {
 		try {
@@ -100,6 +129,14 @@ public class DateWriter {
 		}
 	}
 
+	/**
+	 * Erstellt einen neuen Ordner für eine bestimmte Klasse, falls der Ordner noch
+	 * nicht existiert.
+	 *
+	 * @param klasse die Klasse für den Ordner
+	 * @return true, wenn der Ordner erfolgreich erstellt wurde, false, wenn der
+	 *         Ordner bereits existiert oder ein Fehler aufgetreten ist
+	 */
 	public boolean createClassFolder(String klasse) {
 		String path = "CSV_Dateien/" + klasse;
 		File folder = new File(path);
@@ -117,10 +154,4 @@ public class DateWriter {
 			return false;
 		}
 	}
-
-	public static void main(String[] args) throws IOException {
-		DateWriter test = new DateWriter();
-
-	}
-
 }
