@@ -67,7 +67,7 @@ public class AddNewClass_Frame extends JFrame {
 				}else {
 					JOptionPane.showMessageDialog(null, "Fehler beim Hinzufügen der Klasse, die Klasse existiert bereits!", "Fehler", JOptionPane.ERROR_MESSAGE);
 				}
-				
+
 			}
 		});
 		btnNewButton.addActionListener(new ActionListener() {

@@ -16,7 +16,7 @@ import java.awt.event.MouseEvent;
 
 
 public class AddNewStudentWithEmail_Frame extends JFrame {
-	
+
 	DateWriter writer = new DateWriter();
 	private JPanel contentPane;
 	private JTextField txtvornahme;
@@ -49,18 +49,18 @@ public class AddNewStudentWithEmail_Frame extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 88, 128);
 		contentPane.add(panel);
-		
+
 		txtvornahme = new JTextField();
 		txtvornahme.setText("--Vorname--");
 		txtvornahme.setBounds(98, 39, 133, 20);
 		contentPane.add(txtvornahme);
 		txtvornahme.setColumns(10);
-		
-		
+
+
 		JButton btnNewButton = new JButton("Neuen Schüler hinzufügen");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -80,7 +80,7 @@ public class AddNewStudentWithEmail_Frame extends JFrame {
 		});
 		btnNewButton.setBounds(242, 38, 182, 23);
 		contentPane.add(btnNewButton);
-		
+
 		txtemail = new JTextField();
 		txtemail.setText("--Email--");
 		txtemail.setColumns(10);
