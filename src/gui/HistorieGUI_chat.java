@@ -4,24 +4,14 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.awt.EventQueue;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
-
 import csv_reader_stuff.Datenleser;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 
 public class HistorieGUI_chat {
