@@ -159,6 +159,7 @@ public class DateWriter {
 			return false;
 		}
 	}
+<<<<<<< HEAD
 
 	 /**
      * Gibt eine Liste mit den Namen und E-Mails aller Schüler in der Schülerliste zurück.
@@ -293,3 +294,6 @@ public class DateWriter {
     
 }
 
+=======
+}
+>>>>>>> branch 'feature-gui-notenhistorie' of git@github.com:HitoHitoNika/LF5_Project_WhiteTrash.git
