@@ -47,8 +47,8 @@ public class Panel_Klasse extends JPanel  {
 	  private JTextField textField;
 private DateWriter dateWriter = new DateWriter();
 private Datenleser dateReader  = new Datenleser();;
-List<String> classNames = dateReader.getClassNames();
-String [] classNamesArray = classNames.toArray(new String[classNames.size()]);
+public List<String> classNames = dateReader.getClassNames();
+public String [] classNamesArray = classNames.toArray(new String[classNames.size()]);
 	/**
 	 * Create the panel.
 	 * @throws FileNotFoundException 

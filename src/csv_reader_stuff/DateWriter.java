@@ -184,7 +184,7 @@ public class DateWriter {
                 String name = parts[0];
                 String email = parts[1];
                 String id = parts[2];
-                Student student = new Student(name, email);
+                Student student = new Student(name, email, id);
                 studentList.add(student);
             }
         } catch (IOException e) {
@@ -203,8 +203,10 @@ public class DateWriter {
 			student.getName();
 			student.getEmail();
 			student.getId();
-			System.out.println(student.getName() + student.getEmail() );
+			System.out.println(student.getName() + student.getEmail()+ 	student.getId());
 		}
+		
+
 	}
     
     public int countStudents(String klasse) {
@@ -252,5 +254,42 @@ public class DateWriter {
             System.out.println("Fehler beim Löschen der Klasse.");
         }
     }
+    
+    public void deleteStudent(String klasse, String studentName) {
+        String fileName = "CSV_Dateien/" + klasse + "/Schuelerliste.csv";
+        List<Student> studentList = getStudentList(klasse);
+        
+        for (int i = 0; i < studentList.size(); i++) {
+            Student student = studentList.get(i);
+            if (student.getName().equals(studentName)) {
+                studentList.remove(i);
+                break;
+            }
+        }
+        
+        // Aktualisierte Schülerliste speichern
+        saveStudentList(fileName, studentList);
+    }
+    
+    
+    public void saveStudentList(String fileName, List<Student> studentList) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            // Schreiben der Header-Zeile
+            writer.write("Name;E-Mail;ID");
+            writer.newLine();
+
+            // Schreiben der Schülerdaten
+            for (Student student : studentList) {
+                writer.write(student.getName() + ";" + student.getEmail() + ";" + student.getId());
+                writer.newLine();
+            }
+
+            System.out.println("Schülerliste wurde erfolgreich gespeichert.");
+        } catch (IOException e) {
+            System.out.println("Fehler beim Speichern der Schülerliste: " + e.getMessage());
+        }
+    }
+    
+    
 }
 
