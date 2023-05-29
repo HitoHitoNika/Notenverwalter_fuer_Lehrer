@@ -41,6 +41,8 @@ public class Panel_Schueler extends JPanel {
 	private String[] columnNames = { "Schüler", "Email" };
 	List<Student> students = new ArrayList<Student>();
 	JComboBox comboBox = new JComboBox();
+	JButton btnSchuelerLschen = new JButton("Schueler Löschen");
+	private MouseAdapter deleteButtonMouseAdapter;
 
 	/**
 	 * Create the panel.
@@ -117,7 +119,7 @@ public class Panel_Schueler extends JPanel {
 		add(panel_1);
 		panel_1.setLayout(null);
 		JLabel lblKlassenliste = new JLabel("Schülerliste:");
-		lblKlassenliste.setBounds(10, 11, 70, 14);
+		lblKlassenliste.setBounds(10, 11, 143, 14);
 		panel_1.add(lblKlassenliste);
 
 		btnNewButton.addMouseListener(new MouseAdapter() {
@@ -153,36 +155,24 @@ public class Panel_Schueler extends JPanel {
 			addRowArray(student.getName(), student.getEmail());
 
 		}
-		JButton btnSchuelerLschen = new JButton("Schueler Löschen");
+	
 
 		btnSchuelerLschen.setBounds(10, 280, 164, 23);
 		panel_1.add(btnSchuelerLschen);
 
 		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int row = table.rowAtPoint(e.getPoint());
-				int column = table.columnAtPoint(e.getPoint());
-				if (row >= 0 && column >= 0) {
-					Object value = table.getValueAt(row, column);
-					String test = value.toString();
-					System.out.println("Angeklickter Wert: " + test);
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        int row = table.rowAtPoint(e.getPoint());
+		        int column = table.columnAtPoint(e.getPoint());
+		        if (row >= 0 && column >= 0) {
+		            Object value = table.getValueAt(row, column);
+		            String test = value.toString();
+		            System.out.println("Angeklickter Wert: " + test);
 
-					btnSchuelerLschen.addMouseListener(new MouseAdapter() {
-						public void mouseClicked(MouseEvent e) {
-							String selectedClassName = (String) comboBox.getSelectedItem();
-							int option = JOptionPane.showConfirmDialog(null, "Möchten Sie den Studenten wirklich löschen?", "Bestätigung", JOptionPane.YES_NO_OPTION);
-					        
-					        if (option == JOptionPane.YES_OPTION) {
-					            // Der Benutzer hat "Ja" ausgewählt, Studenten löschen
-					            dateWriter.deleteStudent(selectedClassName, test);
-					            refreshRow(selectedClassName);
-					        }
-
-						}
-					});
-				}
-			}
+		            initializeDeleteButton(test);
+		        }
+		    }
 		});
 
 		scrollPane.setViewportView(table);
@@ -202,6 +192,26 @@ public class Panel_Schueler extends JPanel {
 			addRowArray(student.getName(), student.getEmail());
 
 		}
+	}
+	private void initializeDeleteButton(String test) {
+	    if (deleteButtonMouseAdapter != null) {
+	        btnSchuelerLschen.removeMouseListener(deleteButtonMouseAdapter);
+	    }
+
+	    deleteButtonMouseAdapter = new MouseAdapter() {
+	        public void mouseClicked(MouseEvent e) {
+	            String selectedClassName = (String) comboBox.getSelectedItem();
+	            int option = JOptionPane.showConfirmDialog(null, "Möchten Sie den Studenten wirklich löschen?", "Bestätigung", JOptionPane.YES_NO_OPTION);
+
+	            if (option == JOptionPane.YES_OPTION) {
+	                // Der Benutzer hat "Ja" ausgewählt, Studenten löschen
+	                dateWriter.deleteStudent(selectedClassName, test);
+	                refreshRow(selectedClassName);
+	            }
+	        }
+	    };
+
+	    btnSchuelerLschen.addMouseListener(deleteButtonMouseAdapter);
 	}
 
 }

@@ -18,15 +18,17 @@ import javax.swing.JSplitPane;
 import javax.swing.ImageIcon;
 import OneInAll_GUI.Panel_Klasse;
 import OneInAll_GUI.Panel_Schueler;
-import OneInAll_GUI.Panel_Noten;
+import OneInAll_GUI.Panel_Fach;
 import javax.swing.JDesktopPane;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Dashboard_Gui extends JFrame {
 
 	private JPanel Header;
 	private Panel_Klasse klassePanel;
-	private Panel_Noten notenPanel;
+	private Panel_Fach fachPanel;
 	private Panel_Schueler schuelerPanel;
 	private boolean mouseClickedActivated1 = false;
 	private boolean mouseClickedActivated2 = false;
@@ -75,7 +77,7 @@ public class Dashboard_Gui extends JFrame {
 		panel.setLayout(null);
 
 		klassePanel = new Panel_Klasse();
-		notenPanel = new Panel_Noten();
+		fachPanel = new Panel_Fach();
 		schuelerPanel = new Panel_Schueler();
 
 		panel_1_1.addMouseListener(new MouseAdapter() {
@@ -132,7 +134,7 @@ public class Dashboard_Gui extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				menuClicked(notenPanel);
+				menuClicked(fachPanel);
 
 				updateMouseClickedActivated(false, false, true);
 
@@ -146,7 +148,7 @@ public class Dashboard_Gui extends JFrame {
 		panel_1_2.setBounds(573, 112, 131, 31);
 		panel.add(panel_1_2);
 
-		JLabel lblNotenverwaltung = new JLabel("Notenverwaltung");
+		JLabel lblNotenverwaltung = new JLabel("Fachverwaltung");
 		lblNotenverwaltung.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNotenverwaltung.setForeground(Color.WHITE);
 		lblNotenverwaltung.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 11));
@@ -167,6 +169,25 @@ public class Dashboard_Gui extends JFrame {
 		panel.add(lblNewLabel_1_1);
 		
 		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				menuClicked(klassePanel);
+
+				updateMouseClickedActivated(true, false, false);
+
+			
+				panel_1_2.setBackground(new Color(63, 90, 114));
+				
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+		});
 		btnNewButton.setBounds(127, 120, 141, 23);
 		panel.add(btnNewButton);
 
@@ -176,7 +197,7 @@ public class Dashboard_Gui extends JFrame {
 		MainContent.setLayout(null);
 
 		MainContent.add(klassePanel);
-		MainContent.add(notenPanel);
+		MainContent.add(fachPanel);
 		MainContent.add(schuelerPanel);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
@@ -215,7 +236,7 @@ public class Dashboard_Gui extends JFrame {
 
 	public void menuClicked(JPanel panel) {
 		klassePanel.setVisible(false);
-		notenPanel.setVisible(false);
+		fachPanel.setVisible(false);
 		schuelerPanel.setVisible(false);
 
 		panel.setVisible(true);

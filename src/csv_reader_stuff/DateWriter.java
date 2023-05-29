@@ -159,7 +159,6 @@ public class DateWriter {
 			return false;
 		}
 	}
-<<<<<<< HEAD
 
 	 /**
      * Gibt eine Liste mit den Namen und E-Mails aller Schüler in der Schülerliste zurück.
@@ -291,9 +290,25 @@ public class DateWriter {
         }
     }
     
+    public boolean deleteSubject(String fach, String klasse) {
+        String fileName = "CSV_Dateien/" + klasse + "/" + fach + ".csv";
+        File file = new File(fileName);
+        
+        if (file.exists()) {
+            if (file.delete()) {
+                System.out.println("Das Fach wurde erfolgreich gelöscht.");
+                return true;
+            } else {
+                System.out.println("Fehler beim Löschen des Fachs.");
+                return false;
+            }
+        } else {
+            System.out.println("Das Fach existiert nicht.");
+            return false;
+        }
+    }
+
+    
     
 }
 
-=======
-}
->>>>>>> branch 'feature-gui-notenhistorie' of git@github.com:HitoHitoNika/LF5_Project_WhiteTrash.git
