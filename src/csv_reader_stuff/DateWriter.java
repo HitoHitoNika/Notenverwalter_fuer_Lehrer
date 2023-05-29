@@ -1,7 +1,12 @@
 package csv_reader_stuff;
 
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.io.IOException;
+import java.util.List;
+
+import school_attributes.Student;
+
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -53,7 +58,7 @@ public class DateWriter {
 	 *         Datei bereits existiert oder ein Fehler aufgetreten ist
 	 */
 	public boolean createStudentsCSVFile(String klasse) {
-		String path = "CSV_Dateien/" + klasse + "/" + "Schülerliste.csv";
+		String path = "CSV_Dateien/" + klasse + "/" + "Schuelerliste.csv";
 		try {
 			FileWriter csvWriter = new FileWriter(path);
 			csvWriter.append("Name");
@@ -84,7 +89,7 @@ public class DateWriter {
 
 	public boolean addEntryToCSV(String klasse, String name, String email) {
 		try {
-			String fileName = "CSV_Dateien/" + klasse + "/" + "Schülerliste.csv";
+			String fileName = "CSV_Dateien/" + klasse + "/" + "Schuelerliste.csv";
 
 			// Überprüfen, ob die Datei bereits vorhanden ist und eine Schülerinfo-ID
 			// festlegen
@@ -154,4 +159,98 @@ public class DateWriter {
 			return false;
 		}
 	}
+
+	 /**
+     * Gibt eine Liste mit den Namen und E-Mails aller Schüler in der Schülerliste zurück.
+     *
+     * @param klasse die Klasse für die CSV-Datei
+     * @return eine Liste mit den Namen und E-Mails der Schüler
+     */
+	/**
+     * Gibt eine Liste von Student-Objekten zurück, die Namen und E-Mails aller Schüler in der Schülerliste enthält.
+     *
+     * @param klasse die Klasse für die CSV-Datei
+     * @return eine Liste von Student-Objekten
+     */
+    public List<Student> getStudentList(String klasse) {
+        List<Student> studentList = new ArrayList<>();
+        String fileName = "CSV_Dateien/" + klasse + "/Schuelerliste.csv";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        	reader.readLine();
+        	String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(";");
+                String name = parts[0];
+                String email = parts[1];
+                String id = parts[2];
+                Student student = new Student(name, email);
+                studentList.add(student);
+            }
+        } catch (IOException e) {
+            System.out.println("Fehler beim Lesen der Schülerliste: " + e.getMessage());
+        }
+
+        return studentList;
+    }
+    
+    public static void main(String[] args) {
+		DateWriter test = new DateWriter();
+		List<Student> Schueler = new ArrayList<Student>();
+		Schueler = test.getStudentList("BSIT22b");
+		
+		for (Student student : Schueler) {
+			student.getName();
+			student.getEmail();
+			student.getId();
+			System.out.println(student.getName() + student.getEmail() );
+		}
+	}
+    
+    public int countStudents(String klasse) {
+        int count = 0;
+        String fileName = "CSV_Dateien/" + klasse + "/Schuelerliste.csv";
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            // Die Schülerliste wird Zeile für Zeile durchgegangen
+        	reader.readLine();
+            while (reader.readLine() != null) {
+                count++;
+            }
+        } catch (IOException e) {
+            System.out.println("Fehler beim Lesen der Schülerliste: " + e.getMessage());
+        }
+
+        return count;
+    }
+    
+    /**
+     * Löscht eine Klasse und alle zugehörigen Dateien.
+     *
+     * @param klasse die zu löschende Klasse
+     */
+    public void deleteClass(String klasse) {
+        String folderPath = "CSV_Dateien/" + klasse;
+        File folder = new File(folderPath);
+
+        if (!folder.exists()) {
+            System.out.println("Die Klasse existiert nicht.");
+            return;
+        }
+
+        // Lösche alle Dateien im Ordner
+        File[] files = folder.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                file.delete();
+            }
+        }
+
+        // Lösche den Ordner
+        if (folder.delete()) {
+            System.out.println("Die Klasse wurde erfolgreich gelöscht.");
+        } else {
+            System.out.println("Fehler beim Löschen der Klasse.");
+        }
+    }
 }
+

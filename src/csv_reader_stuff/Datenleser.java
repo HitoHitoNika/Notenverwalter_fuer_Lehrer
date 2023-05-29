@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 
@@ -261,5 +262,35 @@ public class Datenleser {
     System.out.println(config.size());
     return config;
   }
+
+public void writeNote(int note, int schuelerID, int test) {
+	// TODO Auto-generated method stub
+	
+}
+
+public List<String> getClassNames() {
+    List<String> classNames = new ArrayList<>();
+    String directoryPath = "CSV_Dateien";
+    File directory = new File(directoryPath);
+
+    if (directory.exists() && directory.isDirectory()) {
+        File[] classFolders = directory.listFiles();
+
+        if (classFolders != null) {
+            for (File classFolder : classFolders) {
+                if (classFolder.isDirectory()) {
+                    String className = classFolder.getName();
+                    classNames.add(className);
+                }
+            }
+        }
+    }
+
+    return classNames;
+}
+
+
+
+
 
 }
