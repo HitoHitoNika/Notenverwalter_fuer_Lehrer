@@ -30,6 +30,7 @@ public class Dashboard_Gui extends JFrame {
 	private Panel_Klasse klassePanel;
 	private Panel_Fach fachPanel;
 	private Panel_Schueler schuelerPanel;
+	private Panel_Notenvergabe_Screen notenvergabe ;
 	private boolean mouseClickedActivated1 = false;
 	private boolean mouseClickedActivated2 = false;
 	private boolean mouseClickedActivated3 = false;
@@ -79,6 +80,7 @@ public class Dashboard_Gui extends JFrame {
 		klassePanel = new Panel_Klasse();
 		fachPanel = new Panel_Fach();
 		schuelerPanel = new Panel_Schueler();
+		notenvergabe = new Panel_Notenvergabe_Screen();
 
 		panel_1_1.addMouseListener(new MouseAdapter() {
 
@@ -97,7 +99,8 @@ public class Dashboard_Gui extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				menuClicked(schuelerPanel);
-
+				
+				schuelerPanel.refreshCombo();
 				updateMouseClickedActivated(false, true, false);
 
 			
@@ -107,7 +110,7 @@ public class Dashboard_Gui extends JFrame {
 		});
 		panel_1_1.setLayout(null);
 		panel_1_1.setBackground(new Color(63, 90, 114));
-		panel_1_1.setBounds(365, 112, 131, 31);
+		panel_1_1.setBounds(251, 112, 131, 31);
 		panel.add(panel_1_1);
 
 		JLabel lblSchlerverwaltung = new JLabel("Schülerverwaltung");
@@ -137,7 +140,7 @@ public class Dashboard_Gui extends JFrame {
 				menuClicked(fachPanel);
 
 				updateMouseClickedActivated(false, false, true);
-
+			fachPanel.refreshCombo(); 
 				
 				panel_1_1.setBackground(new Color(63, 90, 114));
 
@@ -145,7 +148,7 @@ public class Dashboard_Gui extends JFrame {
 		});
 		panel_1_2.setLayout(null);
 		panel_1_2.setBackground(new Color(63, 90, 114));
-		panel_1_2.setBounds(573, 112, 131, 31);
+		panel_1_2.setBounds(448, 112, 131, 31);
 		panel.add(panel_1_2);
 
 		JLabel lblNotenverwaltung = new JLabel("Fachverwaltung");
@@ -188,8 +191,29 @@ public class Dashboard_Gui extends JFrame {
 			public void mouseEntered(MouseEvent e) {
 			}
 		});
-		btnNewButton.setBounds(127, 120, 141, 23);
+		btnNewButton.setBounds(52, 120, 141, 23);
 		panel.add(btnNewButton);
+		
+		JPanel panel_1_2_1 = new JPanel();
+		panel_1_2_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				menuClicked(notenvergabe);
+
+			}
+		});
+		panel_1_2_1.setLayout(null);
+		panel_1_2_1.setBackground(new Color(63, 90, 114));
+		panel_1_2_1.setBounds(668, 112, 131, 31);
+		panel.add(panel_1_2_1);
+		
+		JLabel lblNotenverwaltung_1 = new JLabel("Notenvergabe");
+		lblNotenverwaltung_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNotenverwaltung_1.setForeground(Color.WHITE);
+		lblNotenverwaltung_1.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 11));
+		lblNotenverwaltung_1.setBackground(Color.MAGENTA);
+		lblNotenverwaltung_1.setBounds(21, 11, 96, 12);
+		panel_1_2_1.add(lblNotenverwaltung_1);
 
 		JPanel MainContent = new JPanel();
 		MainContent.setBounds(0, 143, 886, 331);
@@ -199,6 +223,7 @@ public class Dashboard_Gui extends JFrame {
 		MainContent.add(klassePanel);
 		MainContent.add(fachPanel);
 		MainContent.add(schuelerPanel);
+		MainContent.add(notenvergabe);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setBounds(141, 544, 1, 1);
@@ -238,6 +263,7 @@ public class Dashboard_Gui extends JFrame {
 		klassePanel.setVisible(false);
 		fachPanel.setVisible(false);
 		schuelerPanel.setVisible(false);
+		notenvergabe.setVisible(false);
 
 		panel.setVisible(true);
 

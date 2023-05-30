@@ -88,7 +88,8 @@ public class Panel_Fach extends JPanel {
 		});
 		list.setBounds(10, 49, 575, 223);
 		panel_1.add(list);
-		 classNames = dateReader.getClassNames();
+		
+		    classNames = dateReader.getClassNames();
 	        classNamesArray = classNames.toArray(new String[classNames.size()]);
 	        comboBox = new JComboBox<>();
 	        comboBox.setModel(new DefaultComboBoxModel(classNamesArray));
@@ -194,6 +195,14 @@ public class Panel_Fach extends JPanel {
         revalidate();
         repaint();
     }
+	
+	public void refreshCombo() {
+		   classNames = dateReader.getClassNames();
+	        classNamesArray = classNames.toArray(new String[classNames.size()]);
+	        comboBox.setModel(new DefaultComboBoxModel(classNamesArray));
+	      
+    }
+	
 	
 	
 

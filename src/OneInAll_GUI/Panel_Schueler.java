@@ -140,7 +140,7 @@ public class Panel_Schueler extends JPanel {
 			}
 		});
 		JButton btnNewButton_1 = new JButton("Schüler entfernen");
-
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 47, 575, 222);
 		panel_1.add(scrollPane);
@@ -148,7 +148,7 @@ public class Panel_Schueler extends JPanel {
 		{
 		}
 		table = new JTable(tableModel);
-
+		disableTable(table);
 		students = dateWriter.getStudentList(classNamesArray[comboBox.getSelectedIndex()]);
 
 		for (Student student : students) {
@@ -193,10 +193,20 @@ public class Panel_Schueler extends JPanel {
 
 		}
 	}
+	
+	public void refreshCombo() {
+		   classNames = dateReader.getClassNames();
+	        classNamesArray = classNames.toArray(new String[classNames.size()]);
+	        comboBox.setModel(new DefaultComboBoxModel(classNamesArray));
+	      
+ }
+	
 	private void initializeDeleteButton(String test) {
 	    if (deleteButtonMouseAdapter != null) {
 	        btnSchuelerLschen.removeMouseListener(deleteButtonMouseAdapter);
 	    }
+	    
+	    
 
 	    deleteButtonMouseAdapter = new MouseAdapter() {
 	        public void mouseClicked(MouseEvent e) {
@@ -212,6 +222,14 @@ public class Panel_Schueler extends JPanel {
 	    };
 
 	    btnSchuelerLschen.addMouseListener(deleteButtonMouseAdapter);
+	}
+	
+	private void disableTable(JTable table) {
+		for (int c = 0; c < table.getColumnCount(); c++) {
+			Class<?> colClass = table.getColumnClass(c);
+			table.setDefaultEditor(colClass, null); // disable editing for all columns
+		}
+
 	}
 
 }
