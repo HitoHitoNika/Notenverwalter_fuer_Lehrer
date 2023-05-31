@@ -149,7 +149,7 @@ public class Panel_Schueler extends JPanel {
 		}
 		table = new JTable(tableModel);
 		disableTable(table);
-		students = dateWriter.getStudentList(classNamesArray[comboBox.getSelectedIndex()]);
+		
 
 		for (Student student : students) {
 			addRowArray(student.getName(), student.getEmail());
@@ -187,12 +187,17 @@ public class Panel_Schueler extends JPanel {
 	public void refreshRow(String selectedClassName) {
 
 		students = dateWriter.getStudentList(classNamesArray[comboBox.getSelectedIndex()]);
-		tableModel.setRowCount(0);
+		resetTable();
 		for (Student student : students) {
 			addRowArray(student.getName(), student.getEmail());
 
 		}
 	}
+	public void resetTable() {
+
+		tableModel.setRowCount(0);
+	}
+	
 	
 	public void refreshCombo() {
 		   classNames = dateReader.getClassNames();

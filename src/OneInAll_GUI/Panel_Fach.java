@@ -41,15 +41,17 @@ public class Panel_Fach extends JPanel {
 	JComboBox<String> comboBox = new JComboBox();
 	JButton btnSchuelerLschen = new JButton("Fach löschen");
 	private MouseAdapter deleteButtonMouseAdapter;
+	JList list = new JList();
 	
 
+	
+	
 	/**
 	 * Create the panel.
 	 * 
 	 * @throws FileNotFoundException
 	 */
 	public Panel_Fach() throws FileNotFoundException {
-
 		setBounds(0, 0, 886, 331);
 		setLayout(null);
 		JPanel panel = new JPanel();
@@ -66,11 +68,10 @@ public class Panel_Fach extends JPanel {
 		JLabel lblKlassenname = new JLabel("Fächername");
 		lblKlassenname.setBounds(10, 100, 136, 14);
 		panel.add(lblKlassenname);
-		JList list = new JList();
+		
 		String selectedClassName = (String) comboBox.getSelectedItem();
 		List<String> subjectName = dateReader.getSubjectsOfClass(selectedClassName);
 		String[] subjectNameArrays = subjectName.toArray(new String[classNames.size()]);
-		refreshRow(classNamesArray[0], list);
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(281, 0, 595, 331);
 		add(panel_1);
@@ -98,7 +99,7 @@ public class Panel_Fach extends JPanel {
 	            public void itemStateChanged(ItemEvent event) {
 	                if (event.getStateChange() == ItemEvent.SELECTED) {
 	                    String selectedClassName = (String) comboBox.getSelectedItem();
-	                    refreshRow(selectedClassName, list);
+	                    refreshRow(selectedClassName);
 	                }
 	            }
 	        });
@@ -115,7 +116,7 @@ public class Panel_Fach extends JPanel {
 				if (dateWriter.createSubjectCSVFile(eingabe, selectedClassName) == true) {
 					JOptionPane.showMessageDialog(null, eingabe + " wurde Erfolgreich hinzugefügt", "Erfolg",
 							JOptionPane.INFORMATION_MESSAGE);
-					refreshRow(selectedClassName, list);
+					refreshRow(selectedClassName);
 					
 					
 				} else {
@@ -170,7 +171,7 @@ public class Panel_Fach extends JPanel {
 			        
 			        if (option == JOptionPane.YES_OPTION) {
 			            dateWriter.deleteSubject(subjectNameArray[list.getSelectedIndex()], selectedClassName);
-			            refreshRow(selectedClassName, list);
+			            refreshRow(selectedClassName);
 			        }
 			    }
 			});
@@ -188,7 +189,7 @@ public class Panel_Fach extends JPanel {
 		tableModel.addRow(row);
 	}
 
-	public void refreshRow(String selectedClassName, JList list) {
+	public void refreshRow(String selectedClassName) {
         List<String> subjectName = dateReader.getSubjectsOfClass(selectedClassName);
         String[] subjectNameArray = subjectName.toArray(new String[subjectName.size()]);
         list.setListData(subjectNameArray);

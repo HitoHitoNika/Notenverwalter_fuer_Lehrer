@@ -50,6 +50,7 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 	private JTable table;
 	private JTextField searchTextField;
 	  private TableRowSorter<DefaultTableModel> tableRowSorter;
+	  Student selectedStudent;
 	  
 	 
 	  
@@ -120,7 +121,13 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 		}
 		table = new JTable(tableModel);
 		disableTable(table);
-		students = dateWriter.getStudentList(classNamesArray[comboBox.getSelectedIndex()]);
+		if (students.isEmpty()) {
+			
+		}
+		else {
+			students = dateWriter.getStudentList(classNamesArray[comboBox.getSelectedIndex()]);
+		}
+		
 
 		for (Student student : students) {
 			addRowArray(student.getName(), student.getEmail());
@@ -137,36 +144,34 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 		            String test = value.toString();
 		            System.out.println("Angeklickter Wert: " + test);
 		            btnNewButton.setVisible(true);
-		            
+
 		            for (Student student : students) {
 		                if (student.getName().equals(test)) {
-		                    btnNewButton.addMouseListener(new MouseAdapter() {
-		                        @Override
-		                        public void mouseClicked(MouseEvent e) {
-		                           
-		                            String selectedClassName = (String) comboBox.getSelectedItem();
-		                            try {
-		                                Panel_Notenvergabe_MainScreen editScreen = new Panel_Notenvergabe_MainScreen(Integer.parseInt(student.getId()) - 1 , selectedClassName);
-		                                panel.setVisible(false);
-		                                panel_1.add(editScreen);
-		                                panel_1.setVisible(true);
-		                                panel_1.setLayout(new BorderLayout());
-		                                editScreen.setVisible(true);
-		                            } catch (NumberFormatException e1) {
-		                                e1.printStackTrace();
-		                            } catch (IOException e1) {
-		                                e1.printStackTrace();
-		                            }
-		                        }
-		                    });
-							
-		                    // Add the btnNewButton to its parent container (assuming it's a JPanel)
-		                    panel.add(btnNewButton);
-		                    panel.revalidate(); // Refresh the layout of the panel
+		                    // Speichere den ausgewählten Studenten
+		                    selectedStudent = student;
 		                    
 		                    break; // Exit the loop since the student has been found
 		                }
 		            }
+		        }
+		    }
+		});
+		
+		// Registriere den MouseListener nur einmal für btnNewButton außerhalb der Tabelle
+		btnNewButton.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        String selectedClassName = (String) comboBox.getSelectedItem();
+		        try {
+		            Panel_Notenvergabe_MainScreen editScreen = new Panel_Notenvergabe_MainScreen(Integer.parseInt(selectedStudent.getId()) - 1 , selectedClassName);
+		            panel.setVisible(false);
+		            panel_1.add(editScreen);
+		            panel_1.setVisible(true);
+		            editScreen.setVisible(true);
+		        } catch (NumberFormatException e1) {
+		            e1.printStackTrace();
+		        } catch (IOException e1) {
+		            e1.printStackTrace();
 		        }
 		    }
 		});
@@ -239,7 +244,7 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 
 	
 	public void refreshCombo() {
-		   classNames = dateReader.getClassNames();
+		    classNames = dateReader.getClassNames();
 	        classNamesArray = classNames.toArray(new String[classNames.size()]);
 	        comboBox.setModel(new DefaultComboBoxModel(classNamesArray));
 	      
@@ -266,4 +271,12 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 		}
 	}
 	
-}
+	public void setSelectedItem(String klasse) {
+
+		
+		comboBox.setSelectedItem(klasse);
+
+		}
+	}
+	
+	
