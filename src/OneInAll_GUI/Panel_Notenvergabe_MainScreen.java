@@ -1,21 +1,27 @@
 package OneInAll_GUI;
 
 import java.awt.Color;
+import csv_reader_stuff.DateWriter;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
 import csv_reader_stuff.Datenleser;
+import school_attributes.Student;
 
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -26,9 +32,16 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import OneInAll_GUI.HistorieGUI_chat;
+
 
 public class Panel_Notenvergabe_MainScreen extends JPanel {
 	private JPanel contentPane_1;
@@ -55,12 +68,22 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	private ArrayList<String> faecher = new ArrayList<>();
 	private JComboBox fachDropdown = new JComboBox();
 	private int schuelerID;
+	private Student student;
 	JComboBox testformBox = new JComboBox();
 	Datenleser dateReader = new Datenleser();
+	DateWriter dateWriter = new DateWriter();
+	private static final int klausur = 1;
+	private static final int epo = 2;
+	private static final int hue = 3;
+	private DefaultTableModel tableModel;
+	private String[] columnNames = { "Klausur", "HÜ", "Epochalnote" };
+	String selectedClassName = (String) fachDropdown.getSelectedItem();
 
-	public Panel_Notenvergabe_MainScreen(int selectedIndex, String klasse) throws IOException {
-		this.schuelerID = selectedIndex;
+	public Panel_Notenvergabe_MainScreen(Student student, String klasse) throws IOException {
+
+		this.schuelerID = Integer.parseInt(student.getId()) - 1;
 		this.klasse = klasse;
+		this.student = student;
 
 		createWindow();
 
@@ -97,7 +120,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	private void initEmailField() {
 		eMailField = new JTextField();
 		eMailField.setBackground(Color.LIGHT_GRAY);
-		eMailField.setBounds(52, 292, 200, 20);
+		eMailField.setBounds(10, 293, 200, 20);
 		panel.add(eMailField);
 		eMailField.setHorizontalAlignment(SwingConstants.CENTER);
 		eMailField.setEditable(false);
@@ -113,7 +136,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		klasseField = new JTextField();
 		klasseField.setForeground(Color.BLACK);
 		klasseField.setBackground(Color.LIGHT_GRAY);
-		klasseField.setBounds(52, 261, 200, 20);
+		klasseField.setBounds(10, 261, 200, 20);
 		panel.add(klasseField);
 		klasseField.setHorizontalAlignment(SwingConstants.CENTER);
 		klasseField.setEditable(false);
@@ -128,7 +151,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		nameField = new JTextField();
 		nameField.setForeground(Color.BLACK);
 		nameField.setBackground(Color.LIGHT_GRAY);
-		nameField.setBounds(52, 232, 200, 20);
+		nameField.setBounds(10, 230, 200, 20);
 		panel.add(nameField);
 		nameField.setHorizontalAlignment(SwingConstants.CENTER);
 		nameField.setEditable(false);
@@ -141,9 +164,9 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	 */
 	private void initStudentPic() {
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(93, 75, 130, 132);
+		lblNewLabel.setBounds(49, 69, 130, 132);
 		panel.add(lblNewLabel);
-		lblNewLabel.setIcon(new ImageIcon(System.getProperty("user.dir") + "/misc/student.png"));
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\CjVan\\git\\LF5_Project_WhiteTrash\\misc\\354637 (8).png"));
 	}
 
 	/**
@@ -177,10 +200,10 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		table.getColumnModel().getColumn(2).setPreferredWidth(25);
 		table.getColumnModel().getColumn(2).setMinWidth(25);
 		table.getColumnModel().getColumn(2).setMaxWidth(32);
-		table.setBounds(830, 131, 83, 256);
+		table.setBounds(829, 18, 83, 256);
 		contentPane_1.add(table);
 		panel.setBackground(SystemColor.activeCaption);
-		panel.setBounds(-30, -3, 269, 413);
+		panel.setBounds(54, -11, 227, 410);
 		contentPane_1.add(panel);
 		panel.setLayout(null);
 
@@ -211,32 +234,89 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 			}
 		});
 		btnZurck.setBackground(Color.LIGHT_GRAY);
-		btnZurck.setBounds(576, 202, 89, 23);
+		btnZurck.setBounds(623, 260, 89, 23);
 		contentPane_1.add(btnZurck);
+		{
+			JButton hinzufButton = new JButton("Löschen");
+			hinzufButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dateWriter.deleteGradeFromSubject(fach.replace(".csv", ""), klasse, schuelerID + 1, note, test);
+					addRowArrayForTabl();
+				}
+			});
+			hinzufButton.setBackground(Color.LIGHT_GRAY);
+			hinzufButton.setBounds(434, 260, 127, 23);
+			contentPane_1.add(hinzufButton);
+		}
+		{
+			JButton btnNewButton = new JButton("ZeugnisAnzeigen");
+			btnNewButton.addMouseListener(new MouseAdapter() {
+			    @Override
+			    public void mouseClicked(MouseEvent e) {
+			        HistorieGUI_chat historie;
+			        try {
+			            historie = new HistorieGUI_chat(schuelerID, klasse);
+
+			            historie.addWindowListener(new WindowAdapter() {
+			                @Override
+			                public void windowClosing(WindowEvent e) {
+			                    historie.setVisible(false);
+			                    historie.dispose();
+			                }
+			            });
+
+			            historie.setVisible(true);
+			        } catch (IOException e1) {
+			            e1.printStackTrace();
+			        }
+			    }
+			});
+			
+			
+			btnNewButton.setBounds(722, 78, 97, 170);
+			contentPane_1.add(btnNewButton);
+		}
 	}
 
 	/**
 	 * Generierung der Notentabelle des Schülers
 	 */
 	private void initNotenTable() {
-		table_2 = new JTable();
-		table_2.setShowHorizontalLines(false);
-		table_2.setBackground(Color.LIGHT_GRAY);
+		tableModel = new DefaultTableModel(columnNames, 0);
+		table_2 = new JTable(tableModel);
 		table_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		table_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table_2.setModel(
-				new DefaultTableModel(new Object[][] { { "Klausuren", "Epos", "H\u00DCs" }, { null, null, null }, },
-						new String[] { "New column", "New column", "New column" }) {
-
-					boolean[] columnEditables = new boolean[] { false, false, false };
-
-					@Override
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+		JScrollPane scrollPane = new JScrollPane(table_2);
+        scrollPane.setBounds(287, 79, 425, 170);
+        fachDropdown.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent event) {
+                if (event.getStateChange() == ItemEvent.SELECTED) {
+                    selectedClassName = (String) fachDropdown.getSelectedItem();
+                    addRowArrayForTabl();
+                }
+            }
+        });
+        
+		
 		table_2.setBounds(287, 116, 416, 30);
-		contentPane_1.add(table_2);
+		contentPane_1.add(scrollPane);
+		table_2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		    @Override
+		    public void valueChanged(ListSelectionEvent event) {
+		        if (!event.getValueIsAdjusting()) {
+		            int selectedRow = table_2.getSelectedRow();
+		            int selectedColumn = table_2.getSelectedColumn();
+
+		            if (selectedRow != -1 && selectedColumn != -1) {
+		                Object value = table_2.getValueAt(selectedRow, selectedColumn);
+		                String columnName = table_2.getColumnName(selectedColumn);
+
+		                System.out.println("Ausgewählter Wert: " + value);
+		                System.out.println("Name der Tabellenspalte: " + columnName);
+		            }
+		        }
+		    }
+		});
 	}
 
 	/**
@@ -247,7 +327,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		notenDropDown.setBackground(Color.LIGHT_GRAY);
 		notenDropDown.setModel(new DefaultComboBoxModel(new String[] { "--Bitte auswählen--", "0", "1", "2", "3", "4",
 				"5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" }));
-		notenDropDown.setBounds(315, 19, 127, 30);
+		notenDropDown.setBounds(287, 38, 127, 30);
 		contentPane_1.add(notenDropDown);
 
 		notenDropDown.addActionListener(new ActionListener() {
@@ -266,22 +346,14 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	private void initHinzufButton() {
 		JButton hinzufButton = new JButton("Hinzufügen");
 		hinzufButton.setBackground(Color.LIGHT_GRAY);
-		hinzufButton.setBounds(287, 202, 89, 23);
+		hinzufButton.setBounds(287, 260, 127, 23);
 		contentPane_1.add(hinzufButton);
 		hinzufButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					Datenleser meinReader = new Datenleser();
-					System.out.println("fach " + fach + " klasse " + klasse);
-					meinReader.setFilePath(fach, klasse);
-					meinReader.writeNote(note, schuelerID, test);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
+				dateWriter.addGradeToSubject(fach.replace(".csv", ""), klasse, schuelerID + 1, note, test);
+				addRowArrayForTabl();
 			}
 		});
 
@@ -293,7 +365,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	private void initFachLabel() {
 		JLabel lblNewLabel_1 = new JLabel("Fach:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(732, 21, 59, 25);
+		lblNewLabel_1.setBounds(585, 13, 59, 25);
 		contentPane_1.add(lblNewLabel_1);
 	}
 
@@ -304,7 +376,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		testformBox.setBackground(Color.LIGHT_GRAY);
 		testformBox.setModel(new DefaultComboBoxModel(
 				new String[] { "--Bitte auswählen--", "Klausur (50%)", "Epo(30%)", "HÜ(20%)" }));
-		testformBox.setBounds(560, 20, 138, 30);
+		testformBox.setBounds(434, 38, 138, 30);
 		contentPane_1.add(testformBox);
 		testformBox.addActionListener(new ActionListener() {
 
@@ -323,7 +395,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		JLabel testformLabel = new JLabel("Testform:");
 		testformLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		testformLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		testformLabel.setBounds(464, 14, 104, 40);
+		testformLabel.setBounds(434, 5, 104, 40);
 		contentPane_1.add(testformLabel);
 	}
 
@@ -334,17 +406,14 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		JLabel notenLabel = new JLabel("Note:");
 		notenLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		notenLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		notenLabel.setBounds(256, 18, 59, 28);
+		notenLabel.setBounds(287, 11, 59, 28);
 		contentPane_1.add(notenLabel);
 	}
 
 	private void initFachDropdown() {
 		fachDropdown.setBackground(Color.LIGHT_GRAY);
-		fachDropdown.setBounds(787, 20, 127, 30);
+		fachDropdown.setBounds(585, 38, 127, 30);
 		contentPane_1.add(fachDropdown);
-		fachDropdown.setModel(new DefaultComboBoxModel(
-				new String[] { "--bitte auswählen--", "Deutsch", "Englisch", "Mathe", "Physik", "Chemie", "Biologie",
-						"Sozialkunde", "Erdkunde", "Religion", "Informatik", "Sport", "Kunst", "Musik" }));
 		updateFaechernamen(fachDropdown);
 
 		fachDropdown.addActionListener(new ActionListener() {
@@ -401,8 +470,111 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		notenDropDown.removeAllItems();
 		faecher.clear();
 		faecher = csvReader.getFaecherNamen(klasse);
+		notenDropDown.addItem("-----Bitte Auswählen------");
 		for (String item : faecher) {
-			notenDropDown.addItem(item);
+			notenDropDown.addItem(item.replace(".csv", ""));
 		}
+	}
+
+	private int[] getNoten(String subject, String klasse, int selectedIndex, int testform) throws IOException {
+		Datenleser csvReader = new Datenleser();
+		csvReader.setFilePath(subject, klasse);
+		csvReader.initReader();
+		int[] noten1 = csvReader.getNoten(selectedIndex, testform);
+		csvReader.closeFile();
+		return noten1;
+
+	}
+
+	// TrimMethoden:
+	private String trimCSVName(String name) {
+		return name.replace(".csv", "");
+
+	}
+
+	private double trimAverage(double averageGrade) {
+		averageGrade = Math.round(averageGrade * 100);
+		averageGrade /= 100;
+		return averageGrade;
+
+	}
+
+	// Methoden für die Tabelle
+	private void disableTable(JTable table) {
+		for (int c = 0; c < table.getColumnCount(); c++) {
+			Class<?> colClass = table.getColumnClass(c);
+			table.setDefaultEditor(colClass, null); // disable editing for all columns
+		}
+
+	}
+
+	private void addRowArray(int[] klausur, int[] hü, int[] epochalnote) {
+		tableModel.setRowCount(0);
+	    int maxLength = Math.max(klausur.length, Math.max(hü.length, epochalnote.length));
+
+	    for (int i = 0; i < maxLength; i++) {
+	        Object[] row = new Object[3];
+
+	        if (i < klausur.length && !(klausur[i] == 0) ) {
+	            row[0] = klausur[i];
+	        }
+
+	        if (i < hü.length && !(hü[i] == 0)) {
+	            row[1] = hü[i];
+	        }
+
+	        if (i < epochalnote.length && !(epochalnote[i] == 0)) {
+	            row[2] = epochalnote[i];
+	        }
+
+	        tableModel.addRow(row);
+	    }
+	}
+	
+	public void addRowArrayForTabl()  {
+		try {
+			addRowArray(getNoten(trimCSVName(selectedClassName), klasse, schuelerID , klausur),
+			        getNoten(trimCSVName(selectedClassName), klasse, schuelerID , epo),
+			        getNoten(trimCSVName(selectedClassName), klasse, schuelerID , hue)
+			      );
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+
+	private String buildNoteResult(int[] grades) {
+		StringBuilder result = new StringBuilder();
+
+		for (int note : grades) {
+			if (note == 0 && grades.length == 1) {
+			} else {
+				result.append(note).append(" | ");
+			}
+		}
+		return result.toString();
+	}
+	
+	private void giveValue() {
+		table_2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		    @Override
+		    public void valueChanged(ListSelectionEvent event) {
+		        if (!event.getValueIsAdjusting()) {
+		            int selectedRow = table_2.getSelectedRow();
+		            int selectedColumn = table_2.getSelectedColumn();
+
+		            if (selectedRow != -1 && selectedColumn != -1) {
+		                Object value = table_2.getValueAt(selectedRow, selectedColumn);
+		                String columnName = table_2.getColumnName(selectedColumn);
+
+		                System.out.println("Ausgewählter Wert: " + value);
+		                System.out.println("Name der Tabellenspalte: " + columnName);
+		            }
+		        }
+		    }
+		});
 	}
 }

@@ -163,11 +163,12 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 		    public void mouseClicked(MouseEvent e) {
 		        String selectedClassName = (String) comboBox.getSelectedItem();
 		        try {
-		            Panel_Notenvergabe_MainScreen editScreen = new Panel_Notenvergabe_MainScreen(Integer.parseInt(selectedStudent.getId()) - 1 , selectedClassName);
+		            Panel_Notenvergabe_MainScreen editScreen = new Panel_Notenvergabe_MainScreen(selectedStudent , selectedClassName);
 		            panel.setVisible(false);
 		            panel_1.add(editScreen);
-		            panel_1.setVisible(true);
+		            panel_1.setVisible(true);    
 		            editScreen.setVisible(true);
+		            
 		        } catch (NumberFormatException e1) {
 		            e1.printStackTrace();
 		        } catch (IOException e1) {

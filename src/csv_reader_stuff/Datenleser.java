@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter;
 
 import javax.swing.JFileChooser;
 
@@ -263,10 +264,21 @@ public class Datenleser {
     return config;
   }
 
-public void writeNote(int note, int schuelerID, int test) {
-	// TODO Auto-generated method stub
-	
-}
+  public void writeNote(int note, int schuelerID, int test ){
+	    schuelerID++;
+	    String[] newEntry = {String.valueOf(schuelerID),String.valueOf(note),String.valueOf(test)}; // Eintrag hinzufügen
+	        try {
+	            FileWriter csvWriter = new FileWriter(csvFile, true);
+	            csvWriter.append("\n");
+	            csvWriter.append(String.join(";", newEntry));
+	            csvWriter.append("\n");
+	            csvWriter.close();
+	            System.out.println("New entry added successfully.");
+	        } catch (IOException e) {
+	            System.out.println("Error while adding new entry to CSV file: " + e.getMessage());
+	        }
+	    
+	  }
 
 public List<String> getClassNames() {
     List<String> classNames = new ArrayList<>();

@@ -194,20 +194,9 @@ public class DateWriter {
         return studentList;
     }
     
-    public static void main(String[] args) {
-		DateWriter test = new DateWriter();
-		List<Student> Schueler = new ArrayList<Student>();
-		Schueler = test.getStudentList("BSIT22b");
-		
-		for (Student student : Schueler) {
-			student.getName();
-			student.getEmail();
-			student.getId();
-			System.out.println(student.getName() + student.getEmail()+ 	student.getId());
-		}
 		
 
-	}
+	
     
     public int countStudents(String klasse) {
         int count = 0;
@@ -307,6 +296,87 @@ public class DateWriter {
             return false;
         }
     }
+    
+    public boolean addGradeToSubject(String fach, String klasse, int schuelerID, int note, int test) {
+        String fileName = "CSV_Dateien/" + klasse + "/" + fach + ".csv";
+        
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            // Schreiben des neuen Eintrags
+            writer.write(schuelerID + ";" + note + ";" + test);
+            writer.newLine();
+
+            System.out.println("Note wurde erfolgreich zum Fach hinzugefügt.");
+            return true;
+        } catch (IOException e) {
+            System.out.println("Fehler beim Hinzufügen der Note zum Fach: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    
+    public boolean deleteGradeFromSubject(String fach, String klasse, int schuelerID, int note, int notenartID) {
+        String fileName = "CSV_Dateien/" + klasse + "/" + fach + ".csv";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            List<String> lines = new ArrayList<>();
+
+            // Die CSV-Datei Zeile für Zeile durchgehen und die gewünschte Note entfernen
+            String line;
+            boolean isFirstLine = true; // Variable, um die erste Zeile zu überspringen
+            boolean gradeDeleted = false;
+            while ((line = reader.readLine()) != null) {
+                if (isFirstLine) {
+                    lines.add(line);
+                    isFirstLine = false;
+                    continue; // Überspringe die erste Zeile
+                }
+
+                String[] parts = line.split(";");
+                int currentSchuelerID = Integer.parseInt(parts[0]);
+                int currentNote = Integer.parseInt(parts[1]);
+                int currentNotenartID = Integer.parseInt(parts[2]);
+                if (currentSchuelerID == schuelerID && currentNote == note && currentNotenartID == notenartID && !gradeDeleted) {
+                    gradeDeleted = true;
+                    continue; // Überspringe den zu löschenden Eintrag
+                }
+
+                lines.add(line);
+            }
+
+            if (!gradeDeleted) {
+                System.out.println("Die Note konnte nicht gefunden werden.");
+                return false;
+            }
+
+            // Aktualisierte Daten in die CSV-Datei schreiben
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+                for (String updatedLine : lines) {
+                    writer.write(updatedLine);
+                    writer.newLine();
+                }
+                System.out.println("Note wurde erfolgreich aus dem Fach gelöscht.");
+                return true;
+            } catch (IOException e) {
+                System.out.println("Fehler beim Schreiben der aktualisierten CSV-Datei: " + e.getMessage());
+                return false;
+            }
+        } catch (IOException e) {
+            System.out.println("Fehler beim Lesen der CSV-Datei: " + e.getMessage());
+            return false;
+        }
+    }
+
+    
+   public static void main(String[] args) {
+	
+	   DateWriter test = new DateWriter();
+	   
+	   
+	   test.deleteGradeFromSubject("Werkstoffkunde", "BSIT22A", 1, 15, 1);
+	   
+} 
+    
+   
 
     
     
