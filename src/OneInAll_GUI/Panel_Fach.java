@@ -28,6 +28,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JSeparator;
+import java.awt.Color;
 
 public class Panel_Fach extends JPanel {
 	private JTextField textFieldName;
@@ -203,10 +205,4 @@ public class Panel_Fach extends JPanel {
 	        comboBox.setModel(new DefaultComboBoxModel(classNamesArray));
 	      
     }
-	
-	
-	
-
-	
-	
 }

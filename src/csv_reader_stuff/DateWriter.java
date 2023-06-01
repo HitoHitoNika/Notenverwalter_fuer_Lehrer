@@ -160,225 +160,259 @@ public class DateWriter {
 		}
 	}
 
-	 /**
-     * Gibt eine Liste mit den Namen und E-Mails aller Schüler in der Schülerliste zurück.
-     *
-     * @param klasse die Klasse für die CSV-Datei
-     * @return eine Liste mit den Namen und E-Mails der Schüler
-     */
 	/**
-     * Gibt eine Liste von Student-Objekten zurück, die Namen und E-Mails aller Schüler in der Schülerliste enthält.
-     *
-     * @param klasse die Klasse für die CSV-Datei
-     * @return eine Liste von Student-Objekten
-     */
-    public List<Student> getStudentList(String klasse) {
-        List<Student> studentList = new ArrayList<>();
-        String fileName = "CSV_Dateien/" + klasse + "/Schuelerliste.csv";
+	 * Gibt eine Liste von Student-Objekten zurück, die Namen und E-Mails aller
+	 * Schüler in der Schülerliste enthält.
+	 *
+	 * @param klasse die Klasse für die CSV-Datei
+	 * @return eine Liste von Student-Objekten
+	 */
+	public List<Student> getStudentList(String klasse) {
+		List<Student> studentList = new ArrayList<>();
+		String fileName = "CSV_Dateien/" + klasse + "/Schuelerliste.csv";
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-        	reader.readLine();
-        	String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(";");
-                String name = parts[0];
-                String email = parts[1];
-                String id = parts[2];
-                Student student = new Student(name, email, id);
-                studentList.add(student);
-            }
-        } catch (IOException e) {
-            System.out.println("Fehler beim Lesen der Schülerliste: " + e.getMessage());
-        }
+		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+			reader.readLine();
+			String line;
+			while ((line = reader.readLine()) != null) {
+				String[] parts = line.split(";");
+				String name = parts[0];
+				String email = parts[1];
+				String id = parts[2];
+				Student student = new Student(name, email, id);
+				studentList.add(student);
+			}
+		} catch (IOException e) {
+			System.out.println("Fehler beim Lesen der Schülerliste: " + e.getMessage());
+		}
 
-        return studentList;
-    }
-    
-		
+		return studentList;
+	}
 
-	
-    
-    public int countStudents(String klasse) {
-        int count = 0;
-        String fileName = "CSV_Dateien/" + klasse + "/Schuelerliste.csv";
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            // Die Schülerliste wird Zeile für Zeile durchgegangen
-        	reader.readLine();
-            while (reader.readLine() != null) {
-                count++;
-            }
-        } catch (IOException e) {
-            System.out.println("Fehler beim Lesen der Schülerliste: " + e.getMessage());
-        }
+	/**
+	 * 
+	 * Zählt die Anzahl der Schüler in einer bestimmten Klasse.
+	 * 
+	 * @param klasse die Klasse, für die die Anzahl der Schüler gezählt werden soll
+	 * @return die Anzahl der Schüler in der Klasse
+	 */
 
-        return count;
-    }
-    
-    /**
-     * Löscht eine Klasse und alle zugehörigen Dateien.
-     *
-     * @param klasse die zu löschende Klasse
-     */
-    public void deleteClass(String klasse) {
-        String folderPath = "CSV_Dateien/" + klasse;
-        File folder = new File(folderPath);
+	public int countStudents(String klasse) {
+		int count = 0;
+		String fileName = "CSV_Dateien/" + klasse + "/Schuelerliste.csv";
+		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+			// Die Schülerliste wird Zeile für Zeile durchgegangen
+			reader.readLine();
+			while (reader.readLine() != null) {
+				count++;
+			}
+		} catch (IOException e) {
+			System.out.println("Fehler beim Lesen der Schülerliste: " + e.getMessage());
+		}
 
-        if (!folder.exists()) {
-            System.out.println("Die Klasse existiert nicht.");
-            return;
-        }
+		return count;
+	}
 
-        // Lösche alle Dateien im Ordner
-        File[] files = folder.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                file.delete();
-            }
-        }
+	/**
+	 * Löscht eine Klasse und alle zugehörigen Dateien.
+	 *
+	 * @param klasse die zu löschende Klasse
+	 */
+	public void deleteClass(String klasse) {
+		String folderPath = "CSV_Dateien/" + klasse;
+		File folder = new File(folderPath);
 
-        // Lösche den Ordner
-        if (folder.delete()) {
-            System.out.println("Die Klasse wurde erfolgreich gelöscht.");
-        } else {
-            System.out.println("Fehler beim Löschen der Klasse.");
-        }
-    }
-    
-    public void deleteStudent(String klasse, String studentName) {
-        String fileName = "CSV_Dateien/" + klasse + "/Schuelerliste.csv";
-        List<Student> studentList = getStudentList(klasse);
-        
-        for (int i = 0; i < studentList.size(); i++) {
-            Student student = studentList.get(i);
-            if (student.getName().equals(studentName)) {
-                studentList.remove(i);
-                break;
-            }
-        }
-        
-        // Aktualisierte Schülerliste speichern
-        saveStudentList(fileName, studentList);
-    }
-    
-    
-    public void saveStudentList(String fileName, List<Student> studentList) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            // Schreiben der Header-Zeile
-            writer.write("Name;E-Mail;ID");
-            writer.newLine();
+		if (!folder.exists()) {
+			System.out.println("Die Klasse existiert nicht.");
+			return;
+		}
 
-            // Schreiben der Schülerdaten
-            for (Student student : studentList) {
-                writer.write(student.getName() + ";" + student.getEmail() + ";" + student.getId());
-                writer.newLine();
-            }
+		// Lösche alle Dateien im Ordner
+		File[] files = folder.listFiles();
+		if (files != null) {
+			for (File file : files) {
+				file.delete();
+			}
+		}
 
-            System.out.println("Schülerliste wurde erfolgreich gespeichert.");
-        } catch (IOException e) {
-            System.out.println("Fehler beim Speichern der Schülerliste: " + e.getMessage());
-        }
-    }
-    
-    public boolean deleteSubject(String fach, String klasse) {
-        String fileName = "CSV_Dateien/" + klasse + "/" + fach + ".csv";
-        File file = new File(fileName);
-        
-        if (file.exists()) {
-            if (file.delete()) {
-                System.out.println("Das Fach wurde erfolgreich gelöscht.");
-                return true;
-            } else {
-                System.out.println("Fehler beim Löschen des Fachs.");
-                return false;
-            }
-        } else {
-            System.out.println("Das Fach existiert nicht.");
-            return false;
-        }
-    }
-    
-    public boolean addGradeToSubject(String fach, String klasse, int schuelerID, int note, int test) {
-        String fileName = "CSV_Dateien/" + klasse + "/" + fach + ".csv";
-        
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            // Schreiben des neuen Eintrags
-            writer.write(schuelerID + ";" + note + ";" + test);
-            writer.newLine();
+		// Lösche den Ordner
+		if (folder.delete()) {
+			System.out.println("Die Klasse wurde erfolgreich gelöscht.");
+		} else {
+			System.out.println("Fehler beim Löschen der Klasse.");
+		}
+	}
 
-            System.out.println("Note wurde erfolgreich zum Fach hinzugefügt.");
-            return true;
-        } catch (IOException e) {
-            System.out.println("Fehler beim Hinzufügen der Note zum Fach: " + e.getMessage());
-            return false;
-        }
-    }
-    
-    
-    public boolean deleteGradeFromSubject(String fach, String klasse, int schuelerID, int note, int notenartID) {
-        String fileName = "CSV_Dateien/" + klasse + "/" + fach + ".csv";
+	/**
+	 * 
+	 * Löscht einen Schüler aus einer bestimmten Klasse.
+	 * 
+	 * @param klasse      die Klasse, aus der der Schüler gelöscht werden soll
+	 * @param studentName der Name des zu löschenden Schülers
+	 */
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            List<String> lines = new ArrayList<>();
+	public void deleteStudent(String klasse, String studentName) {
+		String fileName = "CSV_Dateien/" + klasse + "/Schuelerliste.csv";
+		List<Student> studentList = getStudentList(klasse);
 
-            // Die CSV-Datei Zeile für Zeile durchgehen und die gewünschte Note entfernen
-            String line;
-            boolean isFirstLine = true; // Variable, um die erste Zeile zu überspringen
-            boolean gradeDeleted = false;
-            while ((line = reader.readLine()) != null) {
-                if (isFirstLine) {
-                    lines.add(line);
-                    isFirstLine = false;
-                    continue; // Überspringe die erste Zeile
-                }
+		for (int i = 0; i < studentList.size(); i++) {
+			Student student = studentList.get(i);
+			if (student.getName().equals(studentName)) {
+				studentList.remove(i);
+				break;
+			}
+		}
 
-                String[] parts = line.split(";");
-                int currentSchuelerID = Integer.parseInt(parts[0]);
-                int currentNote = Integer.parseInt(parts[1]);
-                int currentNotenartID = Integer.parseInt(parts[2]);
-                if (currentSchuelerID == schuelerID && currentNote == note && currentNotenartID == notenartID && !gradeDeleted) {
-                    gradeDeleted = true;
-                    continue; // Überspringe den zu löschenden Eintrag
-                }
+		// Aktualisierte Schülerliste speichern
+		saveStudentList(fileName, studentList);
+	}
 
-                lines.add(line);
-            }
+	/**
+	 * 
+	 * Speichert eine Schülerliste in einer CSV-Datei.
+	 * 
+	 * @param fileName    der Name der CSV-Datei, in die die Schülerliste
+	 *                    gespeichert werden soll
+	 * @param studentList die Liste der Schülerdaten, die gespeichert werden sollen
+	 */
+	public void saveStudentList(String fileName, List<Student> studentList) {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+			// Schreiben der Header-Zeile
+			writer.write("Name;E-Mail;ID");
+			writer.newLine();
 
-            if (!gradeDeleted) {
-                System.out.println("Die Note konnte nicht gefunden werden.");
-                return false;
-            }
+			// Schreiben der Schülerdaten
+			for (Student student : studentList) {
+				writer.write(student.getName() + ";" + student.getEmail() + ";" + student.getId());
+				writer.newLine();
+			}
 
-            // Aktualisierte Daten in die CSV-Datei schreiben
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-                for (String updatedLine : lines) {
-                    writer.write(updatedLine);
-                    writer.newLine();
-                }
-                System.out.println("Note wurde erfolgreich aus dem Fach gelöscht.");
-                return true;
-            } catch (IOException e) {
-                System.out.println("Fehler beim Schreiben der aktualisierten CSV-Datei: " + e.getMessage());
-                return false;
-            }
-        } catch (IOException e) {
-            System.out.println("Fehler beim Lesen der CSV-Datei: " + e.getMessage());
-            return false;
-        }
-    }
+			System.out.println("Schülerliste wurde erfolgreich gespeichert.");
+		} catch (IOException e) {
+			System.out.println("Fehler beim Speichern der Schülerliste: " + e.getMessage());
+		}
+	}
 
-    
-   public static void main(String[] args) {
-	
-	   DateWriter test = new DateWriter();
-	   
-	   
-	   test.deleteGradeFromSubject("Werkstoffkunde", "BSIT22A", 1, 15, 1);
-	   
-} 
-    
-   
+	/**
+	 * 
+	 * Löscht ein Fach und die zugehörige CSV-Datei.
+	 * 
+	 * @param fach   das zu löschende Fach
+	 * @param klasse die Klasse, zu der das Fach gehört
+	 * @return true, wenn das Fach erfolgreich gelöscht wurde, andernfalls false
+	 */
 
-    
-    
+	public boolean deleteSubject(String fach, String klasse) {
+		String fileName = "CSV_Dateien/" + klasse + "/" + fach + ".csv";
+		File file = new File(fileName);
+
+		if (file.exists()) {
+			if (file.delete()) {
+				System.out.println("Das Fach wurde erfolgreich gelöscht.");
+				return true;
+			} else {
+				System.out.println("Fehler beim Löschen des Fachs.");
+				return false;
+			}
+		} else {
+			System.out.println("Das Fach existiert nicht.");
+			return false;
+		}
+	}
+
+	/**
+	 * 
+	 * Fügt eine Note zu einem Fach hinzu.
+	 * 
+	 * @param klasse     die Klasse, zu der das Fach gehört
+	 * @param fach       das Fach, zu dem die Note hinzugefügt werden soll
+	 * @param schuelerID die ID des Schülers
+	 * @param note       die Note
+	 * @param test       der Test/Prüfung, zu dem die Note gehört
+	 * @return true, wenn die Note erfolgreich zum Fach hinzugefügt wurde,
+	 *         andernfalls false
+	 */
+
+	public boolean addGradeToSubject(String fach, String klasse, int schuelerID, int note, int test) {
+		String fileName = "CSV_Dateien/" + klasse + "/" + fach + ".csv";
+
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+			// Schreiben des neuen Eintrags
+			writer.write(schuelerID + ";" + note + ";" + test);
+			writer.newLine();
+
+			System.out.println("Note wurde erfolgreich zum Fach hinzugefügt.");
+			return true;
+		} catch (IOException e) {
+			System.out.println("Fehler beim Hinzufügen der Note zum Fach: " + e.getMessage());
+			return false;
+		}
+	}
+
+	/**
+	 * 
+	 * Löscht eine Note aus einem Fach.
+	 * 
+	 * @param fach       das Fach, aus dem die Note gelöscht werden soll
+	 * @param klasse     die Klasse, zu der das Fach gehört
+	 * @param schuelerID die ID des Schülers
+	 * @param note       die zu löschende Note
+	 * @param notenartID die ID der Notenart
+	 * @return true, wenn die Note erfolgreich aus dem Fach gelöscht wurde,
+	 *         andernfalls false
+	 */
+
+	public boolean deleteGradeFromSubject(String fach, String klasse, int schuelerID, int note, int notenartID) {
+		String fileName = "CSV_Dateien/" + klasse + "/" + fach + ".csv";
+
+		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+			List<String> lines = new ArrayList<>();
+
+			// Die CSV-Datei Zeile für Zeile durchgehen und die gewünschte Note entfernen
+			String line;
+			boolean isFirstLine = true; // Variable, um die erste Zeile zu überspringen
+			boolean gradeDeleted = false;
+			while ((line = reader.readLine()) != null) {
+				if (isFirstLine) {
+					lines.add(line);
+					isFirstLine = false;
+					continue; // Überspringe die erste Zeile
+				}
+
+				String[] parts = line.split(";");
+				int currentSchuelerID = Integer.parseInt(parts[0]);
+				int currentNote = Integer.parseInt(parts[1]);
+				int currentNotenartID = Integer.parseInt(parts[2]);
+				if (currentSchuelerID == schuelerID && currentNote == note && currentNotenartID == notenartID
+						&& !gradeDeleted) {
+					gradeDeleted = true;
+					continue; // Überspringe den zu löschenden Eintrag
+				}
+
+				lines.add(line);
+			}
+
+			if (!gradeDeleted) {
+				System.out.println("Die Note konnte nicht gefunden werden.");
+				return false;
+			}
+
+			// Aktualisierte Daten in die CSV-Datei schreiben
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+				for (String updatedLine : lines) {
+					writer.write(updatedLine);
+					writer.newLine();
+				}
+				System.out.println("Note wurde erfolgreich aus dem Fach gelöscht.");
+				return true;
+			} catch (IOException e) {
+				System.out.println("Fehler beim Schreiben der aktualisierten CSV-Datei: " + e.getMessage());
+				return false;
+			}
+		} catch (IOException e) {
+			System.out.println("Fehler beim Lesen der CSV-Datei: " + e.getMessage());
+			return false;
+		}
+	}
+
 }
-

@@ -17,6 +17,12 @@ import javax.swing.table.TableCellRenderer;
 
 import csv_reader_stuff.Datenleser;
 
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -41,7 +47,7 @@ public class HistorieGUI_chat extends JFrame {
 	private JFrame frmNotenhistorieVon;
 	private JTable table;
 	private DefaultTableModel tableModel;
-	private JPanel contentPane;
+	public JPanel contentPane;
 	private JScrollPane scrollPane;
 	private String[] columnNames = { "Fach", "Klausur", "HÜ", "Epochalnote", "Durchschnittsnote" };
 
@@ -68,6 +74,9 @@ public class HistorieGUI_chat extends JFrame {
 		this.selectedIndex = selectedIndex;
 		this.klasse = klasse;
 		initialize();
+		frmNotenhistorieVon.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Setzen Sie das Schließen-Verhalten auf DISPOSE_ON_CLOSE
+		frmNotenhistorieVon.setVisible(true);
+		 
 	}
 
 	/**
@@ -142,7 +151,7 @@ public class HistorieGUI_chat extends JFrame {
 		Datenleser csvReader = new Datenleser();
 		csvReader.setFilePath(subject, klasse);
 		csvReader.initReader();
-		double average = csvReader.getAverage(0);
+		double average = csvReader.getAverage(selectedIndex);
 		csvReader.closeFile();
 		return average;
 
@@ -166,8 +175,8 @@ public class HistorieGUI_chat extends JFrame {
 	}
 
 	private double trimAverage(double averageGrade) {
-		averageGrade = Math.round(averageGrade * 100);
-		averageGrade /= 100;
+//		averageGrade = Math.round(averageGrade * 100);
+//		averageGrade /= 100;
 		return averageGrade;
 
 	}
@@ -213,8 +222,11 @@ public class HistorieGUI_chat extends JFrame {
 
 	}
 	
-	public void setVisible(boolean visibiliy){
-		frmNotenhistorieVon.setVisible(visibiliy);
-		}
+	public void setWindowVisible(boolean visibility) {
+	    frmNotenhistorieVon.setVisible(visibility);
+	}
+	
+	
+	
 
 }

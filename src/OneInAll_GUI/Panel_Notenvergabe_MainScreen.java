@@ -250,22 +250,21 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		}
 		{
 			JButton btnNewButton = new JButton("ZeugnisAnzeigen");
-			btnNewButton.addMouseListener(new MouseAdapter() {
+			btnNewButton.addActionListener(new ActionListener() {
 			    @Override
-			    public void mouseClicked(MouseEvent e) {
-			        HistorieGUI_chat historie;
+			    public void actionPerformed(ActionEvent e) {
 			        try {
-			            historie = new HistorieGUI_chat(schuelerID, klasse);
-
+			            HistorieGUI_chat historie = new HistorieGUI_chat(schuelerID, klasse);
+			            historie.setWindowVisible(true);
 			            historie.addWindowListener(new WindowAdapter() {
 			                @Override
 			                public void windowClosing(WindowEvent e) {
-			                    historie.setVisible(false);
+			                    historie.setWindowVisible(false);
 			                    historie.dispose();
 			                }
 			            });
-
-			            historie.setVisible(true);
+			            
+			            historie.setWindowVisible(true);
 			        } catch (IOException e1) {
 			            e1.printStackTrace();
 			        }
