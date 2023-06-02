@@ -41,7 +41,7 @@ public class Panel_Schueler extends JPanel {
 	private MouseAdapter deleteButtonMouseAdapter;
 
 	/**
-	 * Create the panel.
+	 * Erstellt das Panel
 	 * 
 	 * @throws FileNotFoundException
 	 */
@@ -136,7 +136,7 @@ public class Panel_Schueler extends JPanel {
 			}
 		});
 		JButton btnNewButton_1 = new JButton("Schüler entfernen");
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 47, 575, 222);
 		panel_1.add(scrollPane);
@@ -145,41 +145,48 @@ public class Panel_Schueler extends JPanel {
 		}
 		table = new JTable(tableModel);
 		disableTable(table);
-		
 
 		for (Student student : students) {
 			addRowArray(student.getName(), student.getEmail());
 
 		}
-	
 
 		btnSchuelerLschen.setBounds(10, 280, 164, 23);
 		panel_1.add(btnSchuelerLschen);
 
 		table.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseClicked(MouseEvent e) {
-		        int row = table.rowAtPoint(e.getPoint());
-		        int column = table.columnAtPoint(e.getPoint());
-		        if (row >= 0 && column >= 0) {
-		            Object value = table.getValueAt(row, column);
-		            String test = value.toString();
-		            System.out.println("Angeklickter Wert: " + test);
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = table.rowAtPoint(e.getPoint());
+				int column = table.columnAtPoint(e.getPoint());
+				if (row >= 0 && column >= 0) {
+					Object value = table.getValueAt(row, column);
+					String test = value.toString();
+					System.out.println("Angeklickter Wert: " + test);
 
-		            initializeDeleteButton(test);
-		        }
-		    }
+					initializeDeleteButton(test);
+				}
+			}
 		});
 
 		scrollPane.setViewportView(table);
 
 	}
 
+	/**
+	 * 
+	 * @param name
+	 * @param eMail
+	 */
 	private void addRowArray(String name, String eMail) {
 		Object[] row = { name, eMail };
 		tableModel.addRow(row);
 	}
 
+	/**
+	 * 
+	 * @param selectedClassName
+	 */
 	public void refreshRow(String selectedClassName) {
 
 		students = dateWriter.getStudentList(classNamesArray[comboBox.getSelectedIndex()]);
@@ -189,42 +196,55 @@ public class Panel_Schueler extends JPanel {
 
 		}
 	}
+
+	/**
+	 * 
+	 */
 	public void resetTable() {
 
 		tableModel.setRowCount(0);
 	}
-	
-	
+
+	/**
+	 * 
+	 */
 	public void refreshCombo() {
-		   classNames = dateReader.getClassNames();
-	        classNamesArray = classNames.toArray(new String[classNames.size()]);
-	        comboBox.setModel(new DefaultComboBoxModel(classNamesArray));
-	      
- }
-	
-	private void initializeDeleteButton(String test) {
-	    if (deleteButtonMouseAdapter != null) {
-	        btnSchuelerLschen.removeMouseListener(deleteButtonMouseAdapter);
-	    }
-	    
-	    
+		classNames = dateReader.getClassNames();
+		classNamesArray = classNames.toArray(new String[classNames.size()]);
+		comboBox.setModel(new DefaultComboBoxModel(classNamesArray));
 
-	    deleteButtonMouseAdapter = new MouseAdapter() {
-	        public void mouseClicked(MouseEvent e) {
-	            String selectedClassName = (String) comboBox.getSelectedItem();
-	            int option = JOptionPane.showConfirmDialog(null, "Möchten Sie den Studenten wirklich löschen?", "Bestätigung", JOptionPane.YES_NO_OPTION);
-
-	            if (option == JOptionPane.YES_OPTION) {
-	                // Der Benutzer hat "Ja" ausgewählt, Studenten löschen
-	                dateWriter.deleteStudent(selectedClassName, test);
-	                refreshRow(selectedClassName);
-	            }
-	        }
-	    };
-
-	    btnSchuelerLschen.addMouseListener(deleteButtonMouseAdapter);
 	}
-	
+
+	/**
+	 * 
+	 * @param test
+	 */
+	private void initializeDeleteButton(String test) {
+		if (deleteButtonMouseAdapter != null) {
+			btnSchuelerLschen.removeMouseListener(deleteButtonMouseAdapter);
+		}
+
+		deleteButtonMouseAdapter = new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				String selectedClassName = (String) comboBox.getSelectedItem();
+				int option = JOptionPane.showConfirmDialog(null, "Möchten Sie den Studenten wirklich löschen?",
+						"Bestätigung", JOptionPane.YES_NO_OPTION);
+
+				if (option == JOptionPane.YES_OPTION) {
+					// Der Benutzer hat "Ja" ausgewählt, Studenten löschen
+					dateWriter.deleteStudent(selectedClassName, test);
+					refreshRow(selectedClassName);
+				}
+			}
+		};
+
+		btnSchuelerLschen.addMouseListener(deleteButtonMouseAdapter);
+	}
+
+	/**
+	 * 
+	 * @param table
+	 */
 	private void disableTable(JTable table) {
 		for (int c = 0; c < table.getColumnCount(); c++) {
 			Class<?> colClass = table.getColumnClass(c);

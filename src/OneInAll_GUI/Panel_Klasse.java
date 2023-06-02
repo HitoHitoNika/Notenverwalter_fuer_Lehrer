@@ -26,7 +26,7 @@ public class Panel_Klasse extends JPanel {
 	public String[] classNamesArray = classNames.toArray(new String[classNames.size()]);
 
 	/**
-	 * Create the panel.
+	 * Erstellt das Panel
 	 * 
 	 * @throws FileNotFoundException
 	 */
@@ -59,7 +59,7 @@ public class Panel_Klasse extends JPanel {
 		JLabel lblKlassenliste = new JLabel("Klassenliste");
 		lblKlassenliste.setBounds(10, 11, 70, 14);
 		panel_1.add(lblKlassenliste);
-
+		
 		JList list = new JList();
 		list.setModel(new AbstractListModel() {
 			String[] values = classNamesArray;
@@ -112,7 +112,10 @@ public class Panel_Klasse extends JPanel {
 		btnNewButton_1.setBounds(10, 280, 151, 23);
 		panel_1.add(btnNewButton_1);
 	}
-
+	/**
+	 * Lädt den Inhalt der Liste mit Klassennamen neu
+	 * @param list
+	 */
 	public void updateClassList(JList list) {
 
 		classNames = dateReader.getClassNames();

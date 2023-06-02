@@ -41,7 +41,7 @@ public class Panel_Fach extends JPanel {
 	
 	
 	/**
-	 * Create the panel.
+	 * Erstellt das Panel
 	 * 
 	 * @throws FileNotFoundException
 	 */
@@ -178,6 +178,10 @@ public class Panel_Fach extends JPanel {
 
 	}
 
+	/**
+	 * Lädt den Inhalte der Tabelle neu, abhängig von der Klasse
+	 * @param selectedClassName
+	 */
 	public void refreshRow(String selectedClassName) {
         List<String> subjectName = dateReader.getSubjectsOfClass(selectedClassName);
         String[] subjectNameArray = subjectName.toArray(new String[subjectName.size()]);
@@ -186,6 +190,9 @@ public class Panel_Fach extends JPanel {
         repaint();
     }
 	
+	/**
+	 * Lädt die Combobox mit den Klassennamen neu
+	 */
 	public void refreshCombo() {
 		   classNames = dateReader.getClassNames();
 	        classNamesArray = classNames.toArray(new String[classNames.size()]);

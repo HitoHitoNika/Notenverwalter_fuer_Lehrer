@@ -273,7 +273,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	}
 
 	/**
-	 * Generierung der Notentabelle des Schülers
+	 * Generierung der Notentabelle des Schuelers
 	 */
 	private void initNotenTable() {
 		tableModel = new DefaultTableModel(columnNames, 0);
@@ -369,7 +369,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	private void initTestComboBox() {
 		testformBox.setBackground(Color.LIGHT_GRAY);
 		testformBox.setModel(new DefaultComboBoxModel(
-				new String[] { "--Bitte auswählen--", "Klausur (50%)", "Epo(30%)", "HÜ(20%)" }));
+				new String[] { "--Bitte auswählen--", "Klausur (50%)", "Epo(30%)", "hue(20%)" }));
 		testformBox.setBounds(434, 38, 138, 30);
 		contentPane_1.add(testformBox);
 		testformBox.addActionListener(new ActionListener() {
@@ -493,9 +493,9 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 
 	}
 
-	private void addRowArray(int[] klausur, int[] hü, int[] epochalnote) {
+	private void addRowArray(int[] klausur, int[] hue, int[] epochalnote) {
 		tableModel.setRowCount(0);
-	    int maxLength = Math.max(klausur.length, Math.max(hü.length, epochalnote.length));
+	    int maxLength = Math.max(klausur.length, Math.max(hue.length, epochalnote.length));
 
 	    for (int i = 0; i < maxLength; i++) {
 	        Object[] row = new Object[3];
@@ -504,8 +504,8 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	            row[0] = klausur[i];
 	        }
 
-	        if (i < hü.length && !(hü[i] == 0)) {
-	            row[1] = hü[i];
+	        if (i < hue.length && !(hue[i] == 0)) {
+	            row[1] = hue[i];
 	        }
 
 	        if (i < epochalnote.length && !(epochalnote[i] == 0)) {

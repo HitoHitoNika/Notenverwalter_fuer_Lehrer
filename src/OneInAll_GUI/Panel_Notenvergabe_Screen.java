@@ -41,15 +41,11 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 	JPanel panel = new JPanel();
 	private JTable table;
 	private JTextField searchTextField;
-	  private TableRowSorter<DefaultTableModel> tableRowSorter;
-	  Student selectedStudent;
-	  
-	 
-	  
-	
+	private TableRowSorter<DefaultTableModel> tableRowSorter;
+	Student selectedStudent;
 
 	/**
-	 * Create the panel.
+	 * Erstellt das Panel
 	 * 
 	 * @throws FileNotFoundException
 	 */
@@ -57,14 +53,13 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 
 		setBounds(0, 0, 886, 331);
 		setLayout(null);
-		 
-		
+
 		JButton btnNewButton = new JButton("Noten bearbeiten");
-		
+
 		btnNewButton.setBounds(246, 241, 483, 23);
 		btnNewButton.setVisible(false);
 		panel.add(btnNewButton);
-		
+
 		panel.setBounds(0, 0, 886, 331);
 		add(panel);
 		panel.setLayout(null);
@@ -72,38 +67,30 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 		List<String> subjectName = dateReader.getSubjectsOfClass(selectedClassName);
 		String[] subjectNameArrays = subjectName.toArray(new String[classNames.size()]);
 		JPanel panel_1 = new JPanel();
-        panel_1.setBounds(0, 0, 886, 331);
-        add(panel_1);
-        panel_1.setVisible(false);
-		    classNames = dateReader.getClassNames();
-	        classNamesArray = classNames.toArray(new String[classNames.size()]);
-	        comboBox = new JComboBox<>();
-	        comboBox.setModel(new DefaultComboBoxModel(classNamesArray));
-	        comboBox.setBounds(246, 117, 122, 22);
-	        comboBox.addItemListener(new ItemListener() {
-	            public void itemStateChanged(ItemEvent event) {
-	                if (event.getStateChange() == ItemEvent.SELECTED) {
-	                	String selectedClassName = (String) comboBox.getSelectedItem();
-						// Methode aufrufen mit dem ausgewählten Klassennamen
-						refreshRow(selectedClassName);
-						
-	                }
-	            }
-	        });
+		panel_1.setBounds(0, 0, 886, 331);
+		add(panel_1);
+		panel_1.setVisible(false);
+		classNames = dateReader.getClassNames();
+		classNamesArray = classNames.toArray(new String[classNames.size()]);
+		comboBox = new JComboBox<>();
+		comboBox.setModel(new DefaultComboBoxModel(classNamesArray));
+		comboBox.setBounds(246, 117, 122, 22);
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent event) {
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+					String selectedClassName = (String) comboBox.getSelectedItem();
+					// Methode aufrufen mit dem ausgewählten Klassennamen
+					refreshRow(selectedClassName);
+
+				}
+			}
+		});
 
 		JLabel lblKlassenname_1 = new JLabel("Klasse");
 		lblKlassenname_1.setBounds(246, 92, 136, 14);
 		panel.add(lblKlassenname_1);
 
 		panel.add(comboBox);
-		
-	
-		
-		
-		
-		
-		
-		
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(392, 91, 337, 136);
@@ -114,12 +101,10 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 		table = new JTable(tableModel);
 		disableTable(table);
 		if (students.isEmpty()) {
-			
-		}
-		else {
+
+		} else {
 			students = dateWriter.getStudentList(classNamesArray[comboBox.getSelectedIndex()]);
 		}
-		
 
 		for (Student student : students) {
 			addRowArray(student.getName(), student.getEmail());
@@ -127,133 +112,153 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 		}
 
 		table.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseClicked(MouseEvent e) {
-		        int row = table.rowAtPoint(e.getPoint());
-		        int column = table.columnAtPoint(e.getPoint());
-		        if (row >= 0 && column >= 0) {
-		            Object value = table.getValueAt(row, column);
-		            String test = value.toString();
-		            System.out.println("Angeklickter Wert: " + test);
-		            btnNewButton.setVisible(true);
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = table.rowAtPoint(e.getPoint());
+				int column = table.columnAtPoint(e.getPoint());
+				if (row >= 0 && column >= 0) {
+					Object value = table.getValueAt(row, column);
+					String test = value.toString();
+					System.out.println("Angeklickter Wert: " + test);
+					btnNewButton.setVisible(true);
 
-		            for (Student student : students) {
-		                if (student.getName().equals(test)) {
-		                    // Speichere den ausgewählten Studenten
-		                    selectedStudent = student;
-		                    
-		                    break; // Exit the loop since the student has been found
-		                }
-		            }
-		        }
-		    }
+					for (Student student : students) {
+						if (student.getName().equals(test)) {
+							// Speichere den ausgewählten Studenten
+							selectedStudent = student;
+
+							break; // Exit the loop since the student has been found
+						}
+					}
+				}
+			}
 		});
-		
-		// Registriere den MouseListener nur einmal für btnNewButton außerhalb der Tabelle
+
+		// Registriere den MouseListener nur einmal für btnNewButton außerhalb der
+		// Tabelle
 		btnNewButton.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseClicked(MouseEvent e) {
-		        String selectedClassName = (String) comboBox.getSelectedItem();
-		        try {
-		            Panel_Notenvergabe_MainScreen editScreen = new Panel_Notenvergabe_MainScreen(selectedStudent , selectedClassName);
-		            panel.setVisible(false);
-		            panel_1.add(editScreen);
-		            panel_1.setVisible(true);    
-		            editScreen.setVisible(true);
-		            
-		        } catch (NumberFormatException e1) {
-		            e1.printStackTrace();
-		        } catch (IOException e1) {
-		            e1.printStackTrace();
-		        }
-		    }
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String selectedClassName = (String) comboBox.getSelectedItem();
+				try {
+					Panel_Notenvergabe_MainScreen editScreen = new Panel_Notenvergabe_MainScreen(selectedStudent,
+							selectedClassName);
+					panel.setVisible(false);
+					panel_1.add(editScreen);
+					panel_1.setVisible(true);
+					editScreen.setVisible(true);
+
+				} catch (NumberFormatException e1) {
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
 		});
-//EXTRA
+		// EXTRA
 		tableRowSorter = new TableRowSorter<>(tableModel);
-        table.setRowSorter(tableRowSorter);
-		
+		table.setRowSorter(tableRowSorter);
+
 		scrollPane.setViewportView(table);
-		 // Suchleiste hinzufügen
-        searchTextField = new JTextField();
-        searchTextField.setBounds(392, 51, 200, 30);
-        panel.add(searchTextField);
-        
-       
+		// Suchleiste hinzufügen
+		searchTextField = new JTextField();
+		searchTextField.setBounds(392, 51, 200, 30);
+		panel.add(searchTextField);
 
-        searchTextField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                searchTable();
-            }
+		searchTextField.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				searchTable();
+			}
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                searchTable();
-            }
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				searchTable();
+			}
 
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                searchTable();
-            }
-        });
-    }
-	//EXTRA
-	
-	
-	
-    private void searchTable() {
-        String searchText = searchTextField.getText();
-        if (searchText.trim().length() == 0) {
-            tableRowSorter.setRowFilter(null);
-        } else {
-            tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText));
-        }
-    }
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				searchTable();
+			}
+		});
+	}
+	// EXTRA
 
-	
+	/**
+	 * Suchfunktion
+	 */
+	private void searchTable() {
+		String searchText = searchTextField.getText();
+		if (searchText.trim().length() == 0) {
+			tableRowSorter.setRowFilter(null);
+		} else {
+			tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText));
+		}
+	}
+
+	/**
+	 * Erstellt die die Liste der Schüler anhand der ausgewählten Klasse
+	 * 
+	 * @param selectedClassName
+	 */
 	public void createCombo(String selectedClassName) {
 		JLabel lblKlassenname_1_1 = new JLabel("Fach");
 		lblKlassenname_1_1.setBounds(480, 114, 136, 14);
 		lblKlassenname_1_1.revalidate();
 		lblKlassenname_1_1.repaint();
 		panel.add(lblKlassenname_1_1);
-		
+
 		students = dateWriter.getStudentList(selectedClassName);
 		JComboBox<String> comboBox_1 = new JComboBox<String>();
-		String [] studentsArray = new String[students.size()];
-		
+		String[] studentsArray = new String[students.size()];
+
 		for (int i = 0; i < studentsArray.length; i++) {
 			studentsArray[i] = students.get(i).getName();
 		}
-		
+
 		comboBox_1.setModel(new DefaultComboBoxModel(studentsArray));
 		comboBox_1.setBounds(480, 139, 122, 22);
 		comboBox_1.revalidate();
 		comboBox_1.repaint();
 		panel.add(comboBox_1);
-	      
- }
-	
 
-	
+	}
+
+	/**
+	 * Updated die Combobox
+	 */
 	public void refreshCombo() {
-		    classNames = dateReader.getClassNames();
-	        classNamesArray = classNames.toArray(new String[classNames.size()]);
-	        comboBox.setModel(new DefaultComboBoxModel(classNamesArray));
-	      
-    }
-	
+		classNames = dateReader.getClassNames();
+		classNamesArray = classNames.toArray(new String[classNames.size()]);
+		comboBox.setModel(new DefaultComboBoxModel(classNamesArray));
+
+	}
+
+	/**
+	 * 
+	 * @param name
+	 * @param eMail
+	 */
 	private void addRowArray(String name, String eMail) {
 		Object[] row = { name, eMail };
 		tableModel.addRow(row);
 	}
-	
+
+	/**
+	 * 
+	 * @param table
+	 */
 	private void disableTable(JTable table) {
 		for (int c = 0; c < table.getColumnCount(); c++) {
 			Class<?> colClass = table.getColumnClass(c);
 			table.setDefaultEditor(colClass, null); // disable editing for all columns
 		}
-}
+	}
+
+	/**
+	 * 
+	 * @param selectedClassName
+	 */
 	public void refreshRow(String selectedClassName) {
 
 		students = dateWriter.getStudentList(classNamesArray[comboBox.getSelectedIndex()]);
@@ -263,13 +268,14 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 
 		}
 	}
-	
+
+	/**
+	 * 
+	 * @param klasse
+	 */
 	public void setSelectedItem(String klasse) {
 
-		
 		comboBox.setSelectedItem(klasse);
 
-		}
 	}
-	
-	
+}

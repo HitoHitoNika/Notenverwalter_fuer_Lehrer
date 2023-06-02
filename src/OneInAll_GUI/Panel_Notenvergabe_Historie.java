@@ -30,12 +30,22 @@ public class Panel_Notenvergabe_Historie extends JPanel {
     private DefaultTableModel tableModel;
     private String[] columnNames = {"Fach", "Klausur", "HÜ", "Epochalnote", "Durchschnittsnote"};
 
+    /**
+     * Erstellt das Panel
+     * @param selectedIndex
+     * @param klasse
+     * @throws IOException
+     */
     public Panel_Notenvergabe_Historie(int selectedIndex, String klasse) throws IOException {
         this.selectedIndex = selectedIndex;
         this.klasse = klasse;
         initialize();
     }
 
+    /**
+     * Initialisiert den Inhalt des Panels
+     * @throws IOException
+     */
     private void initialize() throws IOException {
         setLayout(null);
         setPreferredSize(new Dimension(600, 500));
@@ -85,10 +95,15 @@ public class Panel_Notenvergabe_Historie extends JPanel {
 
     // Logik die GUI baut:
 
-    // Funktionale Logik =)
-
-    // DatenleserMethoden:
-  //DatenleserMethoden:
+    /**
+     * Funktionale Logik
+	 * DatenleserMethode
+     * @param subject
+     * @param klasse
+     * @param selectedIndex
+     * @return
+     * @throws IOException
+     */
   	private double getAverage(String subject, String klasse, int selectedIndex) throws IOException {
   		Datenleser csvReader = new Datenleser();
   		csvReader.setFilePath(subject, klasse);
@@ -99,6 +114,16 @@ public class Panel_Notenvergabe_Historie extends JPanel {
 
   	}
 
+    /**
+     * Funktionale Logik
+	 * DatenleserMethode
+     * @param subject
+     * @param klasse
+     * @param selectedIndex
+     * @param testform
+     * @return
+     * @throws IOException
+     */
   	private int[] getNoten(String subject, String klasse, int selectedIndex, int testform) throws IOException {
   		Datenleser csvReader = new Datenleser();
   		csvReader.setFilePath(subject, klasse);
@@ -110,12 +135,24 @@ public class Panel_Notenvergabe_Historie extends JPanel {
   	}
 
   	
-  	//TrimMethoden:
+  	
+    /**
+     * Funktionale Logik
+	 * TrimMethoden
+     * @param name
+     * @return
+     */
   	private String trimCSVName(String name) {
   		return name.replace(".csv", "");
 
   	}
 
+    /**
+     * Funktionale Logik
+     * TrimMethoden
+     * @param averageGrade
+     * @return
+     */
   	private double trimAverage(double averageGrade) {
   		averageGrade = Math.round(averageGrade * 100);
   		averageGrade /= 100;
@@ -123,13 +160,27 @@ public class Panel_Notenvergabe_Historie extends JPanel {
 
   	}
   	
-
-  	private void addRowArray(String subject, int[] klausur, int[] hü, int[] epochalnote, double averageGrade) {
-  		Object[] row = { subject, buildNoteResult(klausur), buildNoteResult(hü), buildNoteResult(epochalnote),
+    /**
+     * Funktionale Logik
+     * TrimMethoden
+     * @param subject
+     * @param klausur
+     * @param hü
+     * @param epochalnote
+     * @param averageGrade
+     */
+  	private void addRowArray(String subject, int[] klausur, int[] hue, int[] epochalnote, double averageGrade) {
+  		Object[] row = { subject, buildNoteResult(klausur), buildNoteResult(hue), buildNoteResult(epochalnote),
   				trimAverage(averageGrade) };
   		tableModel.addRow(row);
   	}
 
+    /**
+     * Funktionale Logik
+     * TrimMethoden
+     * @param grades
+     * @return
+     */
   	private String buildNoteResult(int[] grades) {
   		StringBuilder result = new StringBuilder();
   		
@@ -143,7 +194,13 @@ public class Panel_Notenvergabe_Historie extends JPanel {
   	}
   	
   	
-
+    /**
+     * Funktionale Logik
+     * TrimMethoden
+     * @param faecher
+     * @return
+     * @throws IOException
+     */
   	private double getZeugnisAverage(ArrayList<String>  faecher) throws IOException {
   		double average = 0;
   		for (String fach : faecher) {
