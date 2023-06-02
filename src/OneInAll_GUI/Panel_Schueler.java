@@ -1,6 +1,5 @@
 package OneInAll_GUI;
 
-import java.awt.Font;
 import school_attributes.Student;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,17 +11,14 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.ArrayList;
 
-import javax.swing.AbstractListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import csv_reader_stuff.DateWriter;
 import csv_reader_stuff.Datenleser;
-import java.awt.Choice;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;

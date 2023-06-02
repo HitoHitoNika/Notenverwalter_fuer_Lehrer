@@ -1,7 +1,5 @@
 package OneInAll_GUI;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,17 +13,8 @@ import java.io.IOException;
 
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.JSplitPane;
 import javax.swing.ImageIcon;
-import OneInAll_GUI.Panel_Klasse;
-import OneInAll_GUI.Panel_Schueler;
-import OneInAll_GUI.Panel_Fach;
-import javax.swing.JDesktopPane;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import csv_reader_stuff.Datenleser;
-import java.awt.SystemColor;
 
 /**
  * Die Klasse Dashboard_Gui ist ein GUI-Fenster, das ein Dashboard zur
@@ -56,22 +45,6 @@ public class Dashboard_Gui extends JFrame {
 	JPanel[] allButtonPanels = { schuelerPanelButton, fachVerwaltungButton, KlassenPanelButton_1,
 			notenVerwaltungButton };
 
-	/**
-	 * Die main-Methode wird beim Start der Anwendung aufgerufen und erzeugt ein
-	 * neues Dashboard_Gui-Objekt.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Dashboard_Gui frame = new Dashboard_Gui();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Der Konstruktor der Klasse Dashboard_Gui erzeugt das GUI-Fenster und
@@ -252,22 +225,34 @@ public class Dashboard_Gui extends JFrame {
 		notenVerwaltungButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				menuClicked(notenvergabe);
+                menuClicked(notenvergabe);
 
-				updateMouseClickedActivated(true, false, false, false);
+                updateMouseClickedActivated(false, false, false, true);
 
-				selectClick(notenVerwaltungButton);
+                selectClick(notenVerwaltungButton);
 
-				notenvergabe.refreshCombo();
-				String[] classNamesArray = dateReader.getClassNames()
-						.toArray(new String[dateReader.getClassNames().size()]);
+                notenvergabe.refreshCombo();
+                String[] classNamesArray = dateReader.getClassNames()
+                        .toArray(new String[dateReader.getClassNames().size()]);
 
-				if (classNamesArray.length > 0) {
-					notenvergabe.refreshRow(classNamesArray[0]);
-				}
+                if (classNamesArray.length > 0) {
+                    notenvergabe.refreshRow(classNamesArray[0]);
+                }
 
-			}
-		});
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                notenVerwaltungButton.setBackground(new Color(88,88,90));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                if (!mouseClickedActivated4) {
+                    notenVerwaltungButton.setBackground(new Color(0, 129, 198));
+                } else {
+                    notenVerwaltungButton.setBackground(new Color(88,88,90));
+                }
+            }
+        });
 		notenVerwaltungButton.setLayout(null);
 		notenVerwaltungButton.setBackground(new Color(0, 129, 198));
 		notenVerwaltungButton.setBounds(668, 112, 131, 31);

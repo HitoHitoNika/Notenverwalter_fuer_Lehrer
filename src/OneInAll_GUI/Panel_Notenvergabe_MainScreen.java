@@ -3,11 +3,9 @@ package OneInAll_GUI;
 import java.awt.Color;
 import csv_reader_stuff.DateWriter;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -40,8 +38,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import OneInAll_GUI.HistorieGUI_chat;
-
 
 public class Panel_Notenvergabe_MainScreen extends JPanel {
 	private JPanel contentPane_1;
@@ -61,7 +57,6 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 
 	private JTextField nameField;
 	private JTextField klasseField;
-	private JTable table_1;
 	private JTable table_2;
 	private JTable table;
 	private final JPanel panel = new JPanel();
@@ -227,7 +222,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 					mainScreen.refreshRow(klasse.replace(".csv", ""));
 
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
+					System.err.println("Fehler in NotenvergabePanel ");
 					e1.printStackTrace();
 				}
 
@@ -537,7 +532,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 			        getNoten(trimCSVName(selectedClassName), klasse, schuelerID , hue)
 			      );
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Fehler beim erstellen der Tabelle");
 			e.printStackTrace();
 		}
 	}

@@ -1,9 +1,6 @@
 package OneInAll_GUI;
 
-import java.awt.Font;
 import school_attributes.Student;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -13,11 +10,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
-import javax.swing.AbstractListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -26,8 +20,6 @@ import javax.swing.event.DocumentListener;
 import csv_reader_stuff.DateWriter;
 import csv_reader_stuff.Datenleser;
 
-import java.awt.BorderLayout;
-import java.awt.Choice;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
@@ -67,7 +59,7 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 		setLayout(null);
 		 
 		
-		JButton btnNewButton = new JButton("New button");
+		JButton btnNewButton = new JButton("Noten bearbeiten");
 		
 		btnNewButton.setBounds(246, 241, 483, 23);
 		btnNewButton.setVisible(false);

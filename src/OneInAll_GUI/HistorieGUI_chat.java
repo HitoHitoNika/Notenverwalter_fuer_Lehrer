@@ -1,33 +1,17 @@
 package OneInAll_GUI;
 
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.awt.EventQueue;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
-
 import csv_reader_stuff.Datenleser;
 
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 
 public class HistorieGUI_chat extends JFrame {
@@ -50,22 +34,6 @@ public class HistorieGUI_chat extends JFrame {
 	public JPanel contentPane;
 	private JScrollPane scrollPane;
 	private String[] columnNames = { "Fach", "Klausur", "HÜ", "Epochalnote", "Durchschnittsnote" };
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					HistorieGUI_chat window = new HistorieGUI_chat(0, "BSIT22b");
-					window.frmNotenhistorieVon.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.

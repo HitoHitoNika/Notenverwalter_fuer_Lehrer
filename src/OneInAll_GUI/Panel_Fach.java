@@ -1,6 +1,5 @@
 package OneInAll_GUI;
 
-import java.awt.Font;
 import school_attributes.Student;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,14 +21,9 @@ import javax.swing.JTextField;
 
 import csv_reader_stuff.DateWriter;
 import csv_reader_stuff.Datenleser;
-import java.awt.Choice;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JSeparator;
-import java.awt.Color;
 
 public class Panel_Fach extends JPanel {
 	private JTextField textFieldName;
@@ -38,7 +32,6 @@ public class Panel_Fach extends JPanel {
 	List<String> classNames = dateReader.getClassNames();
 	String[] classNamesArray = classNames.toArray(new String[classNames.size()]);
 	private DefaultTableModel tableModel;
-	private String[] columnNames = { "Schüler", "Email" };
 	List<Student> students = new ArrayList<Student>();
 	JComboBox<String> comboBox = new JComboBox();
 	JButton btnSchuelerLschen = new JButton("Fach löschen");

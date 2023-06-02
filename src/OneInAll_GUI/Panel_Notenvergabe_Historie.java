@@ -2,10 +2,8 @@ package OneInAll_GUI;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
