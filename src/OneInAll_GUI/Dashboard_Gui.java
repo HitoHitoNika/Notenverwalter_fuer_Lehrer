@@ -313,7 +313,7 @@ public class Dashboard_Gui extends JFrame {
 
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(
-				"C:\\Users\\CjVan\\OneDrive\\Alte Dateien\\Desktop\\HerrDietrichWhiteTProjekt\\GRoß (1).png"));
+				"misc/CBS_Logo.png"));
 		lblNewLabel_1.setBounds(10, -19, 287, 133);
 		headerPanel.add(lblNewLabel_1);
 

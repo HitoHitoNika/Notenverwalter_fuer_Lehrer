@@ -161,7 +161,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(49, 69, 130, 132);
 		panel.add(lblNewLabel);
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\CjVan\\git\\LF5_Project_WhiteTrash\\misc\\354637 (8).png"));
+		lblNewLabel.setIcon(new ImageIcon("misc/student_icon.png"));
 	}
 
 	/**
@@ -490,15 +490,6 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		averageGrade = Math.round(averageGrade * 100);
 		averageGrade /= 100;
 		return averageGrade;
-
-	}
-
-	// Methoden für die Tabelle
-	private void disableTable(JTable table) {
-		for (int c = 0; c < table.getColumnCount(); c++) {
-			Class<?> colClass = table.getColumnClass(c);
-			table.setDefaultEditor(colClass, null); // disable editing for all columns
-		}
 
 	}
 

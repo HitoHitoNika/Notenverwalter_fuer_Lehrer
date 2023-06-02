@@ -35,7 +35,6 @@ public class Panel_Fach extends JPanel {
 	List<Student> students = new ArrayList<Student>();
 	JComboBox<String> comboBox = new JComboBox();
 	JButton btnSchuelerLschen = new JButton("Fach löschen");
-	private MouseAdapter deleteButtonMouseAdapter;
 	JList list = new JList();
 	
 
@@ -177,11 +176,6 @@ public class Panel_Fach extends JPanel {
 		
 	
 
-	}
-
-	private void addRowArray(String name, String eMail) {
-		Object[] row = { name, eMail };
-		tableModel.addRow(row);
 	}
 
 	public void refreshRow(String selectedClassName) {

@@ -123,14 +123,6 @@ public class Panel_Notenvergabe_Historie extends JPanel {
 
   	}
   	
-  	//Methoden für die Tabelle
-  	private void disableTable(JTable table) {
-  		for (int c = 0; c < table.getColumnCount(); c++) {
-  			Class<?> colClass = table.getColumnClass(c);
-  			table.setDefaultEditor(colClass, null); // disable editing for all columns
-  		}
-
-  	}
 
   	private void addRowArray(String subject, int[] klausur, int[] hü, int[] epochalnote, double averageGrade) {
   		Object[] row = { subject, buildNoteResult(klausur), buildNoteResult(hü), buildNoteResult(epochalnote),
