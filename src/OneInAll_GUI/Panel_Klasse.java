@@ -16,6 +16,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import csv_reader_stuff.Datenleser;
 import csv_reader_stuff.DateWriter;
+import javax.swing.ImageIcon;
 
 public class Panel_Klasse extends JPanel {
 
@@ -50,8 +51,28 @@ public class Panel_Klasse extends JPanel {
 		panel.add(lblKlassenname);
 		JButton btnNewButton = new JButton("Hinzufügen");
 
-		btnNewButton.setBounds(10, 281, 105, 23);
+		btnNewButton.setBounds(10, 98, 105, 23);
 		panel.add(btnNewButton);
+		
+		JButton importButton = new JButton("Import");
+		importButton.setIcon(new ImageIcon("misc\\import.png"));
+		importButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dateReader.importKlasse();
+			}
+		});
+		importButton.setBounds(10, 297, 122, 23);
+		panel.add(importButton);
+		
+		JButton exportButton = new JButton("Export");
+		exportButton.setIcon(new ImageIcon("misc\\export.png"));
+		exportButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//dateReader.exportKlasse();
+			}
+		});
+		exportButton.setBounds(148, 297, 122, 23);
+		panel.add(exportButton);
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(281, 0, 595, 331);
 		add(panel_1);
