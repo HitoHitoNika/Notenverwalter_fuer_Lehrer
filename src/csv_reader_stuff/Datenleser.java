@@ -381,4 +381,31 @@ public class Datenleser {
 		return subjects;
 	}
 
+
+	/**
+	 * Rekursives kopieren alles Klassen in gewünschtes Verzeichnis
+	 */
+	public void exportKlasse(){
+		// Erstellt einen FileChooser, welcher dafür dient ein Auswahl Fenster zu öffnen
+		JFileChooser fileChooser = new JFileChooser();
+		// Erlaubt nur die Auswahl von Ordnern
+		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		//Öffnet besagtes Fenster
+		int result = fileChooser.showOpenDialog(null);
+		//Prüft ob die Auswahl bestätigt wurde
+		if (result == JFileChooser.APPROVE_OPTION) {
+		  //Speichert den Pfad zum ausgewählten Verzeichnis
+		  File selectedDir = fileChooser.getSelectedFile();
+		  //Speichert den Pfad zum vorgegebenen Verzeichnis
+		  File destDir = new File(System.getProperty("user.dir") + "/CSV_Dateien/");
+		  try {
+			//Ruft Methode copyDirectory auf und gibt Ursprungs- und Zielverzeichnis mit
+			copyDirectory(destDir,selectedDir);
+		  } catch (IOException ex) {
+			ex.printStackTrace();
+		  }
+		}
+   
+	 }
+
 }

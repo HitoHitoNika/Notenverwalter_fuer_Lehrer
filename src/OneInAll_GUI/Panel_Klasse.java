@@ -68,7 +68,7 @@ public class Panel_Klasse extends JPanel {
 		exportButton.setIcon(new ImageIcon("misc\\export.png"));
 		exportButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//dateReader.exportKlasse();
+				dateReader.exportKlasse();
 			}
 		});
 		exportButton.setBounds(148, 297, 122, 23);
