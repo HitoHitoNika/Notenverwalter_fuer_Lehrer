@@ -74,6 +74,12 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	private String[] columnNames = { "Klausur", "HÜ", "Epochalnote" };
 	String selectedClassName = (String) fachDropdown.getSelectedItem();
 
+	/**
+	 * Erstellt das Panel
+	 * @param student
+	 * @param klasse
+	 * @throws IOException
+	 */
 	public Panel_Notenvergabe_MainScreen(Student student, String klasse) throws IOException {
 
 		this.schuelerID = Integer.parseInt(student.getId()) - 1;
@@ -394,7 +400,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	}
 
 	/**
-	 * 
+	 * Initialisiert das Notenlabel
 	 */
 	private void initNotenLabel() {
 		JLabel notenLabel = new JLabel("Note:");
@@ -404,6 +410,9 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		contentPane_1.add(notenLabel);
 	}
 
+	/**
+	 * Initialisiert das Fach-Dropdown Menü
+	 */
 	private void initFachDropdown() {
 		fachDropdown.setBackground(Color.LIGHT_GRAY);
 		fachDropdown.setBounds(585, 38, 127, 30);
@@ -420,6 +429,10 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		});
 	}
 
+	/**
+	 * Erstellt das Fenster
+	 * @throws IOException
+	 */
 	private void createWindow() throws IOException {
 		setPreferredSize(new Dimension(1000, 800));
 
@@ -441,6 +454,12 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		contentPane_2.setVisible(false);
 	}
 
+	/**
+	 * Setzt die Schuelerinfo entsprechend der Parameter
+	 * @param selectedIndex
+	 * @param klasse
+	 * @throws IOException
+	 */
 	public void setSchuelerInfo(int selectedIndex, String klasse) throws IOException {
 		String[] splitBuffer = { " ", " ", "1000" };
 		csvReader = new Datenleser();
@@ -460,6 +479,10 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 
 	}
 
+	/**
+	 * Aktualisiert die Liste der Faechernamen
+	 * @param notenDropDown
+	 */
 	public void updateFaechernamen(JComboBox notenDropDown) {
 		notenDropDown.removeAllItems();
 		faecher.clear();
@@ -470,6 +493,15 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		}
 	}
 
+	/**
+	 * Ruft die Noten des entsprechenden Schülers und der entsprechenden Testart auf
+	 * @param subject
+	 * @param klasse
+	 * @param selectedIndex
+	 * @param testform
+	 * @return
+	 * @throws IOException
+	 */
 	private int[] getNoten(String subject, String klasse, int selectedIndex, int testform) throws IOException {
 		Datenleser csvReader = new Datenleser();
 		csvReader.setFilePath(subject, klasse);
@@ -481,11 +513,22 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	}
 
 	// TrimMethoden:
+
+	/**
+	 * Schneidet das ".csv" anhängsel ab
+	 * @param name
+	 * @return
+	 */
 	private String trimCSVName(String name) {
 		return name.replace(".csv", "");
 
 	}
 
+	/**
+	 * Rundet den Durchschnitt 
+	 * @param averageGrade
+	 * @return
+	 */
 	private double trimAverage(double averageGrade) {
 		averageGrade = Math.round(averageGrade * 100);
 		averageGrade /= 100;
@@ -493,6 +536,13 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 
 	}
 
+
+	/**
+	 * 
+	 * @param klausur
+	 * @param hue
+	 * @param epochalnote
+	 */
 	private void addRowArray(int[] klausur, int[] hue, int[] epochalnote) {
 		tableModel.setRowCount(0);
 	    int maxLength = Math.max(klausur.length, Math.max(hue.length, epochalnote.length));
@@ -516,6 +566,9 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	    }
 	}
 	
+	/**
+	 * Erweitert die Tabelle
+	 */
 	public void addRowArrayForTabl()  {
 		try {
 			addRowArray(getNoten(trimCSVName(selectedClassName), klasse, schuelerID , klausur),
@@ -528,9 +581,11 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		}
 	}
 	
-	
-	
-
+	/**
+	 * 
+	 * @param grades
+	 * @return
+	 */
 	private String buildNoteResult(int[] grades) {
 		StringBuilder result = new StringBuilder();
 
@@ -543,6 +598,9 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		return result.toString();
 	}
 	
+	/**
+	 * 
+	 */
 	private void giveValue() {
 		table_2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 		    @Override

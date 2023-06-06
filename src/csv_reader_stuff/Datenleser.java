@@ -15,13 +15,21 @@ import javax.swing.JFileChooser;
 
 public class Datenleser {
 
-	// Speichert den Pfad der gewünschten Datei ab
+	/**
+	 * Speichert den Pfad der gewünschten Datei ab
+	 **/
 	private File csvFile;
-	// Liest die Datei aus
+	/**
+	 * Liest die Datei aus
+	 **/
 	private BufferedReader csvReader;
-	// Speichert dynamisch die Klassennamen
+	/**
+	 * Speichert dynamisch die Klassennamen
+	 **/
 	private ArrayList<String> klassenNamen = new ArrayList<>();
-	// Speichert dynamisch die Faechernamen
+	/**
+	 * Speichert dynamisch die Faechernamen
+	 **/
 	private ArrayList<String> faecherNamen = new ArrayList<>();
 
 	/**
@@ -270,23 +278,6 @@ public class Datenleser {
 	}
 
 	/**
-	 * Liest die Konfigurationsdaten aus der "config.csv"-Datei.
-	 *
-	 * @return Eine ArrayList mit den gelesenen Konfigurationsdaten.
-	 * @throws IOException Wenn ein Fehler beim Lesen der Datei auftritt.
-	 */
-	public ArrayList<String> getConfig() throws IOException {
-		ArrayList<String> config = new ArrayList<>();
-		csvFile = new File("./CSV_Dateien/config/config.csv");
-		initReader();
-		while (hasMoreLines()) {
-			config.add(getLine());
-		}
-		System.out.println(config.size());
-		return config;
-	}
-
-	/**
 	 * Schreibt eine Note für einen Schüler in die CSV-Datei.
 	 *
 	 * @param note       Die Note, die hinzugefügt werden soll.
@@ -381,31 +372,30 @@ public class Datenleser {
 		return subjects;
 	}
 
-
 	/**
-	 * Rekursives kopieren alles Klassen in gewünschtes Verzeichnis
+	 * Rekursives kopieren aller Klassen in gewünschtes Verzeichnis
 	 */
-	public void exportKlasse(){
+	public void exportKlasse() {
 		// Erstellt einen FileChooser, welcher dafür dient ein Auswahl Fenster zu öffnen
 		JFileChooser fileChooser = new JFileChooser();
 		// Erlaubt nur die Auswahl von Ordnern
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		//Öffnet besagtes Fenster
+		// Öffnet besagtes Fenster
 		int result = fileChooser.showOpenDialog(null);
-		//Prüft ob die Auswahl bestätigt wurde
+		// Prüft ob die Auswahl bestätigt wurde
 		if (result == JFileChooser.APPROVE_OPTION) {
-		  //Speichert den Pfad zum ausgewählten Verzeichnis
-		  File selectedDir = fileChooser.getSelectedFile();
-		  //Speichert den Pfad zum vorgegebenen Verzeichnis
-		  File destDir = new File(System.getProperty("user.dir") + "/CSV_Dateien/");
-		  try {
-			//Ruft Methode copyDirectory auf und gibt Ursprungs- und Zielverzeichnis mit
-			copyDirectory(destDir,selectedDir);
-		  } catch (IOException ex) {
-			ex.printStackTrace();
-		  }
+			// Speichert den Pfad zum ausgewählten Verzeichnis
+			File selectedDir = fileChooser.getSelectedFile();
+			// Speichert den Pfad zum vorgegebenen Verzeichnis
+			File destDir = new File(System.getProperty("user.dir") + "/CSV_Dateien/");
+			try {
+				// Ruft Methode copyDirectory auf und gibt Ursprungs- und Zielverzeichnis mit
+				copyDirectory(destDir, selectedDir);
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
 		}
-   
-	 }
+
+	}
 
 }

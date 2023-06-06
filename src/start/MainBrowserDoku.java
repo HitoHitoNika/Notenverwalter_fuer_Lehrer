@@ -12,7 +12,10 @@ public class MainBrowserDoku {
         openWithDefaultBrowser(htmlFilePath);
         
     }
-
+    /**
+     * Öffnet die Webdoku im Standard Browser
+     * @param htmlFilePath
+     */
     public static void openWithDefaultBrowser(String htmlFilePath) {
         File htmlFile = new File(htmlFilePath);
         

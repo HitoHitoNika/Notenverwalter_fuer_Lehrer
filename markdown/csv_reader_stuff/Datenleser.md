@@ -215,6 +215,8 @@ public void setFilePath(String fach,String klasse) throws IOException{
 
 - Ruft die Klassennamen ab und gibt diese als ArrayList zurück
 
+
+### Variante 1
 <details>
 <summary>Code</summary>
 
@@ -232,6 +234,39 @@ public ArrayList<String> getKlassenNamen() {
 	return klassenNamen;
 }
 ```
+</details>
+
+### Variante 2
+<details>
+<summary>Code</summary>
+
+```java
+public List<String> getClassNames() {
+		List<String> classNames = new ArrayList<>();
+		String directoryPath = "CSV_Dateien";
+		File directory = new File(directoryPath);
+
+		if (directory.exists() && directory.isDirectory()) {
+			File[] classFolders = directory.listFiles();
+
+			if (classFolders != null) {
+				for (File classFolder : classFolders) {
+					if (classFolder.isDirectory()) {
+
+						if (!classFolder.getName().equals("config")) {
+							String className = classFolder.getName();
+							classNames.add(className);
+						}
+
+					}
+				}
+			}
+		}
+
+		return classNames;
+	}
+``` 
+
 </details>
 
 </details>
@@ -257,6 +292,8 @@ public ArrayList<String> getKlassenNamen() {
 
 - Ruft die Faechernamen ab und gibt diese als ArrayList zurück
 
+### Variante 1
+
 <details>
 <summary>Code</summary>
 
@@ -276,5 +313,207 @@ public ArrayList<String> getFaecherNamen(String klasse) {
 	return faecherNamen;
 }
 ```
-</details>    
+</details>
+
+### Variante 2
+
+<details>
+<summary>Code</summary>
+
+```java
+	public List<String> getSubjectsOfClass(String klasse) {
+		List<String> subjects = new ArrayList<>();
+		String folderPath = "CSV_Dateien/" + klasse;
+
+		File folder = new File(folderPath);
+		if (!folder.exists()) {
+			System.out.println("Die Klasse existiert nicht.");
+			return subjects;
+		}
+
+		File[] files = folder.listFiles();
+		if (files != null) {
+			for (File file : files) {
+				if (file.isFile()) {
+					String fileName = file.getName();
+					if (fileName.endsWith(".csv")) {
+						String subject = fileName.substring(0, fileName.length() - 4);
+						// Überprüfen, ob das Fach "Schuelerliste" ist
+						if (!subject.equalsIgnoreCase("Schuelerliste")) {
+							subjects.add(subject);
+						}
+					}
+				}
+			}
+		}
+
+		return subjects;
+	}
+```
+</details>
+
+
+</details>
+
+<details>
+<summary> 10. getAverage </summary>
+
+- Berechnet den Durschnitt und gibt diesen zurück
+
+<details>
+<summary>Code</summary>
+
+```java
+public double getAverage(int schuelerID) throws IOException {
+		schuelerID++;
+		double[] average = { 0, 0, 0, 0 };
+		int[] countTestArten = { 0, 0, 0 };
+		try {
+			getLine();
+		} catch (IOException e) {
+			System.err.println("Fehler beim Lesen der Datei: " + e.getMessage());
+			return 0;
+		}
+		while (hasMoreLines()) {
+			String[] splitBuffer = getLine().split(";");
+			if (Integer.parseInt(splitBuffer[0]) == schuelerID) {
+				int index = Integer.parseInt(splitBuffer[2]) - 1;
+				countTestArten[index]++;
+				average[index] += Integer.parseInt(splitBuffer[1]);
+				average[3] += Integer.parseInt(splitBuffer[1]) * ((index == 0) ? 0.5 : (index == 1) ? 0.3 : 0.2);
+			}
+		}
+		for (int i = 0; i < 3; i++) {
+			if (countTestArten[i] > 0) {
+				average[i] /= countTestArten[i];
+			}
+		}
+		return (countTestArten[0] == 0)
+				? (countTestArten[2] == 0) ? average[1]
+						: (countTestArten[1] == 0) ? average[2] : ((average[1] * 0.6) + (average[2] * 0.4))
+				: (countTestArten[1] == 0)
+						? (countTestArten[2] == 0) ? average[0] : ((average[0] * 0.71) + (average[2] * 0.285714))
+						: (countTestArten[2] == 0) ? ((average[0] * 0.5) + (average[1] * 0.3)) : average[3];
+	}
+```
+</details>
+</details>
+
+<details>
+<summary> 11. getNoten </summary>
+
+- Liest die Noten für einen bestimmten Schüler und eine bestimmte Testart aus der entsprechenden Datei.
+
+<details>
+<summary>Code</summary>
+
+```java
+public int[] getNoten(int schuelerID, int testArtID) throws IOException {
+		ArrayList<Integer> notenList = new ArrayList<>();
+		int[] noten;
+		schuelerID++;
+		boolean counter = false;
+		try {
+			getLine();
+		} catch (IOException e) {
+			System.err.println("Fehler beim Lesen der Datei: " + e.getMessage());
+		}
+		while (hasMoreLines()) {
+			String[] splitBuffer = getLine().split(";");
+			if (Integer.parseInt(splitBuffer[0]) == schuelerID && testArtID == Integer.parseInt(splitBuffer[2])) {
+				notenList.add(Integer.parseInt(splitBuffer[1]));
+				counter = true;
+			}
+
+		}
+		if (counter) {
+			noten = notenList.stream().mapToInt(i -> i).toArray();
+			return noten;
+		} else {
+			notenList.add(0);
+			noten = notenList.stream().mapToInt(i -> i).toArray();
+			return noten;
+		}
+	}
+``` 
+
+</details>
+</details>
+
+<details>
+<summary> 12. writeNote </summary>
+
+- Schreibt eine Note für einen bestimmten Schüler und eine bestimmte Testart
+
+<details>
+<summary>Code</summary>
+
+```java
+/**
+	 * Schreibt eine Note für einen Schüler in die CSV-Datei.
+	 *
+	 * @param note       Die Note, die hinzugefügt werden soll.
+	 * @param schuelerID Die ID des Schülers.
+	 * @param test       Die Testnummer.
+	 */
+
+	public void writeNote(int note, int schuelerID, int test) {
+		schuelerID++;
+		String[] newEntry = { String.valueOf(schuelerID), String.valueOf(note), String.valueOf(test) }; // Eintrag
+																										// hinzufügen
+		try {
+			FileWriter csvWriter = new FileWriter(csvFile, true);
+			csvWriter.append("\n");
+			csvWriter.append(String.join(";", newEntry));
+			csvWriter.append("\n");
+			csvWriter.close();
+			System.out.println("New entry added successfully.");
+		} catch (IOException e) {
+			System.out.println("Error while adding new entry to CSV file: " + e.getMessage());
+		}
+
+	}
+```
+
+
+</details>
+</details>
+
+<details>
+<summary>13. exportKlasse</summary>
+
+- Rekursives kopieren aller Klassen in gewünschtes Verzeichnis
+
+<details>
+<summary>Code</summary>
+
+```java
+public void exportKlasse() {
+		// Erstellt einen FileChooser, welcher dafür dient ein Auswahl Fenster zu öffnen
+		JFileChooser fileChooser = new JFileChooser();
+		// Erlaubt nur die Auswahl von Ordnern
+		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		// Öffnet besagtes Fenster
+		int result = fileChooser.showOpenDialog(null);
+		// Prüft ob die Auswahl bestätigt wurde
+		if (result == JFileChooser.APPROVE_OPTION) {
+			// Speichert den Pfad zum ausgewählten Verzeichnis
+			File selectedDir = fileChooser.getSelectedFile();
+			// Speichert den Pfad zum vorgegebenen Verzeichnis
+			File destDir = new File(System.getProperty("user.dir") + "/CSV_Dateien/");
+			try {
+				// Ruft Methode copyDirectory auf und gibt Ursprungs- und Zielverzeichnis mit
+				copyDirectory(destDir, selectedDir);
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+
+	}
+```
+
+
+</details>
+</details>
+
 

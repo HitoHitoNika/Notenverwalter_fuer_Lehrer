@@ -1,13 +1,9 @@
-# App Klasse
+# MainGUI Klasse
 
-Die App Klasse dient lediglich zum Starten des Programms.
+Die MainGUI Klasse dient lediglich zum Starten des Programms.
 Ziel war es die Main Methode aus den GUIs rauszuhalten und diese übersichtlicher zuhalten.
 
-## Variablen
-
-- Gibts keine
-
-##  Methoden
+## Methoden
 
 <details>
 <summary> 1.invokeLater </summary>

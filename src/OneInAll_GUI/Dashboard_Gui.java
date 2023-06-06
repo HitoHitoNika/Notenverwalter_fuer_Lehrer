@@ -60,7 +60,7 @@ public class Dashboard_Gui extends JFrame {
 		Header.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(Header);
 		Header.setLayout(null);
-
+		setResizable(false);
 		createPanel();
 		initPanels();
 		createSchuelerPanelButton();
