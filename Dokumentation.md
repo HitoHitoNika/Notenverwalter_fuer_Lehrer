@@ -42,7 +42,7 @@ Unser Projekt ist in verschiedene Packages strukturiert, um die Übersichtlichke
 
   
 
-- school_attributes: In diesem Package werden die Schülerdaten gespeichert. Es beinhaltet Klassen zur Darstellung von Schülern, Klassen und weiteren schulischen Attributen. 
+- school_attributes: In diesem Package werden die Schülerdaten gespeichert. Es beinhaltet eine Klasse um Daten der Schüler zu speichern. 
 
   
 
@@ -76,7 +76,36 @@ Jedes Teammitglied hatte spezifische Aufgaben, um das Projekt erfolgreich abzusc
 
 **7. Anforderungen** 
 
-Die genauen Anforderungen an das Notenverwaltungssystem können an dieser Stelle noch ergänzt werden. 
+Die Anforderung waren wie folgt und wurden wie folgt erfüllt:
+
+- Sicht aus Schüler- __oder__ Lehrersicht (Denkbar das man beides macht)
+
+### Vorgegebene Funktionen
+
+- [x] Eingabe von Noten für verschiedene Fächer (z.B. LF1, LF5, Deutsch)
+- [x] Berechnung des Durchschnitts für jedes Fach und insgesamt
+- [x] Ausgabe der eingegebenen Noten sowie des Durchschnitts für jedes Fach und insgesamt
+- [x] Speichern und Laden der eingegebenen Noten in/aus einer Textdatei
+
+### Technische Anforderungen
+
+- [x] Schleifen (z.B. for, while) für die Eingabe von Noten und die Berechnung des Durchschnitts
+- [x] Bedingungen (z.B. if-else) für die Überprüfung von Eingaben
+- [x] Einfache Datentypen (z.B. int, double) für die Speicherung der Noten
+- [x] Arrays für die Speicherung der eingegebenen Noten
+- [x] Methoden (z.B. Berechnung Durchschnittsnote)
+
+### Zusätzliche Anforderungen
+
+- [x] Zusätzlich sollen Sie eine Benutzeroberfläche für das Programm entwickeln, die dem Benutzer die Eingabe von Noten und die Anzeige der Ergebnisse erleichtert. Sie können dazu z.B. die Java-Bibliothek Swing oder FX verwenden.
+- [x] Optional können Sie auch weitere Funktionen hinzufügen, wie z.B. die Möglichkeit, Noten zu löschen oder zu bearbeiten, oder die Berechnung von statistischen Kennzahlen wie dem Median oder der Standardabweichung.
+- [ ] Implementieren eine Umschaltung zwischen verschiedenen Notensystemen.
+- [ ] Legen Sie eine Benutzerverwaltung an.
+- [x] Entwickeln Sie kollaborativ das Projekt mit einem Tool, wie z.B. GitHub.
+- [x] Entwickeln Sie Testfälle zur Überprüfung einzelner Programmabschnitte.
+- [x] Entwickeln Sie eine Möglichkeit Noten in der Durchschnittsberechnung unterschiedlich zu gewichten.
+- [x] Objektorientierter Programmieransatz.
+- [x] Verwendung anderer Datentypen als Array (z.B. Nutzen von Java Collections).
 
   
 
@@ -92,18 +121,74 @@ Unser Notenverwaltungssystem bietet folgende Funktionalitäten:
 
 - Zurücksetzen der Daten: Es besteht die Möglichkeit, alle Schülerdaten und Noten zu löschen und das System auf den Ausgangszustand zurückzusetzen. 
 
+- Visuelle Darstellung der Daten: Die Benutzeroberfläche bietet Möglichkeiten sich die Noten der Schüler übersichtlich darzustellen.
+
   
 
 **9. Anwendungsbeispiel** 
 
-Um die Funktionalität unseres Notenverwaltungssystems zu demonstrieren, stellen wir uns vor, dass ein Lehrer gerade eine neue Klasse erstellt hat. Anschließend fügt er Schüler zu dieser Klasse hinzu und vergibt jedem Schüler Noten für verschiedene Fächer. Der Lehrer kann dann die gespeicherten Daten einsehen und bei Bedarf Änderungen vornehmen. Das System bietet dem Lehrer eine übersichtliche Darstellung der Klassen und Schüler, sodass er leicht auf die gewünschten Informationen zugreifen kann. 
+Man nehme an der Lehrer möchte eine komplett neue Klasse erstellen, Schüler hinzufügen und diesen direkt Noten geben. Dies würde wie folgt Ablaufen:
+
+1. Klasse erstellen 
+
+Der Lehrer kann in der ersten Maske eine Klasse erstellen, in dem er einen Klassennamen eingibt und auf "Hinzufügen" klickt
+
+
+![title](misc/Screenshot%201.png)
+
+In unserem Fall erstellen wir die Klasse "Test".
+
+2. Schüler hinzufügen
+
+Wenn wir nun in die Schülerverwaltungsmaske gehen, sehen wir nun das unsere neu angelegte Klasse keine Schüler hat.
+
+![title](misc/Screenshot%202.png)
+
+Daher fügen wir einen Schüler mit dem Namen Sascha Dietrich hinzu, indem wir Namen und Email hinterlegen.
+
+![title](misc/Screenshot%203.png)
+
+Nun klicken wir auf "Hinzufügen" und schon ist der Schüler da.
+
+![title](misc/Screenshot%204.png)
+
+3. Fach hinzufügen 
+
+Da wir Fächer brauchen, in welche wir unsere Schüler benoten, fügen wir dieses hinzu in der Fachverwaltungs Maske.
+
+Hier können wir nun unsere Klasse auswählen, einen Fachnamen eingeben und dieses dann hinzufügen.
+
+![title](misc/Screenshot%205.png)
+
+Nachdem wir auf Hinzufügen geklickt haben, sollte dieses nun in der Übersicht auftauchen.
+
+![title](misc/Screenshot%206.png)
+
+4. Noten hinzufügen
+
+Nachdem wir nun Klasse, Schüler und Fach hinzugefügt haben, können wir nun eine Note eintragen.
+
+Dazu gehen wir in die Notenvergaben Maske und wählen hier Klasse und Schüler aus. (ACHTUNG Hier muss man auf den Namen klicken, NICHT auf die Mail)
+
+![title](misc/Screenshot%207.png)
+
+Nachdem wir auf Note bearbeiten klicken befinden wir uns in der Maske in der wir final Noten hinzufügen bzw. löschen können.
+
+![title](misc/Screenshot%208.png)
+
+Wenn wir hier nun in die entsprechenden Felder Note, Testart und Fach eintragen können wir auf Hinzufügen klicken und die Note ist eingetragen !
+
+![title](misc/Screenshot%209.png)
+
+Fertig!
+
+
+
 
   
 
 **10. Fazit** 
 
-Unser Notenverwaltungssystem bietet Lehrern eine effiziente Möglichkeit, Schülerdaten und Noten zu verwalten. Mit den Funktionen zum Hinzufügen von Klassen und Schülern sowie der Notenvergabe und der Möglichkeit, alle Daten zurückzusetzen, unterstützt es Lehrer bei ihrer täglichen Arbeit. Wir sind stolz auf das Ergebnis unseres Projekts und stehen Ihnen nun für Fragen zur Verfügung. 
+Unser Notenverwaltungssystem bietet Lehrern eine effiziente Möglichkeit, Schülerdaten und Noten zu verwalten. Mit den Funktionen zum Hinzufügen von Klassen und Schülern sowie der Notenvergabe und der Möglichkeit, alle Daten zurückzusetzen, unterstützt es Lehrer bei ihrer täglichen Arbeit. Wir sind stolz auf das Ergebnis unseres Projekts und stehen Ihnen für Fragen zur Verfügung. 
 
   
-
-Vielen Dank für Ihre Aufmerksamkeit! 
