@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.io.FileWriter;
 
@@ -202,16 +203,18 @@ public class Datenleser {
 	}
 
 	/**
-	 * Berechnet Durchschnitt und gibt diesen zurück
-	 * 
+	 * Berechnet den Durchschnit der Noten eines Schülers
 	 * @param schuelerID
-	 * @return double Durchschnitt aller Noten
+	 * @param testArtID
+	 * @return
 	 * @throws IOException
 	 */
 	public double getAverage(int schuelerID) throws IOException {
 		schuelerID++;
-		double[] average = { 0, 0, 0, 0 };
-		int[] countTestArten = { 0, 0, 0 };
+		int[] counter = new int[3];
+		double[] sum = new double[3];
+		double total = 0.0;
+		double totalWeight = 0.0;
 		try {
 			getLine();
 		} catch (IOException e) {
@@ -221,24 +224,27 @@ public class Datenleser {
 		while (hasMoreLines()) {
 			String[] splitBuffer = getLine().split(";");
 			if (Integer.parseInt(splitBuffer[0]) == schuelerID) {
-				int index = Integer.parseInt(splitBuffer[2]) - 1;
-				countTestArten[index]++;
-				average[index] += Integer.parseInt(splitBuffer[1]);
-				average[3] += Integer.parseInt(splitBuffer[1]) * ((index == 0) ? 0.5 : (index == 1) ? 0.3 : 0.2);
+				sum[Integer.parseInt(splitBuffer[2])-1] += Integer.parseInt(splitBuffer[1]);
+				counter[Integer.parseInt(splitBuffer[2])-1]++;
 			}
 		}
-		for (int i = 0; i < 3; i++) {
-			if (countTestArten[i] > 0) {
-				average[i] /= countTestArten[i];
-			}
+		if (counter[0] > 0) {
+			total += (sum[0] / counter[0]) * 0.5;
+			totalWeight += 0.5; 
+		} 
+		if (counter[1] > 0) {
+			total += (sum[1] / counter[1]) * 0.3;
+			totalWeight += 0.3;
 		}
-		return (countTestArten[0] == 0)
-				? (countTestArten[2] == 0) ? average[1]
-						: (countTestArten[1] == 0) ? average[2] : ((average[1] * 0.6) + (average[2] * 0.4))
-				: (countTestArten[1] == 0)
-						? (countTestArten[2] == 0) ? average[0] : ((average[0] * 0.71) + (average[2] * 0.285714))
-						: (countTestArten[2] == 0) ? ((average[0] * 0.5) + (average[1] * 0.3)) : average[3];
+		if (counter[2] > 0) {
+			total += (sum[2] / counter[2]) * 0.2;
+			totalWeight += 0.2;
+		}
+		System.out.println(totalWeight);
+		System.out.println(total);
+		return total / totalWeight;
 	}
+	
 
 	/**
 	 * Liest die Noten für einen bestimmten Schüler und eine bestimmte Testart aus

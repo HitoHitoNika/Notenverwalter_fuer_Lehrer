@@ -60,5 +60,13 @@ public class DatenleserTest {
         assertTrue("BSIT22b".equals( testSechs.getKlassenNamen().get(1)));
     }
 
-    
+    @Test
+    public void testGetAverage() throws IOException{
+
+        Datenleser testSieben = new Datenleser();
+        testSieben.setFilePath("Deutsch","BSIT22b");
+        testSieben.initReader();
+        assertTrue(testSieben.getAverage(0)==10.0);
+    }
+
 }
