@@ -375,7 +375,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	private void initTestComboBox() {
 		testformBox.setBackground(Color.LIGHT_GRAY);
 		testformBox.setModel(new DefaultComboBoxModel(
-				new String[] { "--Bitte auswählen--", "Klausur (50%)", "Epo(30%)", "hue(20%)" }));
+				new String[] { "--Bitte auswählen--", "Klausur (50%)", "Hü(30%)", "Epo(20%)" }));
 		testformBox.setBounds(434, 38, 138, 30);
 		contentPane_1.add(testformBox);
 		testformBox.addActionListener(new ActionListener() {

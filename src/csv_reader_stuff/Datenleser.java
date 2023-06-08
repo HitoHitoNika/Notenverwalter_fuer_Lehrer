@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.io.FileWriter;
 
@@ -312,7 +311,7 @@ public class Datenleser {
 
 	/**
 	 * Gibt eine Liste mit den Namen der Klassen im Verzeichnis "CSV_Dateien"
-	 * zurück. Der Ordner "config" wird dabei ignoriert.
+	 * zurück.
 	 *
 	 * @return Eine Liste mit den Namen der Klassen.
 	 */
@@ -328,12 +327,8 @@ public class Datenleser {
 			if (classFolders != null) {
 				for (File classFolder : classFolders) {
 					if (classFolder.isDirectory()) {
-
-						if (!classFolder.getName().equals("config")) {
 							String className = classFolder.getName();
 							classNames.add(className);
-						}
-
 					}
 				}
 			}

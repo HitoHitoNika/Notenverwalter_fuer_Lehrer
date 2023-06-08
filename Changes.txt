@@ -1,0 +1,4 @@
+Tests müssen komplett rüber geholt werden
+
+Fehler Korrektur im GUI:
+- Noteneintrags GUI hatte Falsche Testart hinterlegung
