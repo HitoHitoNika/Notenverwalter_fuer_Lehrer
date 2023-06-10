@@ -99,6 +99,8 @@ public class Datenleser {
 		JFileChooser fileChooser = new JFileChooser();
 		// Erlaubt nur die Auswahl von Ordnern
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		//Bennent Fenster entsprechend
+		fileChooser.setDialogTitle("Welche Klasse möchten sie Importieren?");
 		// Öffnet besagtes Fenster
 		int result = fileChooser.showOpenDialog(null);
 		// Prüft ob die Auswahl bestätigt wurde
@@ -381,6 +383,8 @@ public class Datenleser {
 		JFileChooser fileChooser = new JFileChooser();
 		// Erlaubt nur die Auswahl von Ordnern
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		//Bennent das Fenster entsprechend
+		fileChooser.setDialogTitle("Wählen sie ihren Ablageort");
 		// Öffnet besagtes Fenster
 		int result = fileChooser.showOpenDialog(null);
 		// Prüft ob die Auswahl bestätigt wurde
