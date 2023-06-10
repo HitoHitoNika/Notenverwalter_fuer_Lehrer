@@ -34,5 +34,8 @@ public class DateWriterTest {
     	assertTrue(testZwei.getStudentList("JUnits").get(0).getId().equals("1"));
     }
     
+    @Test
+    public void test
+    
     
 }
