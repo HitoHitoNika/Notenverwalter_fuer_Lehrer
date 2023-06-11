@@ -8,7 +8,6 @@ public class MainBrowserDoku {
     public static void main(String[] args) {
         String htmlFilePath = "doc/index.html";
         
-        // Variante 1: Öffnen mit dem Standard-Browser
         openWithDefaultBrowser(htmlFilePath);
         
     }
