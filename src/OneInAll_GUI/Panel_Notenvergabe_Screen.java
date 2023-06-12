@@ -27,6 +27,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.RowFilter;
+import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 
 public class Panel_Notenvergabe_Screen extends JPanel {
 	private DateWriter dateWriter = new DateWriter();
@@ -38,7 +41,7 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 	List<Student> students = new ArrayList<Student>();
 	JComboBox<String> comboBox = new JComboBox();
 	private MouseAdapter deleteButtonMouseAdapter;
-	JPanel panel = new JPanel();
+	public JPanel panel = new JPanel();
 	private JTable table;
 	private JTextField searchTextField;
 	private TableRowSorter<DefaultTableModel> tableRowSorter;
@@ -52,9 +55,10 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 	public Panel_Notenvergabe_Screen() throws FileNotFoundException {
 
 		setBounds(0, 0, 886, 331);
-		setLayout(null);
+		setLayout(new BorderLayout());
 
 		JButton btnNewButton = new JButton("Noten bearbeiten");
+	
 
 		btnNewButton.setBounds(246, 241, 483, 23);
 		btnNewButton.setVisible(false);
@@ -133,28 +137,28 @@ public class Panel_Notenvergabe_Screen extends JPanel {
 				}
 			}
 		});
+		
+		btnNewButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        String selectedClassName = (String) comboBox.getSelectedItem();
+		        try {
+		            Panel_Notenvergabe_MainScreen editScreen = new Panel_Notenvergabe_MainScreen(selectedStudent, selectedClassName);
+		            panel.setVisible(false);
+		            panel_1.add(editScreen, BorderLayout.CENTER); // Füge die editScreen-Komponente im Zentrum hinzu
+		            panel_1.setVisible(true);
+		            editScreen.setVisible(true);
+		        } catch (NumberFormatException e1) {
+		            e1.printStackTrace();
+		        } catch (IOException e1) {
+		            e1.printStackTrace();
+		        }
+		    }
+		});
+
 
 		// Registriere den MouseListener nur einmal für btnNewButton außerhalb der
 		// Tabelle
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				String selectedClassName = (String) comboBox.getSelectedItem();
-				try {
-					Panel_Notenvergabe_MainScreen editScreen = new Panel_Notenvergabe_MainScreen(selectedStudent,
-							selectedClassName);
-					panel.setVisible(false);
-					panel_1.add(editScreen);
-					panel_1.setVisible(true);
-					editScreen.setVisible(true);
-
-				} catch (NumberFormatException e1) {
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
+		
 		// EXTRA
 		tableRowSorter = new TableRowSorter<>(tableModel);
 		table.setRowSorter(tableRowSorter);

@@ -61,7 +61,7 @@ public class Panel_Klasse extends JPanel {
 				dateReader.importKlasse();
 			}
 		});
-		importButton.setBounds(10, 297, 122, 23);
+		importButton.setBounds(10, 279, 122, 23);
 		panel.add(importButton);
 		
 		JButton exportButton = new JButton("Export");
@@ -71,7 +71,7 @@ public class Panel_Klasse extends JPanel {
 				dateReader.exportKlasse();
 			}
 		});
-		exportButton.setBounds(148, 297, 122, 23);
+		exportButton.setBounds(148, 279, 122, 23);
 		panel.add(exportButton);
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(281, 0, 595, 331);
@@ -130,7 +130,7 @@ public class Panel_Klasse extends JPanel {
 				}
 			}
 		});
-		btnNewButton_1.setBounds(10, 280, 151, 23);
+		btnNewButton_1.setBounds(10, 280, 170, 23);
 		panel_1.add(btnNewButton_1);
 	}
 	/**

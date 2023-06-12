@@ -1,5 +1,6 @@
 package OneInAll_GUI;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import csv_reader_stuff.DateWriter;
 import java.awt.Dimension;
@@ -201,10 +202,10 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		table.getColumnModel().getColumn(2).setPreferredWidth(25);
 		table.getColumnModel().getColumn(2).setMinWidth(25);
 		table.getColumnModel().getColumn(2).setMaxWidth(32);
-		table.setBounds(829, 18, 83, 256);
+		table.setBounds(789, 18, 83, 256);
 		contentPane_1.add(table);
 		panel.setBackground(SystemColor.activeCaption);
-		panel.setBounds(54, -11, 227, 410);
+		panel.setBounds(0, -23, 227, 410);
 		contentPane_1.add(panel);
 		panel.setLayout(null);
 
@@ -214,28 +215,28 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 			}
 		});
 		btnZurck.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        contentPane_1.setVisible(false);
+		        Panel_Notenvergabe_Screen mainScreen;
+		        try {
+		            contentPane_2.removeAll(); // Entferne alle vorhandenen Komponenten
 
-				contentPane_1.setVisible(false);
-				Panel_Notenvergabe_Screen mainScreen;
-				try {
-					mainScreen = new Panel_Notenvergabe_Screen();
-					mainScreen.setVisible(true);
-					contentPane_2.add(mainScreen);
-					contentPane_2.setVisible(true);
-					mainScreen.setSelectedItem(klasse.replace(".csv", ""));
-					mainScreen.refreshRow(klasse.replace(".csv", ""));
-
-				} catch (FileNotFoundException e1) {
-					System.err.println("Fehler in NotenvergabePanel ");
-					e1.printStackTrace();
-				}
-
-			}
+		            mainScreen = new Panel_Notenvergabe_Screen();
+		            contentPane_2.add(mainScreen, BorderLayout.CENTER); // Füge die mainScreen-Komponente im Zentrum hinzu
+		            contentPane_2.setVisible(true);
+		            mainScreen.setSelectedItem(klasse.replace(".csv", ""));
+		            mainScreen.refreshRow(klasse.replace(".csv", ""));
+		        } catch (FileNotFoundException e1) {
+		            System.err.println("Fehler in NotenvergabePanel ");
+		            e1.printStackTrace();
+		        }
+		    }
 		});
+
+
 		btnZurck.setBackground(Color.LIGHT_GRAY);
-		btnZurck.setBounds(623, 260, 89, 23);
+		btnZurck.setBounds(585, 260, 89, 23);
 		contentPane_1.add(btnZurck);
 		{
 			JButton hinzufButton = new JButton("Löschen");
@@ -246,11 +247,11 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 				}
 			});
 			hinzufButton.setBackground(Color.LIGHT_GRAY);
-			hinzufButton.setBounds(434, 260, 127, 23);
+			hinzufButton.setBounds(384, 260, 127, 23);
 			contentPane_1.add(hinzufButton);
 		}
 		{
-			JButton btnNewButton = new JButton("ZeugnisAnzeigen");
+			JButton btnNewButton = new JButton("Zeugnis");
 			btnNewButton.addActionListener(new ActionListener() {
 			    @Override
 			    public void actionPerformed(ActionEvent e) {
@@ -273,7 +274,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 			});
 			
 			
-			btnNewButton.setBounds(722, 78, 97, 170);
+			btnNewButton.setBounds(682, 79, 97, 170);
 			contentPane_1.add(btnNewButton);
 		}
 	}
@@ -287,7 +288,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		table_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		table_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		JScrollPane scrollPane = new JScrollPane(table_2);
-        scrollPane.setBounds(287, 79, 425, 170);
+        scrollPane.setBounds(247, 79, 425, 170);
         fachDropdown.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent event) {
                 if (event.getStateChange() == ItemEvent.SELECTED) {
@@ -327,7 +328,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		notenDropDown.setBackground(Color.LIGHT_GRAY);
 		notenDropDown.setModel(new DefaultComboBoxModel(new String[] { "--Bitte auswählen--", "0", "1", "2", "3", "4",
 				"5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" }));
-		notenDropDown.setBounds(287, 38, 127, 30);
+		notenDropDown.setBounds(247, 38, 127, 30);
 		contentPane_1.add(notenDropDown);
 
 		notenDropDown.addActionListener(new ActionListener() {
@@ -346,7 +347,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	private void initHinzufButton() {
 		JButton hinzufButton = new JButton("Hinzufügen");
 		hinzufButton.setBackground(Color.LIGHT_GRAY);
-		hinzufButton.setBounds(287, 260, 127, 23);
+		hinzufButton.setBounds(247, 260, 127, 23);
 		contentPane_1.add(hinzufButton);
 		hinzufButton.addActionListener(new ActionListener() {
 
@@ -365,7 +366,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	private void initFachLabel() {
 		JLabel lblNewLabel_1 = new JLabel("Fach:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(585, 13, 59, 25);
+		lblNewLabel_1.setBounds(532, 13, 59, 25);
 		contentPane_1.add(lblNewLabel_1);
 	}
 
@@ -376,7 +377,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		testformBox.setBackground(Color.LIGHT_GRAY);
 		testformBox.setModel(new DefaultComboBoxModel(
 				new String[] { "--Bitte auswählen--", "Klausur (50%)", "Hü(30%)", "Epo(20%)" }));
-		testformBox.setBounds(434, 38, 138, 30);
+		testformBox.setBounds(384, 38, 138, 30);
 		contentPane_1.add(testformBox);
 		testformBox.addActionListener(new ActionListener() {
 
@@ -395,7 +396,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		JLabel testformLabel = new JLabel("Testform:");
 		testformLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		testformLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		testformLabel.setBounds(434, 5, 104, 40);
+		testformLabel.setBounds(384, 5, 104, 40);
 		contentPane_1.add(testformLabel);
 	}
 
@@ -406,7 +407,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 		JLabel notenLabel = new JLabel("Note:");
 		notenLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		notenLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		notenLabel.setBounds(287, 11, 59, 28);
+		notenLabel.setBounds(247, 11, 59, 28);
 		contentPane_1.add(notenLabel);
 	}
 
@@ -415,7 +416,7 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	 */
 	private void initFachDropdown() {
 		fachDropdown.setBackground(Color.LIGHT_GRAY);
-		fachDropdown.setBounds(585, 38, 127, 30);
+		fachDropdown.setBounds(532, 38, 127, 30);
 		contentPane_1.add(fachDropdown);
 		updateFaechernamen(fachDropdown);
 
@@ -434,14 +435,14 @@ public class Panel_Notenvergabe_MainScreen extends JPanel {
 	 * @throws IOException
 	 */
 	private void createWindow() throws IOException {
-		setPreferredSize(new Dimension(1000, 800));
+		setPreferredSize(new Dimension(886, 331));
 
 		setSchuelerInfo(schuelerID, klasse);
 		setBackground(new Color(255, 255, 255));
-		setLayout(null);
+		setLayout(new BorderLayout());
 
 		contentPane_1 = new JPanel();
-		contentPane_1.setBounds(0, 0, 1000, 800);
+		contentPane_1.setBounds(0, 0, 886, 331);
 		contentPane_1.setBorder(new EmptyBorder(0, 0, 886, 331));
 		contentPane_1.setLayout(null);
 		add(contentPane_1);

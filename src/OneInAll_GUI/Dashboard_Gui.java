@@ -55,6 +55,8 @@ public class Dashboard_Gui extends JFrame {
 	public Dashboard_Gui() throws IOException {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		  setTitle("Notenverwalter von W-Trash Project");
+		setIconImage(new ImageIcon("misc/iconProgramm.png").getImage());
 		setBounds(100, 100, 903, 504);
 		Header = new JPanel();
 		Header.setBorder(new EmptyBorder(5, 5, 5, 5));
