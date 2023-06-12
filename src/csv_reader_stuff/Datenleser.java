@@ -10,6 +10,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.FileWriter;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.swing.JFileChooser;
 
@@ -243,7 +245,12 @@ public class Datenleser {
 		}
 		System.out.println(totalWeight);
 		System.out.println(total);
-		return total / totalWeight;
+
+		//Rundet unser ergebniss auf 2 Stellen nach dem Komma
+ 		BigDecimal roundedValue = BigDecimal.valueOf(total / totalWeight).setScale(2, RoundingMode.HALF_UP);
+        double result = roundedValue.doubleValue();
+
+		return  result;
 	}
 	
 
