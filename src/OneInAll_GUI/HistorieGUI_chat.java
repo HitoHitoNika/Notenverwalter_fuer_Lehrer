@@ -54,7 +54,7 @@ public class HistorieGUI_chat extends JFrame {
 	 */
 	private void initialize() throws IOException {
 		frmNotenhistorieVon = new JFrame();
-		frmNotenhistorieVon.setTitle("Notenhistorie von ");
+		frmNotenhistorieVon.setTitle("Notenhistorie"  );
 		frmNotenhistorieVon.setBounds(100, 100, 602, 500);
 		frmNotenhistorieVon.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
