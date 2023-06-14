@@ -35,11 +35,11 @@ Die Aufgabenstellung gibt folgendes vor:
 ### Zusätzliche Anforderungen
 
 - [x] Zusätzlich sollen Sie eine Benutzeroberfläche für das Programm entwickeln, die dem Benutzer die Eingabe von Noten und die Anzeige der Ergebnisse erleichtert. Sie können dazu z.B. die Java-Bibliothek Swing oder FX verwenden.
-- [ ] Optional können Sie auch weitere Funktionen hinzufügen, wie z.B. die Möglichkeit, Noten zu löschen oder zu bearbeiten, oder die Berechnung von statistischen Kennzahlen wie dem Median oder der Standardabweichung.
+- [x] Optional können Sie auch weitere Funktionen hinzufügen, wie z.B. die Möglichkeit, Noten zu löschen oder zu bearbeiten, oder die Berechnung von statistischen Kennzahlen wie dem Median oder der Standardabweichung.
 - [ ] Implementieren eine Umschaltung zwischen verschiedenen Notensystemen.
 - [ ] Legen Sie eine Benutzerverwaltung an.
 - [x] Entwickeln Sie kollaborativ das Projekt mit einem Tool, wie z.B. GitHub.
-- [ ] Entwickeln Sie Testfälle zur Überprüfung einzelner Programmabschnitte.
+- [x] Entwickeln Sie Testfälle zur Überprüfung einzelner Programmabschnitte.
 - [x] Entwickeln Sie eine Möglichkeit Noten in der Durchschnittsberechnung unterschiedlich zu gewichten.
 - [x] Objektorientierter Programmieransatz.
 - [x] Verwendung anderer Datentypen als Array (z.B. Nutzen von Java Collections).
